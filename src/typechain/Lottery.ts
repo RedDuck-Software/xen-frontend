@@ -42,19 +42,23 @@ export declare namespace Lottery {
 export interface LotteryInterface extends utils.Interface {
   functions: {
     "claimWinnerReward(address,uint256)": FunctionFragment;
-    "generateRandomNumber()": FunctionFragment;
+    "generateRandomNumber(uint256)": FunctionFragment;
     "getCurrect()": FunctionFragment;
-    "getRandomNumber(uint256)": FunctionFragment;
     "getUserParticipations(address)": FunctionFragment;
     "interval()": FunctionFragment;
+    "lastWinner()": FunctionFragment;
+    "lastWonAmount()": FunctionFragment;
     "lotteryToken()": FunctionFragment;
     "nextParticipateTimestamp()": FunctionFragment;
+    "participants(uint256)": FunctionFragment;
     "participate(uint256)": FunctionFragment;
     "randomNumber()": FunctionFragment;
+    "randomWinnerIdx()": FunctionFragment;
     "rewardClaimed()": FunctionFragment;
     "selectRandomWinner()": FunctionFragment;
     "totalAmount()": FunctionFragment;
     "totalGamesPlayed()": FunctionFragment;
+    "totalParticipants()": FunctionFragment;
     "totalPayoutToday()": FunctionFragment;
     "totalPlayedAmount()": FunctionFragment;
     "winNumber()": FunctionFragment;
@@ -65,17 +69,21 @@ export interface LotteryInterface extends utils.Interface {
       | "claimWinnerReward"
       | "generateRandomNumber"
       | "getCurrect"
-      | "getRandomNumber"
       | "getUserParticipations"
       | "interval"
+      | "lastWinner"
+      | "lastWonAmount"
       | "lotteryToken"
       | "nextParticipateTimestamp"
+      | "participants"
       | "participate"
       | "randomNumber"
+      | "randomWinnerIdx"
       | "rewardClaimed"
       | "selectRandomWinner"
       | "totalAmount"
       | "totalGamesPlayed"
+      | "totalParticipants"
       | "totalPayoutToday"
       | "totalPlayedAmount"
       | "winNumber"
@@ -87,21 +95,25 @@ export interface LotteryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "generateRandomNumber",
-    values?: undefined
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getCurrect",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getRandomNumber",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getUserParticipations",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "interval", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "lastWinner",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastWonAmount",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "lotteryToken",
     values?: undefined
@@ -111,11 +123,19 @@ export interface LotteryInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "participants",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "participate",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "randomNumber",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "randomWinnerIdx",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -132,6 +152,10 @@ export interface LotteryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "totalGamesPlayed",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalParticipants",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -154,14 +178,15 @@ export interface LotteryInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getCurrect", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getRandomNumber",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getUserParticipations",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lastWinner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "lastWonAmount",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "lotteryToken",
     data: BytesLike
@@ -171,11 +196,19 @@ export interface LotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "participants",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "participate",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "randomNumber",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "randomWinnerIdx",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -192,6 +225,10 @@ export interface LotteryInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "totalGamesPlayed",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalParticipants",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -286,15 +323,11 @@ export interface Lottery extends BaseContract {
     ): Promise<ContractTransaction>;
 
     generateRandomNumber(
+      participants: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCurrect(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     getUserParticipations(
       user: PromiseOrValue<string>,
@@ -303,9 +336,18 @@ export interface Lottery extends BaseContract {
 
     interval(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    lastWinner(overrides?: CallOverrides): Promise<[string]>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     lotteryToken(overrides?: CallOverrides): Promise<[string]>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    participants(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     participate(
       _tokenAmount: PromiseOrValue<BigNumberish>,
@@ -313,6 +355,8 @@ export interface Lottery extends BaseContract {
     ): Promise<ContractTransaction>;
 
     randomNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    randomWinnerIdx(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     rewardClaimed(overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -323,6 +367,8 @@ export interface Lottery extends BaseContract {
     totalAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalGamesPlayed(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalPayoutToday(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -338,15 +384,11 @@ export interface Lottery extends BaseContract {
   ): Promise<ContractTransaction>;
 
   generateRandomNumber(
+    participants: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
-
-  getRandomNumber(
-    maxNumber: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   getUserParticipations(
     user: PromiseOrValue<string>,
@@ -355,9 +397,18 @@ export interface Lottery extends BaseContract {
 
   interval(overrides?: CallOverrides): Promise<BigNumber>;
 
+  lastWinner(overrides?: CallOverrides): Promise<string>;
+
+  lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
   lotteryToken(overrides?: CallOverrides): Promise<string>;
 
   nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+  participants(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   participate(
     _tokenAmount: PromiseOrValue<BigNumberish>,
@@ -365,6 +416,8 @@ export interface Lottery extends BaseContract {
   ): Promise<ContractTransaction>;
 
   randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+  randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
 
   rewardClaimed(overrides?: CallOverrides): Promise<boolean>;
 
@@ -375,6 +428,8 @@ export interface Lottery extends BaseContract {
   totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -389,14 +444,12 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    generateRandomNumber(overrides?: CallOverrides): Promise<void>;
-
-    getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
+    generateRandomNumber(
+      participants: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
 
     getUserParticipations(
       user: PromiseOrValue<string>,
@@ -405,9 +458,18 @@ export interface Lottery extends BaseContract {
 
     interval(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lastWinner(overrides?: CallOverrides): Promise<string>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     lotteryToken(overrides?: CallOverrides): Promise<string>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    participants(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     participate(
       _tokenAmount: PromiseOrValue<BigNumberish>,
@@ -416,6 +478,8 @@ export interface Lottery extends BaseContract {
 
     randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
+    randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
+
     rewardClaimed(overrides?: CallOverrides): Promise<boolean>;
 
     selectRandomWinner(overrides?: CallOverrides): Promise<void>;
@@ -423,6 +487,8 @@ export interface Lottery extends BaseContract {
     totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -474,15 +540,11 @@ export interface Lottery extends BaseContract {
     ): Promise<BigNumber>;
 
     generateRandomNumber(
+      participants: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
 
     getUserParticipations(
       user: PromiseOrValue<string>,
@@ -491,9 +553,18 @@ export interface Lottery extends BaseContract {
 
     interval(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lastWinner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     lotteryToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    participants(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     participate(
       _tokenAmount: PromiseOrValue<BigNumberish>,
@@ -501,6 +572,8 @@ export interface Lottery extends BaseContract {
     ): Promise<BigNumber>;
 
     randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
 
     rewardClaimed(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -511,6 +584,8 @@ export interface Lottery extends BaseContract {
     totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -527,15 +602,11 @@ export interface Lottery extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     generateRandomNumber(
+      participants: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCurrect(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
 
     getUserParticipations(
       user: PromiseOrValue<string>,
@@ -544,9 +615,18 @@ export interface Lottery extends BaseContract {
 
     interval(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    lastWinner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     lotteryToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nextParticipateTimestamp(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    participants(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -557,6 +637,8 @@ export interface Lottery extends BaseContract {
 
     randomNumber(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    randomWinnerIdx(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     rewardClaimed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     selectRandomWinner(
@@ -566,6 +648,8 @@ export interface Lottery extends BaseContract {
     totalAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalGamesPlayed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalPayoutToday(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

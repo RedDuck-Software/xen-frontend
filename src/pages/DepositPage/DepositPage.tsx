@@ -18,6 +18,8 @@ const DepositPage: FC = () => {
   const [totalPayout, setTotalPayout] = useState<any>();
   const [totalAmount, setTotalAmount] = useState<any>();
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
+  const [lastWinner, setLastWinner] = useState<any>();
+  const [lastWonAmount, setLastWonAmount] = useState<any>();
 
   async function connect() {
     try {
@@ -40,24 +42,21 @@ const DepositPage: FC = () => {
       signer
     );
 
-    console.log("dasdas", ethers.utils.parseEther(amount.toString())
-    , "ether");
-
     const tx = await Erc20Contract.approve(
-      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
       ethers.utils.parseEther(amount.toString())
     );
-    tx.wait();
+    await tx.wait();
 
     const Lottery = Lottery__factory.connect(
-      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
       signer
     );
 
     const tx2 = await Lottery.participate(
       ethers.utils.parseEther(amount.toString())   
        );
-    tx2.wait();
+    await tx2.wait();
   }
   async function getXenBalance() {
     if (!connector || !account) return "!args";
@@ -68,7 +67,7 @@ const DepositPage: FC = () => {
     const signer = provider.getSigner(0);
 
     const Erc20Contract = XENToken__factory.connect(
-      "0x35183828ffd461Ac38082D3efF8b3e6689AD5750",
+      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
       signer
     );
 
@@ -86,7 +85,7 @@ const DepositPage: FC = () => {
     const signer = provider.getSigner(0);
 
     const Lottery = Lottery__factory.connect(
-      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
       signer
     );
     const nextRound = await (
@@ -110,18 +109,22 @@ const DepositPage: FC = () => {
     const signer = provider.getSigner(0);
 
     const Lottery = Lottery__factory.connect(
-      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
       signer
     );
     console.log('dasdas')
     const totalGamesPlayed = await(await Lottery.totalGamesPlayed()).toString()
     const totalPayout = await (await Lottery.totalPayoutToday()).toString()
     const totalAmount = await (await Lottery.totalAmount()).toString()
+    const lastWinner = await (await Lottery.lastWinner()).toString()
+    const lastWonAmount = await (await Lottery.lastWonAmount()).toString()
 
     console.log('totalPayout',totalPayout)
     console.log('totalAmount before set',totalAmount)
     console.log('totalGamesPlayed',totalGamesPlayed)
-
+    
+    setLastWinner(lastWinner)
+    setLastWonAmount(lastWonAmount);
     setTotalGamesPlayed(totalGamesPlayed);
     setTotalPayout(totalPayout);
     setTotalAmount(totalAmount);
@@ -197,6 +200,8 @@ const DepositPage: FC = () => {
          <p>TOTAL PAYOUT {totalPayout?totalPayout:'0'}</p>
          <p>TOTAL GAMES PLAYED  {totalGamesPlayed ? totalGamesPlayed:'0'}</p>
          <p>TOTAL POOL AMOUNT {totalAmount?ethers.utils.formatEther(totalAmount):'0'} XEN</p>
+         <p>Last WINNER {lastWinner?lastWinner:'0x00000000000000000000000000'} </p>
+         <p>Last WON amount {lastWonAmount?ethers.utils.formatEther(lastWonAmount):'0'}XEN </p>
 
         <input
           type="number"
