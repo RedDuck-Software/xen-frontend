@@ -1,33 +1,146 @@
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import Circle from "../../assets/circle.svg";
 import "../../index.css";
 import "../DepositPage/DepositPage.css";
+import { Lottery__factory } from "../../typechain";
+import { Context } from "../../Context";
+import { injected } from "../../helpers/connectors";
 
 const DepositPage: FC = () => {
-  const { account, connector, deactivate } = useWeb3React();
+  const { account, connector, activate } = useWeb3React();
   const [amount, setAmount] = useState<any>();
+  const [accountBalance, setAccountBalance] = useState<any>();
+  const [showModal, setShowModal] = useState<boolean>();
+  const [timer, setTimer] = useState<any>();
+  const [totalPayout, setTotalPayout] = useState<any>();
+  const [totalAmount, setTotalAmount] = useState<any>();
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
 
-  async function approveErc20() {
-    ///erc 20 lottery token addr 0x35183828ffd461Ac38082D3efF8b3e6689AD5750
-    //lottery contract 0x3Bc65Fbae3Fe4553e6C492F48c0e661316fA7B33
+  async function connect() {
+    try {
+      await activate(injected);
+    } catch (ex) {
+      console.log("err");
+      console.log(ex);
+    }
+  }
 
+  async function ApproveAndDeposit() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
 
     const signer = provider.getSigner(0);
+    const Erc20Contract = XENToken__factory.connect(
+      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
+      signer
+    );
+
+    console.log("dasdas", ethers.utils.parseEther(amount.toString())
+    , "ether");
+
+    const tx = await Erc20Contract.approve(
+      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      ethers.utils.parseEther(amount.toString())
+    );
+    tx.wait();
+
+    const Lottery = Lottery__factory.connect(
+      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      signer
+    );
+
+    const tx2 = await Lottery.participate(
+      ethers.utils.parseEther(amount.toString())   
+       );
+    tx2.wait();
+  }
+  async function getXenBalance() {
+    if (!connector || !account) return "!args";
+
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+    const signer = provider.getSigner(0);
+
     const Erc20Contract = XENToken__factory.connect(
       "0x35183828ffd461Ac38082D3efF8b3e6689AD5750",
       signer
     );
 
-    await Erc20Contract.approve(
-      "0x3Bc65Fbae3Fe4553e6C492F48c0e661316fA7B33",
-      ethers.utils.parseEther(amount)
-    );
+    const value = await Erc20Contract.balanceOf(account);
+    console.log(value);
+    setAccountBalance(value);
   }
+
+  async function getTime() {
+    if (!connector || !account) return "!args";
+
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+    const signer = provider.getSigner(0);
+
+    const Lottery = Lottery__factory.connect(
+      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      signer
+    );
+    const nextRound = await (
+      await Lottery.nextParticipateTimestamp()
+    ).toNumber();
+    console.log("nextRound", nextRound);
+    let time = nextRound;
+    let date = new Date(time);
+    let newDate = new Date();
+    const dateDiff = newDate.valueOf() - date.valueOf();
+    let timer = new Date(dateDiff).toString();
+    setTimer(timer);
+  }
+
+  async function getTotalInfo() {
+    if (!connector || !account) return "!args";
+
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+    const signer = provider.getSigner(0);
+
+    const Lottery = Lottery__factory.connect(
+      "0x39CB87c72DED8Ed01A07E3cCaCc45a96D296901D",
+      signer
+    );
+    console.log('dasdas')
+    const totalGamesPlayed = await(await Lottery.totalGamesPlayed()).toString()
+    const totalPayout = await (await Lottery.totalPayoutToday()).toString()
+    const totalAmount = await (await Lottery.totalAmount()).toString()
+
+    console.log('totalPayout',totalPayout)
+    console.log('totalAmount before set',totalAmount)
+    console.log('totalGamesPlayed',totalGamesPlayed)
+
+    setTotalGamesPlayed(totalGamesPlayed);
+    setTotalPayout(totalPayout);
+    setTotalAmount(totalAmount);
+  }
+  useEffect(() => {
+    if (!connector) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+    if (connector) {
+      getXenBalance();
+      getTime();
+      getTotalInfo();
+    }
+  }, [connector]);
+  console.log('totalAmount222',totalAmount)
+  console.log('totalGamesPlayed22',totalGamesPlayed)
+  console.log('v3totalPayout333',totalPayout)
 
   return (
     <div className="background">
@@ -54,12 +167,21 @@ const DepositPage: FC = () => {
           <a href="/deposit-page">Deposit</a>
           <a href="/deposit-page">Withdraw</a>
           <div>
-            <p>Low on Balance Deposit now below</p>
+            <p></p>
           </div>
         </div>
         <div>
           <span>Balance</span>
-          <p>326,565 XEN</p>
+          {showModal ? (
+            <div>
+              <h2>Connect metamask</h2>
+              <button onClick={connect}>Connect</button>
+            </div>
+          ) : (
+            <div>
+              <div>{account}</div>
+            </div>
+          )}
         </div>
         <div>Ethereum dropdown</div>
         <div>
@@ -69,31 +191,42 @@ const DepositPage: FC = () => {
           </span>
         </div>
       </div>
-      <div className="deposit__block"></div>
+      <div className="deposit__block">
+        <p>INPUT BALANCE OF XEN TO DEPOSIT</p>
+        <p>NEXT ROUND STARTS IN {timer ? timer : "0"}</p>
+         <p>TOTAL PAYOUT {totalPayout?totalPayout:'0'}</p>
+         <p>TOTAL GAMES PLAYED  {totalGamesPlayed ? totalGamesPlayed:'0'}</p>
+         <p>TOTAL POOL AMOUNT {totalAmount?ethers.utils.formatEther(totalAmount):'0'} XEN</p>
+
+        <input
+          type="number"
+          onChange={(e) => setAmount(e.target.value)}
+        ></input>
+        <button onClick={ApproveAndDeposit}>Deposit</button>
+      </div>
       <div className="deposit__block-text">
         <div>
           <p>How can I deposit tokens?</p>
           <p>
-            1.Enter the amount of tokens you wish to deposit from your metamask wallet to your
-            burnXEN.io account balance. 2.Accept the transaction in the metamask popup. 3.Your
-            tokens will be deposited in accordance with transaction times on the network you are
-            depositing from.
+            1.Enter the amount of tokens you wish to deposit from your metamask
+            wallet to your burnXEN.io account balance. 2.Accept the transaction
+            in the metamask popup. 3.Your tokens will be deposited in accordance
+            with transaction times on the network you are depositing from.
           </p>
           <p>When will I see my balance?</p>
           <p>
-            After 1 confirmation on the blockchain you are depositing om. If you have any issues try
-            manual page refresh and if that doesnt help contact support.
+            After 1 confirmation on the blockchain you are depositing om. If you
+            have any issues try manual page refresh and if that doesnt help
+            contact support.
           </p>
           <p>Why only XEN and ?</p>
           <p>
-            Our mission is to bring adoption to the XEN ecosystem and add utility to the token. Most
-            importantly all we want to increase XEN Burn to help reduce the supply
+            Our mission is to bring adoption to the XEN ecosystem and add
+            utility to the token. Most importantly all we want to increase XEN
+            Burn to help reduce the supply
           </p>
         </div>
       </div>
-      <p>INPUT BALANCE OF XEN TO DEPOSIT</p>
-      <input type="number" onChange={(e) => setAmount(e.target.value)}></input>
-      <button onClick={approveErc20}>Deposit</button>
     </div>
   );
 };

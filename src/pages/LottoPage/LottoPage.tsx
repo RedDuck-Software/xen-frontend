@@ -5,11 +5,8 @@ import Circle from "../../assets/circle.svg";
 import Socials from "../../assets/socials.png";
 
 const LottoPage: FC = () => {
-  let time = 1666097256;
-  let date = new Date(time);
-  let newDate = new Date();
-  const dateDiff = newDate.valueOf() - date.valueOf();
-  let timer = new Date(dateDiff).toString();
+
+
 
   return (
     <div className="background">
@@ -56,7 +53,7 @@ const LottoPage: FC = () => {
             <div className="lotto-timer">
               <p>NEXT DRAW IN</p>
               {/* <p>00:56:46</p> */}
-              <p>{timer}</p>
+              {/* <p>{timer}</p> */}
               <p>HOW MUCH XEN YOU WANT TO TO ENTER INTO DRAW </p>
               <div className="lotto__block-scroll">
                 <div className="lotto__block-text">

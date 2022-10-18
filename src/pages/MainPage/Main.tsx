@@ -1,18 +1,22 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../helpers/connectors";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../../Context";
 
 const Main: FC = () => {
   const { account, library, connector, active, deactivate, activate } =
     useWeb3React();
   const navigate = useNavigate()
 
+  const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
+
   async function connect() {
     try {
       await activate(injected);
+      setSigner(connector)
     } catch (ex) {
       console.log("err");
       console.log(ex);
