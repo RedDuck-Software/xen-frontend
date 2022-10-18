@@ -2,5 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Lottery } from "./Lottery";
+export type { XENToken } from "./XENToken";
 export * as factories from "./factories";
 export { Lottery__factory } from "./factories/Lottery__factory";
+export { XENToken__factory } from "./factories/XENToken__factory";

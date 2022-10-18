@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { Lottery__factory } from "./Lottery__factory";
+export { XENToken__factory } from "./XENToken__factory";
