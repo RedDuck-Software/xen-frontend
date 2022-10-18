@@ -6,6 +6,9 @@ import { Web3Provider } from "@ethersproject/providers";
 import { Route, Routes } from "react-router-dom";
 import Main from "./pages/MainPage/Main";
 import DepositPage from "./pages/DepositPage/DepositPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import LottoPage from "./pages/LottoPage/LottoPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
 
 const App: FC = () => {
   function getLibrary(provider: any) {
@@ -18,7 +21,9 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/deposit-page" element={<DepositPage />} />
-
+        <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/lotto-page" element={<LottoPage />} />
+        <Route path="/account-page" element={<AccountPage />} />
       </Routes>
     </Web3ReactProvider>
   );

@@ -1,0 +1,15 @@
+.account__block {
+  width: 834px;
+  height: 573px;
+  background: #1d1717;
+  margin: 0 auto;
+}
+
+.account__title {
+  color: #fff;
+  text-align: center;
+}
+
+.background {
+  background: rgba(74, 72, 72, 0.38);
+}

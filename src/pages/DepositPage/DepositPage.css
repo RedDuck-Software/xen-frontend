@@ -1,0 +1,43 @@
+.deposit {
+  display: flex;
+  justify-content: space-around;
+}
+
+.background {
+  background: rgba(74, 72, 72, 0.38);
+}
+
+.deposit__sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.deposit__links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.deposit__block {
+  height: 240px;
+  width: 875px;
+  background: #1d1717;
+  margin: 0 auto;
+  margin-bottom: 75px;
+}
+
+.deposit__block-text {
+  width: 874px;
+  height: 376px;
+  background: #1d1717;
+  margin: 0 auto;
+}
+
+p {
+  color: white;
+}
+
+.account-avatar {
+  position: relative;
+  top: -40px;
+  right: -17px;
+}

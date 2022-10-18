@@ -1,0 +1,118 @@
+.lotto-bg {
+  background-image: url("../../assets/lotto-bg.png");
+}
+
+.lotto {
+  display: flex;
+  flex-direction: column;
+}
+
+.lotto-btn {
+  width: 315px;
+  height: 71px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 10px;
+}
+
+.lotto-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.lotto-timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lotto__block-scroll {
+  width: 525px;
+  height: 133px;
+  background: #1d1717;
+  margin: 10px auto 25px;
+}
+
+.lotto__block-text {
+  display: flex;
+  justify-content: space-around;
+}
+
+.lotto__block-subtext {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lotto__bet {
+  width: 204px;
+  height: 97px;
+  background: #1d1717;
+  margin-bottom: 230px;
+}
+
+.lotto__prize {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 309px;
+  height: 103px;
+  background: #365087;
+  border-radius: 21.2px;
+  margin-bottom: 75px;
+}
+
+.lotto__stats {
+  background: #dee5f2;
+  border: 5px solid #ef0d0d;
+  border-radius: 21.2px;
+  width: 200px;
+  height: 54px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.lotto__entry {
+  background: #365087;
+  border-radius: 21.2px;
+  width: 200px;
+  height: 68.04px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.lotto__chance {
+  background: #365087;
+  border-radius: 21.2px;
+  width: 200px;
+  height: 68.04px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.lotto__winning {
+  background: #365087;
+  border-radius: 21.2px;
+  text-align: center;
+  margin-bottom: 170px;
+  width: 200px;
+}
+
+.lotto__footer {
+  display: flex;
+  padding-bottom: 25px;
+}
+
+.lotto__footer-block {
+  background: #365087;
+  border-radius: 21.2px;
+  text-align: center;
+  width: 200px;
+  height: 68.04px;
+}
+
+.lotto__socials {
+  display: flex;
+  justify-content: flex-end;
+}
