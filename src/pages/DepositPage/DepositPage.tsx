@@ -10,7 +10,7 @@ const DepositPage: FC = () => {
   async function approveErc20() {
     ///erc 20 lottery token addr 0x35183828ffd461Ac38082D3efF8b3e6689AD5750
     //lottery contract 0x3Bc65Fbae3Fe4553e6C492F48c0e661316fA7B33
-    
+
     if (!connector) return alert("!connector");
     const provider = new ethers.providers.Web3Provider(
       await connector.getProvider()
@@ -22,7 +22,7 @@ const DepositPage: FC = () => {
       signer
     );
 
-    Erc20Contract.approve("0x3Bc65Fbae3Fe4553e6C492F48c0e661316fA7B33",ethers.utils.parseEther(amount));
+    await Erc20Contract.approve("0x3Bc65Fbae3Fe4553e6C492F48c0e661316fA7B33",ethers.utils.parseEther(amount));
   }
 
   return (
