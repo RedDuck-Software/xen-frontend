@@ -88,16 +88,12 @@ const DepositPage: FC = () => {
       "0xd726259899a2d52da68A8eda4C74719F445ED359",
       signer
     );
-    const nextRound = await (
-      await Lottery.nextParticipateTimestamp()
-    ).toNumber();
+    const nextRound = await(await Lottery.nextParticipateTimestamp()).toString()
     console.log("nextRound", nextRound);
-    let time = nextRound;
-    let date = new Date(time);
-    let newDate = new Date();
-    const dateDiff = newDate.valueOf() - date.valueOf();
-    let timer = new Date(dateDiff).toString();
-    setTimer(timer);
+    const date = new Date(+nextRound * 1000);
+    console.log(date)
+
+    setTimer(date);
   }
 
   async function getTotalInfo() {
@@ -141,10 +137,9 @@ const DepositPage: FC = () => {
       getTotalInfo();
     }
   }, [connector]);
-  console.log('totalAmount222',totalAmount)
-  console.log('totalGamesPlayed22',totalGamesPlayed)
-  console.log('v3totalPayout333',totalPayout)
-
+  // console.log('totalAmount222',totalAmount)
+  // console.log('totalGamesPlayed22',totalGamesPlayed)
+  // console.log('v3totalPayout333',totalPayout)
   return (
     <div className="background">
       <div className="deposit">
@@ -175,6 +170,7 @@ const DepositPage: FC = () => {
         </div>
         <div>
           <span>Balance</span>
+          <h3>{accountBalance?accountBalance.toString():'0'} XEN</h3>
           {showModal ? (
             <div>
               <h2>Connect metamask</h2>
@@ -196,7 +192,7 @@ const DepositPage: FC = () => {
       </div>
       <div className="deposit__block">
         <p>INPUT BALANCE OF XEN TO DEPOSIT</p>
-        <p>NEXT ROUND STARTS IN {timer ? timer : "0"}</p>
+        <p>NEXT ROUND STARTS IN {timer?timer.toString():'unknown data'}</p>
          <p>TOTAL PAYOUT {totalPayout?totalPayout:'0'}</p>
          <p>TOTAL GAMES PLAYED  {totalGamesPlayed ? totalGamesPlayed:'0'}</p>
          <p>TOTAL POOL AMOUNT {totalAmount?ethers.utils.formatEther(totalAmount):'0'} XEN</p>
