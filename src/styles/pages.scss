@@ -7,24 +7,27 @@
   background-repeat: no-repeat;
 
   &__background {
-    padding: 30px 15px;
+    padding: 30px 10px;
     background: #222222;
+    height: 100vh;
+  }
+
+  &-lotto {
+    height: 910px;
+    background-size: 1400px 910px;
   }
 }
 
 .rectangles {
   &__left {
     position: absolute;
-    left: 0px;
+    left: -5px;
     top: 165px;
   }
 
   &__right {
     position: absolute;
-    right: 6px;
-    bottom: 371px;
+    right: 10px;
+    bottom: 610px;
   }
-}
-
-.container {
 }

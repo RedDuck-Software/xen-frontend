@@ -50,6 +50,20 @@ const Header: FC = () => {
             <a href="" className="header__link">
               Ethereum<span></span>
             </a>
+            {/* <nav className="nav">
+              <ul className="nav__menu">
+                <li className="nav__menu-item">
+                  <a>Home</a>
+                </li>
+                <li className="nav__menu-item">
+                  <a>About</a>
+                  <Submenu />
+                </li>
+                <li className="nav__menu-item">
+                  <a>Contact</a>
+                </li>
+              </ul>
+            </nav> */}
           </li>
         </ul>
       </div>

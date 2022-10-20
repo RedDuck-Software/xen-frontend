@@ -1,52 +1,17 @@
 import React, { FC } from "react";
+import Header from "../../components/Header/Header";
+import Participants from "../../components/Participants/Participants";
 import "../../index.scss";
 import "./LottoPage.scss";
 
 const LottoPage: FC = () => {
-
-
-
   return (
-    <div className="background">
-      <div className="deposit">
-        <div className="deposit__sidebar">
-          <h1 className="landing__title">BurnXEN.io</h1>
-          <ul>
-            <li>
-              <a href="/lotto-page"> XEN Lotto</a>{" "}
-            </li>
-            <li>
-              <a href="/">
-                Roulette<span>Coming soon</span>
-              </a>
-            </li>
-            <li>
-              <a href="/">
-                Poker<span>Coming soon</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="deposit__links">
-          <a href="/deposit-page">Deposit</a>
-          <a>Withdraw</a>
-        </div>
-        <div>
-          <span>Balance</span>
-          <p>326,565 XEN</p>
-        </div>
-        <div>Ethereum dropdown</div>
-        <div>
-          <span>
-            <a href="/account-page">ACC</a>{" "}
-          </span>
-        </div>
-      </div>
+    <div className="wrapper wrapper-lotto">
+      <Header />
       <div className="lotto-bg">
         <div className="lotto">
-          <button className="lotto-btn">XEN LOTTO</button>
           <div className="lotto-row">
-            <p>Participants This Draw</p>
+            <Participants />
             <div className="lotto-timer">
               <p>NEXT DRAW IN</p>
               {/* <p>00:56:46</p> */}
@@ -134,8 +99,6 @@ const LottoPage: FC = () => {
               108,567,000<span>XEN</span>
             </p>
           </div>
-        </div>
-        <div className="lotto__socials">
         </div>
       </div>
     </div>

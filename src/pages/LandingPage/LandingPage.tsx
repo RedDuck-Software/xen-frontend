@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Header from "../../components/header/Header";
+import Header from "../../components/Header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
 import MetaMask from "../../assets/icons/metamask.svg";
