@@ -1,6 +1,5 @@
 import React, { FC, useContext } from "react";
 import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
-import "./App.css";
 import { injected } from "./helpers/connectors";
 import { Web3Provider } from "@ethersproject/providers";
 import { Route, Routes } from "react-router-dom";
@@ -21,20 +20,20 @@ const App: FC = () => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Context.Provider
-            value={{
-              loggedIn,
-              setLoggedIn,
-              signer,
-              setSigner,
-            }}
-          >
-      <Routes>
-        <Route path="/" element={<DepositPage />} />
-        <Route path="/deposit-page" element={<DepositPage />} />
-        <Route path="/landing-page" element={<LandingPage />} />
-        <Route path="/lotto-page" element={<LottoPage />} />
-        <Route path="/account-page" element={<AccountPage />} />
-      </Routes>
+        value={{
+          loggedIn,
+          setLoggedIn,
+          signer,
+          setSigner,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<DepositPage />} />
+          <Route path="/deposit-page" element={<DepositPage />} />
+          <Route path="/landing-page" element={<LandingPage />} />
+          <Route path="/lotto-page" element={<LottoPage />} />
+          <Route path="/account-page" element={<AccountPage />} />
+        </Routes>
       </Context.Provider>
     </Web3ReactProvider>
   );

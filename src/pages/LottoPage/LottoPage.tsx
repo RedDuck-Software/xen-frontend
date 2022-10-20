@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import "../../index.css";
-import "./LottoPage.css";
-import Circle from "../../assets/circle.svg";
-import Socials from "../../assets/socials.png";
+import "../../index.scss";
+import "./LottoPage.scss";
 
 const LottoPage: FC = () => {
 
@@ -39,7 +37,6 @@ const LottoPage: FC = () => {
         </div>
         <div>Ethereum dropdown</div>
         <div>
-          <img src={Circle} alt="circle" />
           <span>
             <a href="/account-page">ACC</a>{" "}
           </span>
@@ -139,7 +136,6 @@ const LottoPage: FC = () => {
           </div>
         </div>
         <div className="lotto__socials">
-          <img src={Socials} alt="" />
         </div>
       </div>
     </div>

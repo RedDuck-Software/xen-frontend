@@ -3,9 +3,9 @@ import { ethers } from "ethers";
 import React, { FC, useState } from "react";
 import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import Circle from "../../assets/circle.svg";
-import "../../index.css";
-import "../DepositPage/DepositPage.css";
-import "./AccountPage.css";
+import "../../index.scss";
+import "../DepositPage/DepositPage.scss";
+import "./AccountPage.scss";
 
 const AccountPage: FC = () => {
   return (
@@ -44,7 +44,6 @@ const AccountPage: FC = () => {
         </div>
         <div>Ethereum dropdown</div>
         <div>
-          <img src={Circle} alt="circle" />
           <span>
             <a href="/account-page">ACC</a>{" "}
           </span>
