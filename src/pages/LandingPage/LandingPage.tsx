@@ -56,8 +56,8 @@ const LandingPage: FC = () => {
             </div>
           </div>
           <div className="landing__main-block-romb ">
-            <img src={Cubes} alt="" />
-            <p>XEN LOTTO</p>
+            <img src={Cubes} alt="" className="landing__main-block-romb-img" />
+            <p className="landing__main-block-romb-title">XEN Lotto</p>
             <img src={LineLeft} alt="" className="landing__line landing__line-left" />
             <img src={LineRight} alt="" className="landing__line landing__line-right" />
           </div>

@@ -28,18 +28,21 @@
       opacity: 0.7;
       font-family: "Inter";
       text-align: center;
+      margin-bottom: 5px;
     }
     &-numbers {
       font-size: 40px;
       line-height: 47px;
       font-family: "Roboto Condensed-Medium";
       color: #ffffff;
+      text-align: center;
     }
     &-span {
       font-size: 20px;
       line-height: 23px;
       font-family: "Roboto Condensed-Medium";
       opacity: 0.5;
+      margin-left: 10px;
     }
   }
 
@@ -91,6 +94,15 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        &-img {
+          margin-bottom: 10px;
+        }
+        &-title {
+          font-size: 30px;
+          line-height: 35px;
+          color: #ffffff;
+          font-family: "Roboto Medium";
+        }
       }
     }
 
@@ -120,6 +132,7 @@
       &-text {
         font-size: 16px;
         font-family: "Inter Medium";
+        text-align: center;
         line-height: 19px;
         color: #ffffff;
         opacity: 0.7;

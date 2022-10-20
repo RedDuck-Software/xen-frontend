@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
 
+  &-bg {
+  }
+
   &-btn {
     width: 315px;
     height: 71px;
@@ -91,18 +94,6 @@
     width: 200px;
   }
 
-  &__footer {
-    display: flex;
-    padding-bottom: 25px;
-    &-block {
-      background: #365087;
-      border-radius: 21.2px;
-      text-align: center;
-      width: 200px;
-      height: 68.04px;
-    }
-  }
-
   &__participants {
     display: flex;
     width: 230px;
@@ -153,6 +144,37 @@
 
     &-img {
       margin-right: 15px;
+    }
+  }
+
+  &__footer {
+    margin-top: 35px;
+    margin-bottom: 65px;
+    display: flex;
+    justify-content: space-around;
+    &-block {
+      width: 380px;
+      height: 270px;
+      background: url("../../assets/img/lotto/bg-footer.png");
+    }
+    &-line {
+      position: relative;
+      width: 380px;
+      top: -15px;
+      &-bottom {
+        top: 30px;
+      }
+
+      &-center {
+        width: 230px;
+        right: -75px;
+        top: 0px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      &-top {
+      }
     }
   }
 }
