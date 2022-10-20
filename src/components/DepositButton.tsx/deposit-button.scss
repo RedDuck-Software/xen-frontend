@@ -1,0 +1,113 @@
+.primary-blue {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  padding: 10px 43px;
+  background: #2ac3bf;
+  position: relative;
+
+  backdrop-filter: blur(30px);
+
+  //   border: 3px solid #2ac4bf;
+}
+
+.primary-blue::before {
+  content: "";
+  position: absolute;
+  border-bottom: 5px solid #2ac3bf;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  top: -5px;
+  left: 0;
+  width: 100%;
+}
+
+.primary-blue::after {
+  content: "";
+  position: absolute;
+  border-top: 5px solid #2ac3bf;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+}
+
+.outline {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  padding: 10px 43px;
+  background: linear-gradient(
+      109.86deg,
+      rgba(244, 238, 244, 0.17) -59.62%,
+      rgba(98, 28, 100, 0) 140.65%,
+      #fa06ff 140.67%
+    ),
+    radial-gradient(
+        123.11% 288.11% at 44.46% 13%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0) 100%,
+        rgba(5, 5, 5, 0.2) 100%
+      )
+      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border: 3px solid #2ac4bf;
+  box-shadow: inset 0px 4px 10px #04fbf5;
+  backdrop-filter: blur(30px);
+}
+
+.primary-purple {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  padding: 5px 35px;
+  background: #564adf;
+  position: relative;
+
+  backdrop-filter: blur(30px);
+
+  //   border: 3px solid #2ac4bf;
+}
+
+.primary-purple::before {
+  content: "";
+  position: absolute;
+  border-bottom: 5px solid #564adf;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  top: -5px;
+  left: 0;
+  width: 100%;
+}
+
+.primary-purple::after {
+  content: "";
+  position: absolute;
+  border-top: 5px solid #564adf;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+}
