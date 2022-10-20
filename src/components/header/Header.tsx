@@ -1,9 +1,14 @@
 import React, { FC } from "react";
 import "./Header.scss";
+import "../../index.scss";
+import RectanglesLeft from "../../assets/bg/rectangles-left.png";
+import RectanglesRight from "../../assets/bg/rectangles-right.png";
 
 const Header: FC = () => {
   return (
     <div>
+      <img src={RectanglesLeft} alt="" className="rectangles__left" />
+      <img src={RectanglesRight} alt="" className="rectangles__right" />
       <div className="header">
         <ul className="header__list">
           <li>

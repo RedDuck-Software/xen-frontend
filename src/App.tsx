@@ -9,6 +9,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import LottoPage from "./pages/LottoPage/LottoPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import { Context } from "./Context";
+import "./index.scss";
 
 const App: FC = () => {
   function getLibrary(provider: any) {
@@ -27,13 +28,17 @@ const App: FC = () => {
           setSigner,
         }}
       >
-        <Routes>
-          <Route path="/" element={<DepositPage />} />
-          <Route path="/deposit-page" element={<DepositPage />} />
-          <Route path="/landing-page" element={<LandingPage />} />
-          <Route path="/lotto-page" element={<LottoPage />} />
-          <Route path="/account-page" element={<AccountPage />} />
-        </Routes>
+        <div className="wrapper__background">
+          <div className="wrapper">
+            <Routes>
+              <Route path="/" element={<DepositPage />} />
+              <Route path="/deposit-page" element={<DepositPage />} />
+              <Route path="/landing-page" element={<LandingPage />} />
+              <Route path="/lotto-page" element={<LottoPage />} />
+              <Route path="/account-page" element={<AccountPage />} />
+            </Routes>
+          </div>
+        </div>
       </Context.Provider>
     </Web3ReactProvider>
   );
