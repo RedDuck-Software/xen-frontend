@@ -1,18 +1,38 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@500;700&display=swap");
+
 @font-face {
   font-family: "Inter";
-  src: url("../fonts/Inter-Regular.ttf");
+  src: url("../fonts/Inter/Inter-Regular.ttf");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Inter Bold";
-  src: url("../fonts/Inter-Bold.ttf");
+  src: url("../fonts/Inter/Inter-Bold.ttf");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "Inter ExtraBold";
-  src: url("../fonts/Inter-ExtraBold.ttf");
-  font-weight: 800;
+  font-family: "Roboto Medium";
+  src: url("../fonts/Roboto/Roboto-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Roboto Condensed-Medium";
+  src: url("../fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto Condensed-Bold";
+  src: url("../fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+  font-weight: 700;
 }

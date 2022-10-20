@@ -1,12 +1,12 @@
 .wrapper {
-  max-width: 1400px;
+  max-width: 1470px;
   width: 100%;
-  margin: 0 auto;
   background: url("../assets/bg/bg.png");
-  background-size: 1400px 805px;
+  background-size: 1400px 810px;
   background-repeat: no-repeat;
 
   &__background {
+    padding: 30px 15px;
     background: #222222;
   }
 }
@@ -14,14 +14,14 @@
 .rectangles {
   &__left {
     position: absolute;
-    left: 5px;
-    top: 130px;
+    left: 0px;
+    top: 165px;
   }
 
   &__right {
     position: absolute;
-    right: 0px;
-    bottom: 650px;
+    right: 6px;
+    bottom: 371px;
   }
 }
 

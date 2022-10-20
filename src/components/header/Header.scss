@@ -1,10 +1,65 @@
 .header {
+  padding-top: 5px;
   &__list {
     display: flex;
     justify-content: center;
   }
 
+  &__icon {
+    margin-right: 10px;
+  }
+
   &__btn {
-    
+    width: 130px;
+    height: 33px;
+    background: url("../../assets/header/btn-lotto.png");
+    background-size: 130px 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-lotto {
+      background: url("../../assets/header/btn-left.png");
+      width: 130px;
+      height: 33px;
+      background-size: 130px 33px;
+      display: flex;
+      justify-content: center;
+    }
+
+    &-right {
+      background: url("../../assets/header/btn-right.png");
+      width: 146px;
+      height: 33px;
+      background-size: 130px 33px;
+      display: flex;
+      justify-content: center;
+    }
+
+    &-center {
+      width: 165px;
+      height: 31px;
+      background: url("../../assets/header/btn-center.png");
+      background-size: 165px 31px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__link {
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto Medium";
+  }
+
+  &__span {
+    opacity: 0.5;
+    font-size: 10px;
+    line-height: 12px;
+    font-family: "Roboto Medium";
+    margin-left: 2px;
   }
 }
