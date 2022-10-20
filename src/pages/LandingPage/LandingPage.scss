@@ -16,6 +16,31 @@
   &__block {
     display: flex;
     flex-direction: column;
+    &-text {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    &-title {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      opacity: 0.7;
+      font-family: "Inter";
+      text-align: center;
+    }
+    &-numbers {
+      font-size: 40px;
+      line-height: 47px;
+      font-family: "Roboto Condensed-Medium";
+      color: #ffffff;
+    }
+    &-span {
+      font-size: 20px;
+      line-height: 23px;
+      font-family: "Roboto Condensed-Medium";
+      opacity: 0.5;
+    }
   }
 
   &__main {
@@ -25,7 +50,6 @@
     justify-content: center;
     width: 1200px;
     height: 320px;
-    // margin: 35px auto 0px;
 
     &-block {
       background: rgba(74, 72, 72, 0.38);
@@ -77,13 +101,29 @@
     &-about {
       display: flex;
       justify-content: center;
-    }
+      padding-bottom: 35px;
 
-    &-about-block {
-      width: 840px;
-      text-align: center;
-      height: 220px;
-      background: rgba(74, 72, 72, 0.38);
+      &-block {
+        width: 840px;
+        text-align: center;
+        background: rgba(74, 72, 72, 0.38);
+        padding: 20px 30px;
+      }
+      &-title {
+        font-size: 20px;
+        line-height: 23px;
+        text-align: left;
+        font-family: "Roboto Condensed-Bold";
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+      &-text {
+        font-size: 16px;
+        font-family: "Inter Medium";
+        line-height: 19px;
+        color: #ffffff;
+        opacity: 0.7;
+      }
     }
   }
 
@@ -112,5 +152,34 @@
     text-transform: uppercase;
     font-family: "Roboto Condensed-Bold";
     color: #fff;
+  }
+
+  &__line {
+    position: relative;
+    min-width: 425px;
+    &-left {
+      top: -35px;
+      right: 350px;
+    }
+
+    &-right {
+      top: -45px;
+      left: 350px;
+    }
+
+    &-about {
+      position: relative;
+      width: 840px;
+
+      &-bottom {
+        left: 285px;
+        top: -45px;
+      }
+
+      &-top {
+        top: -205px;
+        left: 285px;
+      }
+    }
   }
 }

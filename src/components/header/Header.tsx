@@ -36,17 +36,17 @@ const Header: FC = () => {
               BurnXEN.io
             </a>
           </li>
-          <li className="header__btn">
+          <li className="header__btn header__btn-right">
             <a href="" className="header__link">
               Connect Wallet
             </a>
           </li>
-          <li className="header__btn">
+          <li className="header__btn header__btn-right">
             <a href="" className="header__link">
               000,000,00 <span className="header__span">XEN</span>
             </a>
           </li>
-          <li className="header__btn">
+          <li className="header__btn header__btn-right">
             <a href="" className="header__link">
               Ethereum<span></span>
             </a>

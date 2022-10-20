@@ -31,7 +31,7 @@ const App: FC = () => {
         <div className="wrapper__background">
           <div className="wrapper">
             <Routes>
-              <Route path="/" element={<DepositPage />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/deposit-page" element={<DepositPage />} />
               <Route path="/landing-page" element={<LandingPage />} />
               <Route path="/lotto-page" element={<LottoPage />} />
