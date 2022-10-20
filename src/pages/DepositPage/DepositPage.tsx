@@ -8,9 +8,15 @@ import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
 import Header from "../../components/header/Header";
-import DepositButton from "../../components/DepositButton.tsx/DepositButtton";
+import DepositButton from "../../components/DepositButton/DepositButtton";
 import Slider from "../../assets/deposit/slider.png";
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
+import Corner_1 from "../../assets/deposit/Vector 4140.png";
+import Corner_2 from "../../assets/deposit/Vector 4141.png";
+import Corner_3 from "../../assets/deposit/Vector 4142.png";
+import Corner_4 from "../../assets/deposit/Vector 4143.png";
+import Stick_1 from "../../assets/deposit/Group 22724.png";
+import Stick_2 from "../../assets/deposit/Group 22725.png";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -161,7 +167,19 @@ const DepositPage: FC = () => {
             </div>
           </div>
           <div className="deposit__block">
-            <div className="deposit__block-text">
+            <div className="deposit__block-corner-1">
+              <img src={Corner_1} alt="corner" />
+            </div>
+            <div className="deposit__block-corner-2">
+              <img src={Corner_2} alt="corner" />
+            </div>
+            <div className="deposit__block-corner-3">
+              <img src={Corner_3} alt="corner" />
+            </div>
+            <div className="deposit__block-corner-4">
+              <img src={Corner_4} alt="corner" />
+            </div>
+            <div className="deposit__block-title">
               How much you want to withdraw?
             </div>
             <div className="deposit__block-balance">
@@ -179,30 +197,59 @@ const DepositPage: FC = () => {
               </DepositButton>
             </div>
           </div>
-          <div className="deposit__block-text">
-            <div>
-              <p>How can I deposit tokens?</p>
-              <p>
-                1.Enter the amount of tokens you wish to deposit from your
-                metamask wallet to your burnXEN.io account balance. 2.Accept the
-                transaction in the metamask popup. 3.Your tokens will be
-                deposited in accordance with transaction times on the network
-                you are depositing from.
-              </p>
+          <div className="deposit__text">
+            <div className="col">
+              <div className="deposit__text-stick-1">
+                <img src={Stick_1} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-2">
+                <img src={Stick_2} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-3">
+                <img src={Stick_2} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-4">
+                <img src={Stick_1} alt="stick" />
+              </div>
+
+              <div className="deposit__text-item">
+                <p className="deposit__title">How can I deposit tokens?</p>
+                <p>
+                  1.Enter the amount of tokens you wish to deposit from your
+                  metamask wallet to your burnXEN.io account balance. 2.Accept
+                  the transaction in the metamask popup. 3.Your tokens will be
+                  deposited in accordance with transaction times on the network
+                  you are depositing from.
+                </p>
+              </div>
             </div>
-            <div>
-              <p>When will I see my balance?</p>
-              <p>
-                After 1 confirmation on the blockchain you are depositing om. If
-                you have any issues try manual page refresh and if that doesnt
-                help contact support.
-              </p>
-              <p>Why only XEN and ?</p>
-              <p>
-                Our mission is to bring adoption to the XEN ecosystem and add
-                utility to the token. Most importantly all we want to increase
-                XEN Burn to help reduce the supply
-              </p>
+            <div className="col">
+              <div className="deposit__text-stick-1">
+                <img src={Stick_1} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-2">
+                <img src={Stick_2} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-3">
+                <img src={Stick_2} alt="stick" />
+              </div>
+              <div className="deposit__text-stick-4">
+                <img src={Stick_1} alt="stick" />
+              </div>
+              <div className="deposit__text-item">
+                <p className="deposit__title ">When will I see my balance?</p>
+                <p>
+                  After 1 confirmation on the blockchain you are depositing om.
+                  If you have any issues try manual page refresh and if that
+                  doesnt help contact support.
+                </p>
+                <p className="deposit__title top">Why only XEN and ?</p>
+                <p>
+                  Our mission is to bring adoption to the XEN ecosystem and add
+                  utility to the token. Most importantly all we want to increase
+                  XEN Burn to help reduce the supply
+                </p>
+              </div>
             </div>
           </div>
         </div>
