@@ -6,8 +6,12 @@ import RectanglesRight from "../../assets/bg/rectangles-right.png";
 import Cubes from "../../assets/icons/cubes.svg";
 import Roullete from "../../assets/icons/roulette.svg";
 import Cards from "../../assets/icons/cards.svg";
+import { useWeb3React } from "@web3-react/core";
 
 const Header: FC = () => {
+  const { account, connector, activate } = useWeb3React();
+  console.log('account',account)
+
   return (
     <div>
       <img src={RectanglesLeft} alt="" className="rectangles__left" />
@@ -38,7 +42,7 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              Connect Wallet
+              {account?account?.slice(0,4) + '...' + account?.slice(38,42):'Connect Wallet '}
             </a>
           </li>
           <li className="header__btn header__btn-right">

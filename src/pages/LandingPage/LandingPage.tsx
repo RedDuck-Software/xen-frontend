@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
@@ -8,8 +8,28 @@ import LineLeft from "../../assets/img/landing/line-left.png";
 import LineRight from "../../assets/img/landing/line-right.png";
 import LineAboutTop from "../../assets/img/landing/line-about.png";
 import LineAboutBottom from "../../assets/img/landing/line-about.png";
+import { injected } from "../../helpers/connectors";
+import { useWeb3React } from "@web3-react/core";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage: FC = () => {
+  const { account, connector, activate } = useWeb3React();
+  const navigate = useNavigate()
+  async function connect() {
+    try {
+      await activate(injected);
+    } catch (ex) {
+      console.log("err");
+      console.log(ex);
+    }
+  }
+console.log('connector',connector)
+console.log('account',account)
+  useEffect(()=>{
+    if(connector){
+      navigate('deposit-page');
+    }
+  })
   return (
     <div className="background">
       <Header />
@@ -17,7 +37,7 @@ const LandingPage: FC = () => {
         <div className="landing__top">
           <div className="landing__top-block">
             <p className="landing__title">To get started</p>
-            <button className="landing__btn">
+            <button className="landing__btn" onClick={connect}>
               <img src={MetaMask} alt="" /> Login with MetaMask
             </button>
           </div>
