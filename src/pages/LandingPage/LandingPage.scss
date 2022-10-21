@@ -165,6 +165,11 @@
     font-family: "Roboto Condensed-Bold";
     color: #fff;
     margin-top: 70px;
+
+    &-login {
+        margin-bottom: 70px;
+        margin-top: 0px;
+    }
   }
 
   &__line {

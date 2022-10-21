@@ -37,7 +37,7 @@ const LandingPage: FC = () => {
         <div className="landing__top">
           <div className="landing__top-block">
             <p className="landing__title">TO GET STARTED</p>
-            <button className="landing__btn" onClick={connect}>
+            <button className="landing__btn landing__btn-login" onClick={connect}>
               <img src={MetaMask} alt="" /> Login with MetaMask
             </button>
           </div>
