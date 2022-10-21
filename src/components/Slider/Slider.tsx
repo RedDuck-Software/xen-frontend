@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 type SliderComponentProps = {
-  value: number;
   handleChange: any;
   min: number;
   max: number;
 };
 
-const SliderComponent = ({ value, handleChange, min, max }: SliderComponentProps) => {
+const SliderComponent = ({ handleChange, min, max }: SliderComponentProps) => {
+  console.log('max',max)
+
   return (
     <Container>
-      <Slider type="range" defaultValue={value} onChange={handleChange} min={min} max={max} />
+      <Slider type="range" onChange={handleChange} min={min} max={max} />
     </Container>
   );
 };

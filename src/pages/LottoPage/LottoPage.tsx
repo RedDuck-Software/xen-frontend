@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header/header";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
@@ -17,6 +17,7 @@ import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
+import { useNavigate } from "react-router-dom";
 
 const LottoPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -30,7 +31,7 @@ const LottoPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-
+  const navigate = useNavigate()
   async function connect() {
     try {
       await activate(injected);
@@ -122,11 +123,10 @@ const LottoPage: FC = () => {
     setTotalPayout(totalPayout);
     setTotalAmount(totalAmount);
   }
+
   useEffect(() => {
     if (!connector) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
+      navigate("/");
     }
     if (connector) {
       console.log("here");
