@@ -7,7 +7,7 @@ import "../DepositPage/DepositPage.scss";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 import Slider from "../../assets/deposit/slider.png";
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
@@ -30,7 +30,7 @@ const DepositPage: FC = () => {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
-  const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>()
+  const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
   async function connect() {
     try {
       await activate(injected);
@@ -189,10 +189,19 @@ const DepositPage: FC = () => {
               How much you want to withdraw?
             </div>
             <div className="deposit__block-balance">
-              {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
+              {selectedAmountToDeposit
+                ? selectedAmountToDeposit.toString()
+                : "0"}
               <span>XEN</span>
-            </div>  
-            <input type="range" min="0" max={accountBalance?accountBalance.toString():"0"} onChange={(e)=>setSelectedAmountToDeposit(e.target.value)}/>
+            </div>
+            <div className="deposit__block-input">
+              <input
+                type="range"
+                min="0"
+                max={accountBalance ? accountBalance.toString() : "0"}
+                onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
+              />
+            </div>
             <div className="deposit__block-btn">
               <button className="landing__btn" onClick={ApproveAndDeposit}>
                 <img src={MetaMaskPng} />
