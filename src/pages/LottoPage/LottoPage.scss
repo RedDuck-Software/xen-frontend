@@ -18,11 +18,113 @@
 
   &__timer {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    background-repeat: no-repeat;
-    &-bg {
+    flex-direction: column;
+    align-items: center;
+    &-img {
+      &__arr-left {
+        position: relative;
+        bottom: -40px;
+        right: 145px;
+      }
+      &__arr-right {
+        position: relative;
+        bottom: -18px;
+        right: -145px;
+      }
+      &__circle {
+        position: relative;
+        bottom: 145px;
+        width: 300px;
+      }
+    }
+    &-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-repeat: no-repeat;
       background: url("../../assets/img/lotto/timer/timer-bg.png");
+      width: 300px;
+      height: 300px;
+      background-size: 300px 300px;
+      margin-bottom: 50px;
+      margin-top: -180px;
+      position: relative;
+      bottom: -250px;
+      &__title {
+        font-size: 20px;
+        line-height: 23px;
+        letter-spacing: 0.035em;
+        color: #ffffff;
+        font-family: "Roboto Medium";
+      }
+
+      &__date {
+        font-size: 50px;
+        line-height: 61px;
+        letter-spacing: 0.035em;
+        color: #ffffff;
+        font-family: "Inter";
+        margin: 5px 0px;
+      }
+
+      &__prize {
+        font-size: 20px;
+        line-height: 23px;
+        letter-spacing: 0.035em;
+        font-family: "Roboto Medium";
+        margin-bottom: 5px;
+        color: #ffffff;
+      }
+
+      &__numbers {
+        letter-spacing: 0.035em;
+        font-size: 26px;
+        line-height: 32px;
+        color: #ffffff;
+        font-family: "Inter";
+      }
+
+      &__span {
+        font-size: 18px;
+        line-height: 21px;
+        letter-spacing: 0.035em;
+        color: #ffffff;
+        font-family: "Roboto Condensed-Bold";
+      }
+    }
+
+    &-draw {
+      display: flex;
+      flex-direction: column;
+      &__input {
+        background: rgba(0, 0, 0, 0.3);
+        width: 280px;
+        height: 50px;
+        margin-bottom: 10px;
+        border: none;
+        padding-left: 18px;
+      }
+
+      &__input::placeholder {
+        color: #fff;
+        font-family: "Inter Medium";
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.035em;
+      }
+
+      &__button {
+        background: #564adf;
+        width: 280px;
+        height: 50px;
+        letter-spacing: 0.035em;
+        font-size: 18px;
+        line-height: 21px;
+        color: #ffffff;
+        font-family: "Roboto Condensed-Bold";
+      }
     }
   }
 
@@ -213,6 +315,7 @@
       align-items: center;
       justify-content: space-around;
       margin-bottom: 5px;
+      background-size: 230px 44px;
       &-text {
         font-size: 12px;
         line-height: 14px;
