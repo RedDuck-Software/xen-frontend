@@ -7,7 +7,7 @@ import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
 import Slider from "../../assets/deposit/slider.png";

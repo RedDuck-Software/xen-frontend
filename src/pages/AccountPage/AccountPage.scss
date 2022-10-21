@@ -1,12 +1,225 @@
-.account__block {
-  width: 834px;
-  height: 573px;
-  background: #1d1717;
+.wrap {
+  max-width: 1042px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
-.account__title {
-  color: #fff;
-  text-align: center;
-}
+.account {
+  margin-top: 50px;
+  .account__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
 
+    font-family: "Roboto Condensed";
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 47px;
+    color: #ffffff;
+  }
+  .account__block {
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+    background: linear-gradient(
+        122.58deg,
+        rgba(244, 238, 244, 0.17) -47.99%,
+        rgba(98, 28, 100, 0) 116.04%,
+        #fa06ff 116.05%
+      ),
+      radial-gradient(
+        121.41% 160.58% at 45.23% 7.25%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0) 100%,
+        rgba(5, 5, 5, 0.2) 100%
+      );
+    border: 1px solid #2ac4bf;
+    backdrop-filter: blur(30px);
+    .account__block-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 17px;
+      margin-bottom: 25px;
+      .account__block-address {
+        font-family: "Roboto Condensed";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 23px;
+        color: #ffffff;
+
+        margin-top: 24px;
+        position: relative;
+        .account__block-copy-img {
+          position: absolute;
+          height: 16px;
+          top: 3px;
+          right: -29px;
+        }
+      }
+    }
+    .account__block-input {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 23px;
+
+      input[type="text"] {
+        border: none;
+        background: none;
+        outline: none;
+        width: 282px;
+        padding: 15px 0;
+        padding-left: 17px;
+        border-radius: 7px;
+      }
+
+      input {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(27px);
+        color: #fff;
+        font-family: "Inter";
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.035em;
+      }
+    }
+    .account__block-save {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 39px;
+      .account__block-save-button {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 21px;
+        font-family: "Roboto Condensed";
+
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+
+        color: #ffffff;
+        padding: 10px 120px;
+        background: #564adf;
+        backdrop-filter: blur(30px);
+        position: relative;
+      }
+      .account__block-save-button::before {
+        content: "";
+        position: absolute;
+        border-bottom: 5px solid #564adf;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        top: -5px;
+        left: 0;
+        width: 100%;
+      }
+
+      .account__block-save-button::after {
+        content: "";
+        position: absolute;
+        border-top: 5px solid #564adf;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+      }
+    }
+  }
+  .account__transaction-history {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .account__transaction-history-title {
+      font-family: "Roboto Condensed";
+      color: #fff;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 23px;
+      text-align: center;
+
+      margin-bottom: 20px;
+    }
+    .account__transaction-histoty-statistic {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 48px;
+      padding: 15px 0;
+
+      background: linear-gradient(
+          109.86deg,
+          rgba(244, 238, 244, 0.17) -59.62%,
+          rgba(98, 28, 100, 0) 140.65%,
+          #fa06ff 140.67%
+        ),
+        radial-gradient(
+            123.11% 288.11% at 44.46% 13%,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0) 100%,
+            rgba(5, 5, 5, 0.2) 100%
+          )
+          /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+      backdrop-filter: blur(30px);
+      .statistic__stick-1 {
+        position: absolute;
+        width: 153.35px;
+        height: 9.25px;
+        top: -4px;
+        left: -3px;
+      }
+      .statistic__stick-3 {
+        position: absolute;
+        width: 153.35px;
+        height: 9.25px;
+        bottom: -4px;
+        right: -3px;
+      }
+
+      .statistic__stick-2 {
+        position: absolute;
+        width: 153.35px;
+        height: 9.25px;
+        top: -4px;
+        right: -3px;
+      }
+      .statistic__stick-4 {
+        position: absolute;
+        width: 153.35px;
+        height: 9.25px;
+        bottom: -4px;
+        left: -3px;
+      }
+      .statictic-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: #fff;
+        .green {
+          color: #6ae320;
+        }
+        .red {
+          color: #ff4545;
+        }
+        .blue {
+          color: #2ac3bf;
+        }
+        li {
+          margin-bottom: 25px;
+        }
+      }
+    }
+  }
+}

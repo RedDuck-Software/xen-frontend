@@ -160,7 +160,9 @@ const LottoPage: FC = () => {
               <button className="lotto__timer-draw__button">ENTER DRAW</button>
             </div>
           </div>
+
           <LottoStats />
+
         </div>
       </div>
       <LottoFooter
