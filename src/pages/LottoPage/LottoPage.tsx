@@ -5,8 +5,12 @@ import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
 import "../../index.scss";
 import "./LottoPage.scss";
+import { useWeb3React } from "@web3-react/core";
 
 const LottoPage: FC = () => {
+  const { account, connector, activate } = useWeb3React();
+
+  console.log('connector',connector)
   return (
     <div className="wrapper wrapper-lotto">
       <Header />

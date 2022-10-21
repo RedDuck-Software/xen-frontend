@@ -158,9 +158,6 @@ const DepositPage: FC = () => {
     }
   }, []);
 
-  useEffect(()=>{
-    
-  },)
   console.log("connector", connector);
   return (
     <div className="background">
