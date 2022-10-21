@@ -2,9 +2,6 @@
   display: flex;
   flex-direction: column;
 
-  &-bg {
-  }
-
   &-btn {
     width: 315px;
     height: 71px;
@@ -19,10 +16,14 @@
     justify-content: space-around;
   }
 
-  &-timer {
+  &__timer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-repeat: no-repeat;
+    &-bg {
+      background: url("../../assets/img/lotto/timer/timer-bg.png");
+    }
   }
 
   &__block {
@@ -59,13 +60,91 @@
   }
 
   &__stats {
-    background: #dee5f2;
-    border: 5px solid #ef0d0d;
-    border-radius: 21.2px;
-    width: 200px;
-    height: 54px;
-    margin-bottom: 25px;
-    text-align: center;
+    background: url("../../assets/img/lotto/bg-stats.png");
+    height: 250px;
+    margin-top: 50px;
+    background-size: 100% 250px;
+    &-my {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      &__header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 230px;
+        height: 45px;
+        margin-bottom: 5px;
+        background: url("../../assets/img/lotto/header-bg.png");
+
+        &-title {
+          color: #2ac3bf;
+          font-size: 16px;
+          line-height: 19px;
+          font-family: "Roboto Condensed-Bold";
+        }
+
+        &-img {
+          margin-right: 17px;
+        }
+      }
+
+      &__line {
+        width: 156px;
+        margin: 0 auto;
+      }
+
+      &__block {
+        text-align: center;
+        margin-bottom: 10px;
+        &-title {
+          color: #ffffff;
+          font-family: "Inter";
+          font-size: 14px;
+          line-height: 17px;
+          opacity: 0.7;
+          margin-bottom: 5px;
+          margin-top: 8px;
+        }
+        &-span {
+          margin-left: 5px;
+          font-size: 14px;
+          line-height: 16px;
+          font-family: "Roboto Condensed-Bold";
+          color: #ffffff;
+          opacity: 0.7;
+        }
+        &-numbers {
+          font-size: 20px;
+          line-height: 23px;
+          font-family: "Roboto Condensed-Bold";
+          color: #ffffff;
+        }
+      }
+    }
+
+    &-line {
+      &__bottom {
+        top: -12px;
+      }
+    }
+  }
+
+  &__winners {
+    display: flex;
+    flex-direction: column;
+    background: url("../../assets/img/lotto/bg-stats.png");
+    margin-top: 50px;
+
+    &__header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 230px;
+      height: 45px;
+      margin-bottom: 5px;
+      background: url("../../assets/img/lotto/header-bg.png");
+    }
   }
 
   &__entry {
@@ -128,7 +207,7 @@
 
     &-draw {
       background: url("../../assets/img/lotto/avatar-bg.png");
-      width: 210px;
+      min-width: 210px;
       height: 44px;
       display: flex;
       align-items: center;
