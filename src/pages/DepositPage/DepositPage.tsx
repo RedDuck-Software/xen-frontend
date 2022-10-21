@@ -7,7 +7,7 @@ import "../DepositPage/DepositPage.scss";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 import Slider from "../../assets/deposit/slider.png";
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
@@ -182,6 +182,7 @@ const DepositPage: FC = () => {
                   <DepositButton type={"primary-blue"}>DEPOSIT</DepositButton>
                 </Tab>
               </TabList>
+
 
               <TabPanel>
                 <>

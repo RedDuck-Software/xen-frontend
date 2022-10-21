@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import Participants from "../../components/Participants/Participants";
 
 import "../../index.scss";
@@ -42,7 +42,9 @@ const LottoPage: FC = () => {
               <button className="lotto__timer-draw__button">ENTER DRAW</button>
             </div>
           </div>
+
           <LottoStats />
+
         </div>
       </div>
       <LottoFooter />
