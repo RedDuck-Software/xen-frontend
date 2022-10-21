@@ -9,9 +9,11 @@ type SliderComponentProps = {
 };
 
 const SliderComponent = ({ handleChange, min, max }: SliderComponentProps) => {
+  console.log('max',max)
+
   return (
     <Container>
-      <Slider type="range"  onChange={handleChange} min={min} max={max} />
+      <Slider type="range" onChange={handleChange} min={min} max={max} />
     </Container>
   );
 };

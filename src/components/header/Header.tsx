@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import "./Header.scss";
 import "../../index.scss";
@@ -11,12 +11,37 @@ import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
+import { XENToken__factory } from "../../typechain";
+import { ethers } from "ethers";
 
 const Header: FC = () => {
+  const [accountBalance,setAccountBalance] = useState<any>()
   const { account, connector, activate } = useWeb3React();
   const navigate = useNavigate();
 
-  console.log("account", account);
+  async function getXenBalance() {
+    if (!connector || !account) return "!args";
+
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const signer = provider.getSigner(0);
+
+    const Erc20Contract = XENToken__factory.connect(
+      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
+      signer
+    );
+
+    console.log("accountaccount", account);
+    console.log("signersigner", signer);
+    console.log("connector", connector);
+
+    const value = await Erc20Contract.balanceOf(account);
+
+    setAccountBalance(ethers.utils.formatUnits(value.toString()));
+  }
+  useEffect(()=>{
+    getXenBalance()
+  })
+ 
 
   return (
     <div>
@@ -53,7 +78,7 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              000,000,00 <span className="header__span">XEN</span>
+              {accountBalance?+accountBalance:'000,000'} <span className="header__span">XEN</span>
             </a>
           </li>
           <li className="header__btn header__btn-right">

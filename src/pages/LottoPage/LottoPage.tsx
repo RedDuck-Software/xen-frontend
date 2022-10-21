@@ -13,9 +13,11 @@ import { injected } from "../../helpers/connectors";
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
 import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
+import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
+import { useNavigate } from "react-router-dom";
 
 const LottoPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -29,7 +31,7 @@ const LottoPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-
+  const navigate = useNavigate()
   async function connect() {
     try {
       await activate(injected);
@@ -121,11 +123,10 @@ const LottoPage: FC = () => {
     setTotalPayout(totalPayout);
     setTotalAmount(totalAmount);
   }
+
   useEffect(() => {
     if (!connector) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
+      navigate("/");
     }
     if (connector) {
       console.log("here");
@@ -172,6 +173,44 @@ const LottoPage: FC = () => {
         lastWinner={lastWinner}
         lastWonAmount={lastWonAmount}
       />
+      <div className="lotto__timer-bubbles">
+        <div className="lotto__timer-bubbles-L lotto__timer-bubbles-first">
+          <div className="lotto__timer-bubbles-block">
+            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <p className="lotto__timer-bubbles-block-account">
+              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+            </p>
+            <p className="lotto__timer-bubbles-block-numbers">
+              220K <span className="lotto__timer-bubbles-block-span">XEN</span>
+            </p>
+            <p className="lotto__timer-bubbles-block-percent">69%</p>
+          </div>
+        </div>
+        <div className="lotto__timer-bubbles-L lotto__timer-bubbles-second">
+          <div className="lotto__timer-bubbles-block">
+            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <p className="lotto__timer-bubbles-block-account">
+              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+            </p>
+            <p className="lotto__timer-bubbles-block-numbers">
+              120K <span className="lotto__timer-bubbles-block-span">XEN</span>
+            </p>
+            <p className="lotto__timer-bubbles-block-percent">43%</p>
+          </div>
+        </div>
+        <div className="lotto__timer-bubbles-L lotto__timer-bubbles-third">
+          <div className="lotto__timer-bubbles-block">
+            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <p className="lotto__timer-bubbles-block-account">
+              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+            </p>
+            <p className="lotto__timer-bubbles-block-numbers">
+              110K <span className="lotto__timer-bubbles-block-span">XEN</span>
+            </p>
+            <p className="lotto__timer-bubbles-block-percent">33%</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

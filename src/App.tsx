@@ -22,7 +22,9 @@ const App: FC = () => {
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
   const { account, connector, activate } = useWeb3React();
   const navigate = useNavigate();
+
   useEffect(() => {
+    console.log('here')
     if (!connector) {
       navigate("./");
     }
