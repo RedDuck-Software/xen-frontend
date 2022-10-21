@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import Participants from "../../components/Participants/Participants";
 
@@ -29,22 +29,38 @@ const LottoPage: FC = () => {
               <p className="lotto__timer-block__date">00:58:23</p>
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
-                🔥18,465,657 <span className="lotto__timer-block__span">XEN</span>
+                🔥18,465,657{" "}
+                <span className="lotto__timer-block__span">XEN</span>
               </p>
             </div>
-            <img src={ArrowLeft} alt="" className="lotto__timer-img__arr-left" />
-            <img src={ArrowRight} alt="" className="lotto__timer-img__arr-right" />
-            <img src={CircleTimer} alt="" className="lotto__timer-img__circle" />
+            <img
+              src={ArrowLeft}
+              alt=""
+              className="lotto__timer-img__arr-left"
+            />
+            <img
+              src={ArrowRight}
+              alt=""
+              className="lotto__timer-img__arr-right"
+            />
+            <img
+              src={CircleTimer}
+              alt=""
+              className="lotto__timer-img__circle"
+            />
             {/* <img src={CircleTimerFirst} alt="" className="lotto__timer-img" />
             <img src={CircleTimerSecond} alt="" className="lotto__timer-img" /> */}
             <div className="lotto__timer-draw">
-              <input type="text" placeholder="Enter Amount" className="lotto__timer-draw__input" />
+              <input
+                type="text"
+                placeholder="Enter Amount"
+                className="lotto__timer-draw__input"
+              />
               <button className="lotto__timer-draw__button">ENTER DRAW</button>
             </div>
           </div>
 
           <LottoStats />
-
         </div>
       </div>
       <LottoFooter />

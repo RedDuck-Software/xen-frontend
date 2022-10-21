@@ -34,6 +34,8 @@ const DepositPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+  const [button, setButton] = useState<any>({ withdraw: false, deposit: true });
+
   async function connect() {
     try {
       await activate(injected);
@@ -45,7 +47,9 @@ const DepositPage: FC = () => {
 
   async function ApproveAndDeposit() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
 
     const signer = provider.getSigner(0);
     const Erc20Contract = XENToken__factory.connect(
@@ -59,7 +63,10 @@ const DepositPage: FC = () => {
     );
     await tx.wait();
 
-    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
+    const Lottery = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      signer
+    );
 
     const tx2 = await Lottery.participate(
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
@@ -69,7 +76,9 @@ const DepositPage: FC = () => {
   async function getXenBalance() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
 
     const Erc20Contract = XENToken__factory.connect(
@@ -154,6 +163,11 @@ const DepositPage: FC = () => {
     }
   }, []);
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setButton({ withdraw: !button.withdraw, deposit: !button.deposit });
+    console.log(button);
+  };
+
   console.log("connector", connector);
   const [tabIndex, setTabIndex] = useState(0);
   return (
@@ -176,13 +190,22 @@ const DepositPage: FC = () => {
             >
               <TabList>
                 <Tab>
-                  <DepositButton type={"outline"}>WITHDRAW</DepositButton>
+                  <DepositButton
+                    onClick={handleClick}
+                    type={button.withdraw ? "primary-blue" : "outline"}
+                  >
+                    WITHDRAW
+                  </DepositButton>
                 </Tab>
                 <Tab>
-                  <DepositButton type={"primary-blue"}>DEPOSIT</DepositButton>
+                  <DepositButton
+                    onClick={handleClick}
+                    type={button.deposit ? "primary-blue" : "outline"}
+                  >
+                    DEPOSIT
+                  </DepositButton>
                 </Tab>
               </TabList>
-
 
               <TabPanel>
                 <>
@@ -199,19 +222,28 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">How much you want to withdraw?</div>
+                    <div className="deposit__block-title">
+                      How much you want to withdraw?
+                    </div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
+                      {selectedAmountToDeposit
+                        ? selectedAmountToDeposit.toString()
+                        : "0"}
                       <span>XEN</span>
                     </div>
                     <input
                       type="range"
                       min="0"
                       max={accountBalance ? accountBalance.toString() : "0"}
-                      onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
+                      onChange={(e) =>
+                        setSelectedAmountToDeposit(e.target.value)
+                      }
                     />
                     <div className="deposit__block-btn">
-                      <button className="landing__btn" onClick={ApproveAndDeposit}>
+                      <button
+                        className="landing__btn"
+                        onClick={ApproveAndDeposit}
+                      >
                         <img src={MetaMaskPng} />
                         Deposit
                       </button>
@@ -233,12 +265,16 @@ const DepositPage: FC = () => {
                       </div>
 
                       <div className="deposit__text-item">
-                        <p className="deposit__title">How can I deposit tokens?</p>
+                        <p className="deposit__title">
+                          How can I deposit tokens?
+                        </p>
                         <p>
-                          1.Enter the amount of tokens you wish to deposit from your metamask wallet
-                          to your burnXEN.io account balance. 2.Accept the transaction in the
-                          metamask popup. 3.Your tokens will be deposited in accordance with
-                          transaction times on the network you are depositing from.
+                          1.Enter the amount of tokens you wish to deposit from
+                          your metamask wallet to your burnXEN.io account
+                          balance. 2.Accept the transaction in the metamask
+                          popup. 3.Your tokens will be deposited in accordance
+                          with transaction times on the network you are
+                          depositing from.
                         </p>
                       </div>
                     </div>
@@ -256,17 +292,19 @@ const DepositPage: FC = () => {
                         <img src={Stick_1} alt="stick" />
                       </div>
                       <div className="deposit__text-item">
-                        <p className="deposit__title ">When will I see my balance?</p>
+                        <p className="deposit__title ">
+                          When will I see my balance?
+                        </p>
                         <p>
-                          After 1 confirmation on the blockchain you are depositing om. If you have
-                          any issues try manual page refresh and if that doesnt help contact
-                          support.
+                          After 1 confirmation on the blockchain you are
+                          depositing om. If you have any issues try manual page
+                          refresh and if that doesnt help contact support.
                         </p>
                         <p className="deposit__title top">Why only XEN and ?</p>
                         <p>
-                          Our mission is to bring adoption to the XEN ecosystem and add utility to
-                          the token. Most importantly all we want to increase XEN Burn to help
-                          reduce the supply
+                          Our mission is to bring adoption to the XEN ecosystem
+                          and add utility to the token. Most importantly all we
+                          want to increase XEN Burn to help reduce the supply
                         </p>
                       </div>
                     </div>
@@ -288,19 +326,28 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">How much you want to withdraw?</div>
+                    <div className="deposit__block-title">
+                      How much you want to withdraw?
+                    </div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
+                      {selectedAmountToDeposit
+                        ? selectedAmountToDeposit.toString()
+                        : "0"}
                       <span>XEN</span>
                     </div>
                     <input
                       type="range"
                       min="0"
                       max={accountBalance ? accountBalance.toString() : "0"}
-                      onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
+                      onChange={(e) =>
+                        setSelectedAmountToDeposit(e.target.value)
+                      }
                     />
                     <div className="deposit__block-btn">
-                      <button className="landing__btn" onClick={ApproveAndDeposit}>
+                      <button
+                        className="landing__btn"
+                        onClick={ApproveAndDeposit}
+                      >
                         <img src={MetaMaskPng} />
                         Withdraw
                       </button>
@@ -322,12 +369,16 @@ const DepositPage: FC = () => {
                       </div>
 
                       <div className="deposit__text-item">
-                        <p className="deposit__title">How i can withdraw my tokens?</p>
+                        <p className="deposit__title">
+                          How i can withdraw my tokens?
+                        </p>
                         <p>
-                          1.Enter the amount of tokens you wish to deposit from your metamask wallet
-                          to your burnXEN.io account balance. 2.Accept the transaction in the
-                          metamask popup. 3.Your tokens will be deposited in accordance with
-                          transaction times on the network you are depositing from.
+                          1.Enter the amount of tokens you wish to deposit from
+                          your metamask wallet to your burnXEN.io account
+                          balance. 2.Accept the transaction in the metamask
+                          popup. 3.Your tokens will be deposited in accordance
+                          with transaction times on the network you are
+                          depositing from.
                         </p>
                       </div>
                     </div>
@@ -345,13 +396,21 @@ const DepositPage: FC = () => {
                         <img src={Stick_1} alt="stick" />
                       </div>
                       <div className="deposit__text-item">
-                        <p className="deposit__title ">Is there a fee to withdraw?</p>
-                        <p>
-                          We do not charge a platform fee to withdraw, the only fee you will pay is
-                          the network fee for the blockchain transaction.
+                        <p className="deposit__title ">
+                          Is there a fee to withdraw?
                         </p>
-                        <p className="deposit__title top">Can i withdraw any time?</p>
-                        <p>Of course, your free to do as you choose with your tokens.</p>
+                        <p>
+                          We do not charge a platform fee to withdraw, the only
+                          fee you will pay is the network fee for the blockchain
+                          transaction.
+                        </p>
+                        <p className="deposit__title top">
+                          Can i withdraw any time?
+                        </p>
+                        <p>
+                          Of course, your free to do as you choose with your
+                          tokens.
+                        </p>
                       </div>
                     </div>
                   </div>
