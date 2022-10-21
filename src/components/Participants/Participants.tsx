@@ -1,4 +1,5 @@
 import React from "react";
+
 import ParticipantsSvg from "../../assets/img/lotto/participants.svg";
 import AvatarFirst from "../../assets/img/lotto/avatar/avatar-1.svg";
 import AvatarSecond from "../../assets/img/lotto/avatar/avatar-2.svg";
@@ -16,6 +17,7 @@ import AvatarThirteen from "../../assets/img/lotto/avatar/avatar-13.svg";
 import Value from "../../assets/img/lotto/value.svg";
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
+
 import "../../pages/LottoPage/LottoPage.scss";
 
 const Participants = () => {
