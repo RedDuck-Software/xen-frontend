@@ -225,7 +225,7 @@ const DepositPage: FC = () => {
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>
-                        <img src={MetaMaskPng} />
+                        <img src={MetaMaskPng} alt="" className="landing__btn-img" />
                         Withdraw
                       </button>
                     </div>
@@ -315,7 +315,7 @@ const DepositPage: FC = () => {
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>
-                        <img src={MetaMaskPng} />
+                        <img src={MetaMaskPng} className="landing__btn-img" alt="" />
                         Deposit
                       </button>
                     </div>
