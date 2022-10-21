@@ -6,7 +6,7 @@ import Circle from "../../assets/circle.svg";
 import "../../index.scss";
 import "../DepositPage/DepositPage.scss";
 import "./AccountPage.scss";
-import Header from "../../components/header/Header";
+import Header from "../../components/Header/header";
 import Logo from "../../assets/account/Vector 4144.png";
 import Copy from "../../assets/account/CopyImg.png";
 import Corner_1 from "../../assets/deposit/Vector 4140.png";

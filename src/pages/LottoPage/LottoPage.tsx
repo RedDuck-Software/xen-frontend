@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header/header";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";

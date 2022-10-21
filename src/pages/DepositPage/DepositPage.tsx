@@ -7,7 +7,7 @@ import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/header/Header";
+import Header from "../../components/Header/header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
 import Slider from "../../assets/deposit/slider.png";
@@ -43,7 +43,7 @@ const DepositPage: FC = () => {
   const navigate = useNavigate();
   
 
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(1);
 
   async function connect() {
     try {
@@ -151,7 +151,7 @@ const DepositPage: FC = () => {
     }
   }, []);
 
-  console.log("connector", connector);
+  console.log("tabIndex", tabIndex);
   return (
     <div className="background">
       <Header />
@@ -201,7 +201,6 @@ const DepositPage: FC = () => {
                       <span>XEN</span>
                     </div>
                     <SliderComponent
-                      value={accountBalance}
                       handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
                       min={0}
                       max={accountBalance ? accountBalance.toString() : "0"}
@@ -279,13 +278,12 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">How much you want to withdraw?</div>
+                    <div className="deposit__block-title">How much you want to deposit?</div>
                     <div className="deposit__block-balance">
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
-                      value={accountBalance}
                       handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
                       min={0}
                       max={accountBalance ? accountBalance.toString() : "0"}
