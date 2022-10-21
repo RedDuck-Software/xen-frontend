@@ -26,6 +26,7 @@ import SliderComponent from "../../components/Slider/Slider";
 import "../../index.scss";
 import "react-tabs/style/react-tabs.css";
 import "../DepositPage/DepositPage.scss";
+import { useNavigate } from "react-router-dom";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -39,6 +40,8 @@ const DepositPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+  const navigate = useNavigate();
+  
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -94,59 +97,45 @@ const DepositPage: FC = () => {
     setAccountBalance(value);
   }
 
-  // async function getTime() {
-  //   if (!connector || !account) return "!args";
+  async function getTime() {
+    if (!connector || !account) return "!args";
 
-  //   const provider = new ethers.providers.Web3Provider(
-  //     await connector.getProvider()
-  //   );
-  //   const signer = provider.getSigner(0);
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const signer = provider.getSigner(0);
 
-  //   const Lottery = Lottery__factory.connect(
-  //     "0xd726259899a2d52da68A8eda4C74719F445ED359",
-  //     signer
-  //   );
-  //   const nextRound = await (
-  //     await Lottery.nextParticipateTimestamp()
-  //   ).toString();
-  //   console.log("nextRound", nextRound);
-  //   const date = new Date(+nextRound * 1000);
-  //   console.log(date);
+    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
+    const nextRound = await (await Lottery.nextParticipateTimestamp()).toString();
+    console.log("nextRound", nextRound);
+    const date = new Date(+nextRound * 1000);
+    console.log(date);
 
-  //   setTimer(date);
-  // }
+    setTimer(date);
+  }
 
-  // async function getTotalInfo() {
-  //   if (!connector || !account) return "!args";
+  async function getTotalInfo() {
+    if (!connector || !account) return "!args";
 
-  //   const provider = new ethers.providers.Web3Provider(
-  //     await connector.getProvider()
-  //   );
-  //   const signer = provider.getSigner(0);
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const signer = provider.getSigner(0);
 
-  //   const Lottery = Lottery__factory.connect(
-  //     "0xd726259899a2d52da68A8eda4C74719F445ED359",
-  //     signer
-  //   );
-  //   console.log("dasdas");
-  //   const totalGamesPlayed = await (
-  //     await Lottery.totalGamesPlayed()
-  //   ).toString();
-  //   const totalPayout = await (await Lottery.totalPayoutToday()).toString();
-  //   const totalAmount = await (await Lottery.totalAmount()).toString();
-  //   const lastWinner = await (await Lottery.lastWinner()).toString();
-  //   const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
+    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
+    console.log("dasdas");
+    const totalGamesPlayed = await (await Lottery.totalGamesPlayed()).toString();
+    const totalPayout = await (await Lottery.totalPayoutToday()).toString();
+    const totalAmount = await (await Lottery.totalAmount()).toString();
+    const lastWinner = await (await Lottery.lastWinner()).toString();
+    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
 
-  //   console.log("totalPayout", totalPayout);
-  //   console.log("totalAmount before set", totalAmount);
-  //   console.log("totalGamesPlayed", totalGamesPlayed);
+    console.log("totalPayout", totalPayout);
+    console.log("totalAmount before set", totalAmount);
+    console.log("totalGamesPlayed", totalGamesPlayed);
 
-  //   setLastWinner(lastWinner);
-  //   setLastWonAmount(lastWonAmount);
-  //   setTotalGamesPlayed(totalGamesPlayed);
-  //   setTotalPayout(totalPayout);
-  //   setTotalAmount(totalAmount);
-  // }
+    setLastWinner(lastWinner);
+    setLastWonAmount(lastWonAmount);
+    setTotalGamesPlayed(totalGamesPlayed);
+    setTotalPayout(totalPayout);
+    setTotalAmount(totalAmount);
+  }
   useEffect(() => {
     if (!connector) {
       setShowModal(true);
@@ -211,12 +200,6 @@ const DepositPage: FC = () => {
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
-                    {/* <input
-                      type="range"
-                      min="0"
-                      max={accountBalance ? accountBalance.toString() : "0"}
-                      onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
-                    /> */}
                     <SliderComponent
                       value={accountBalance}
                       handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
@@ -301,12 +284,6 @@ const DepositPage: FC = () => {
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
-                    {/* <input
-                      type="range"
-                      min="0"
-                      max={accountBalance ? accountBalance.toString() : "0"}
-                      onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
-                    /> */}
                     <SliderComponent
                       value={accountBalance}
                       handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}

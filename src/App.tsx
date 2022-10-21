@@ -21,12 +21,12 @@ const App: FC = () => {
   }
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
   const { account, connector, activate } = useWeb3React();
-  const navigate = useNavigate()
-  // useEffect(()=>{
-  //   if(!connector){
-  //     navigate('./')
-  //   }
-  // },[])
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!connector) {
+      navigate("./");
+    }
+  }, []);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>

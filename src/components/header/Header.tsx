@@ -10,9 +10,12 @@ import Roullete from "../../assets/icons/roulette.svg";
 import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
+import { useNavigate } from "react-router-dom";
 
 const Header: FC = () => {
   const { account, connector, activate } = useWeb3React();
+  const navigate = useNavigate();
+
   console.log("account", account);
 
   return (
@@ -22,7 +25,7 @@ const Header: FC = () => {
       <div className="header">
         <ul className="header__list">
           <li className="header__btn-lotto">
-            <a href="lotto-page" className="header__link">
+            <a className="header__link" onClick={() => navigate("/lotto-page")}>
               <img src={Cubes} alt="" className="header__icon" /> XEN Lotto
             </a>
           </li>
