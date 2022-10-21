@@ -21,6 +21,7 @@ import { approveErc20 } from "../../helpers/utils/approve";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import SliderComponent from "../../components/Slider/Slider";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -162,12 +163,6 @@ const DepositPage: FC = () => {
       <div className="wrap">
         <div className="deposit">
           <div className="deposit__links">
-            {/* <div className="withraw-btn">
-              <DepositButton type={"outline"}>WITHDRAW</DepositButton>
-            </div>
-            <div className="deposit-btn">
-              <DepositButton type={"primary-blue"}>DEPOSIT</DepositButton>
-            </div> */}
             <Tabs
               selectedIndex={tabIndex}
               onSelect={(index) => setTabIndex(index)}
@@ -204,11 +199,17 @@ const DepositPage: FC = () => {
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
-                    <input
+                    {/* <input
                       type="range"
                       min="0"
                       max={accountBalance ? accountBalance.toString() : "0"}
                       onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
+                    /> */}
+                    <SliderComponent
+                      value={accountBalance}
+                      handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
+                      min={0}
+                      max={accountBalance ? accountBalance.toString() : "0"}
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>
@@ -293,11 +294,17 @@ const DepositPage: FC = () => {
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
-                    <input
+                    {/* <input
                       type="range"
                       min="0"
                       max={accountBalance ? accountBalance.toString() : "0"}
                       onChange={(e) => setSelectedAmountToDeposit(e.target.value)}
+                    /> */}
+                    <SliderComponent
+                      value={accountBalance}
+                      handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
+                      min={0}
+                      max={accountBalance ? accountBalance.toString() : "0"}
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>
