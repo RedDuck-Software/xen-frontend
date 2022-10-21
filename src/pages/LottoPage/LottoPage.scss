@@ -38,6 +38,78 @@
         width: 300px;
       }
     }
+    &-bubbles {
+      display: flex;
+
+      &-first {
+        position: relative;
+        top: -850px;
+        right: -350px;
+      }
+
+      &-second {
+        position: relative;
+        top: -861px;
+        left: 523px;
+      }
+
+      &-third {
+        position: relative;
+        top: -1219px;
+        right: -245px;
+      }
+
+      &-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &-avatar {
+          width: 75px;
+          height: 75px;
+          margin-top: 25px;
+          margin-bottom: 15px;
+        }
+        &-account {
+          font-size: 30px;
+          line-height: 35px;
+          letter-spacing: 0.035em;
+          font-family: "Roboto Bold";
+          color: #ffbc6d;
+          margin-bottom: 15px;
+        }
+
+        &-numbers {
+          font-size: 30px;
+          line-height: 35px;
+          letter-spacing: 0.035em;
+          font-family: "Roboto Bold";
+          color: #26e5ff;
+          margin-bottom: 15px;
+        }
+
+        &-span {
+          font-size: 20px;
+          line-height: 23px;
+          letter-spacing: 0.035em;
+          font-family: "Roboto Bold";
+          color: #ffffff;
+        }
+
+        &-percent {
+          font-size: 30px;
+          line-height: 35px;
+          text-align: center;
+          letter-spacing: 0.035em;
+          font-family: "Roboto Bold";
+          color: #1fea33;
+        }
+      }
+      &-L {
+        background: url("../../assets/img/lotto/timer/bubles.png");
+        width: 280px;
+        height: 280px;
+      }
+    }
     &-block {
       display: flex;
       flex-direction: column;
