@@ -1,8 +1,8 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
 import { injected } from "./helpers/connectors";
 import { Web3Provider } from "@ethersproject/providers";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Main from "./pages/MainPage/Main";
 import DepositPage from "./pages/DepositPage/DepositPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -17,7 +17,14 @@ const App: FC = () => {
     return new Web3Provider(provider);
   }
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
-
+  const { account, connector, activate } = useWeb3React();
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!connector){
+      navigate('./')
+    }
+  },[])
+  
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Context.Provider

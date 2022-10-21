@@ -17,6 +17,7 @@ import Corner_3 from "../../assets/deposit/Vector 4142.png";
 import Corner_4 from "../../assets/deposit/Vector 4143.png";
 import Stick_1 from "../../assets/deposit/Group 22724.png";
 import Stick_2 from "../../assets/deposit/Group 22725.png";
+import { approveErc20 } from "../../helpers/utils/approve";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -29,7 +30,7 @@ const DepositPage: FC = () => {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
-
+  const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>()
   async function connect() {
     try {
       await activate(injected);
@@ -53,7 +54,7 @@ const DepositPage: FC = () => {
 
     const tx = await Erc20Contract.approve(
       "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      ethers.utils.parseEther(amount.toString())
+      ethers.utils.parseEther(selectedAmountToDeposit.toString())
     );
     await tx.wait();
 
@@ -63,7 +64,7 @@ const DepositPage: FC = () => {
     );
 
     const tx2 = await Lottery.participate(
-      ethers.utils.parseEther(amount.toString())
+      ethers.utils.parseEther(selectedAmountToDeposit.toString())
     );
     await tx2.wait();
   }
@@ -80,64 +81,68 @@ const DepositPage: FC = () => {
       signer
     );
 
+    console.log("accountaccount", account);
+    console.log("signersigner", signer);
+    console.log("connector", connector);
+
     const value = await Erc20Contract.balanceOf(account);
     console.log(value);
     setAccountBalance(value);
   }
 
-  async function getTime() {
-    if (!connector || !account) return "!args";
+  // async function getTime() {
+  //   if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
+  //   const provider = new ethers.providers.Web3Provider(
+  //     await connector.getProvider()
+  //   );
+  //   const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
-    const nextRound = await (
-      await Lottery.nextParticipateTimestamp()
-    ).toString();
-    console.log("nextRound", nextRound);
-    const date = new Date(+nextRound * 1000);
-    console.log(date);
+  //   const Lottery = Lottery__factory.connect(
+  //     "0xd726259899a2d52da68A8eda4C74719F445ED359",
+  //     signer
+  //   );
+  //   const nextRound = await (
+  //     await Lottery.nextParticipateTimestamp()
+  //   ).toString();
+  //   console.log("nextRound", nextRound);
+  //   const date = new Date(+nextRound * 1000);
+  //   console.log(date);
 
-    setTimer(date);
-  }
+  //   setTimer(date);
+  // }
 
-  async function getTotalInfo() {
-    if (!connector || !account) return "!args";
+  // async function getTotalInfo() {
+  //   if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
+  //   const provider = new ethers.providers.Web3Provider(
+  //     await connector.getProvider()
+  //   );
+  //   const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
-    console.log("dasdas");
-    const totalGamesPlayed = await (
-      await Lottery.totalGamesPlayed()
-    ).toString();
-    const totalPayout = await (await Lottery.totalPayoutToday()).toString();
-    const totalAmount = await (await Lottery.totalAmount()).toString();
-    const lastWinner = await (await Lottery.lastWinner()).toString();
-    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
+  //   const Lottery = Lottery__factory.connect(
+  //     "0xd726259899a2d52da68A8eda4C74719F445ED359",
+  //     signer
+  //   );
+  //   console.log("dasdas");
+  //   const totalGamesPlayed = await (
+  //     await Lottery.totalGamesPlayed()
+  //   ).toString();
+  //   const totalPayout = await (await Lottery.totalPayoutToday()).toString();
+  //   const totalAmount = await (await Lottery.totalAmount()).toString();
+  //   const lastWinner = await (await Lottery.lastWinner()).toString();
+  //   const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
 
-    console.log("totalPayout", totalPayout);
-    console.log("totalAmount before set", totalAmount);
-    console.log("totalGamesPlayed", totalGamesPlayed);
+  //   console.log("totalPayout", totalPayout);
+  //   console.log("totalAmount before set", totalAmount);
+  //   console.log("totalGamesPlayed", totalGamesPlayed);
 
-    setLastWinner(lastWinner);
-    setLastWonAmount(lastWonAmount);
-    setTotalGamesPlayed(totalGamesPlayed);
-    setTotalPayout(totalPayout);
-    setTotalAmount(totalAmount);
-  }
+  //   setLastWinner(lastWinner);
+  //   setLastWonAmount(lastWonAmount);
+  //   setTotalGamesPlayed(totalGamesPlayed);
+  //   setTotalPayout(totalPayout);
+  //   setTotalAmount(totalAmount);
+  // }
   useEffect(() => {
     if (!connector) {
       setShowModal(true);
@@ -145,14 +150,18 @@ const DepositPage: FC = () => {
       setShowModal(false);
     }
     if (connector) {
+      console.log("here");
+      console.log("connector", account);
       getXenBalance();
-      getTime();
-      getTotalInfo();
+      // getTime();
+      // getTotalInfo();
     }
-  }, [connector]);
-  // console.log('totalAmount222',totalAmount)
-  // console.log('totalGamesPlayed22',totalGamesPlayed)
-  // console.log('v3totalPayout333',totalPayout)
+  }, []);
+
+  useEffect(()=>{
+    
+  },)
+  console.log("connector", connector);
   return (
     <div className="background">
       <Header />
@@ -183,18 +192,15 @@ const DepositPage: FC = () => {
               How much you want to withdraw?
             </div>
             <div className="deposit__block-balance">
-              576,878,332<span>XEN</span>
-            </div>
-            <div className="deposit__block-slider">
-              <img src={Slider} alt="slider" />
-            </div>
+              {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
+              <span>XEN</span>
+            </div>  
+            <input type="range" min="0" max={accountBalance?accountBalance.toString():"0"} onChange={(e)=>setSelectedAmountToDeposit(e.target.value)}/>
             <div className="deposit__block-btn">
-              <DepositButton type="primary-purple">
-                <div className="btn-deposit">
-                  <img src={MetaMaskPng} alt="fox" />
-                  <div>DEPOSIT</div>
-                </div>
-              </DepositButton>
+              <button className="landing__btn" onClick={ApproveAndDeposit}>
+                <img src={MetaMaskPng} />
+                Deposit
+              </button>
             </div>
           </div>
           <div className="deposit__text">
