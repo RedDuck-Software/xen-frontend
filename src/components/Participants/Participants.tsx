@@ -13,7 +13,6 @@ import AvatarTen from "../../assets/img/lotto/avatar/avatar-10.svg";
 import AvatarEleven from "../../assets/img/lotto/avatar/avatar-11.svg";
 import AvatarTwelve from "../../assets/img/lotto/avatar/avatar-12.svg";
 import AvatarThirteen from "../../assets/img/lotto/avatar/avatar-13.svg";
-import AvatarFourtheen from "../../assets/img/lotto/avatar/avatar-14.svg";
 import Value from "../../assets/img/lotto/value.svg";
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
