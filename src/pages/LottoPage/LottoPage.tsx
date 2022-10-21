@@ -10,8 +10,6 @@ import LottoStats from "../../components/LottoStats/LottoStats";
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
 import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
-import CircleTimerFirst from "../../assets/img/lotto/timer/circle-1.png";
-import CircleTimerSecond from "../../assets/img/lotto/timer/circle-2.png";
 
 const LottoPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -35,8 +33,6 @@ const LottoPage: FC = () => {
             <img src={ArrowLeft} alt="" className="lotto__timer-img__arr-left" />
             <img src={ArrowRight} alt="" className="lotto__timer-img__arr-right" />
             <img src={CircleTimer} alt="" className="lotto__timer-img__circle" />
-            {/* <img src={CircleTimerFirst} alt="" className="lotto__timer-img" />
-            <img src={CircleTimerSecond} alt="" className="lotto__timer-img" /> */}
             <div className="lotto__timer-draw">
               <input type="text" placeholder="Enter Amount" className="lotto__timer-draw__input" />
               <button className="lotto__timer-draw__button">ENTER DRAW</button>

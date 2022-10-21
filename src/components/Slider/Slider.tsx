@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 //@ts-ignore
@@ -23,10 +23,9 @@ const Slider = styled.input`
   width: 415px;
   height: 17px;
   outline: 0;
-  margin-top: 50px;
-  margin-bottom: 60px;
-  background: ${(props) =>
-    `linear-gradient(to right, #ff9800 0%, #ff9800 ${props.value}%, #fff ${props.value}%, #fff 100%);`};
+  margin-top: 40px;
+  background: ${(value) =>
+    `linear-gradient(to right, #e4ab19 0%, #e4ab19 ${value}%, #fff ${value}%, #fff 100%);`};
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
 
 ::-webkit-slider-thumb {
