@@ -1,14 +1,15 @@
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import React, { FC, useContext, useEffect, useState } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+
 import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
-import "../../index.scss";
-import "../DepositPage/DepositPage.scss";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
 import Header from "../../components/Header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
+
 import Slider from "../../assets/deposit/slider.png";
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
 import Corner_1 from "../../assets/deposit/Vector 4140.png";
@@ -17,11 +18,14 @@ import Corner_3 from "../../assets/deposit/Vector 4142.png";
 import Corner_4 from "../../assets/deposit/Vector 4143.png";
 import Stick_1 from "../../assets/deposit/Group 22724.png";
 import Stick_2 from "../../assets/deposit/Group 22725.png";
+
 import { approveErc20 } from "../../helpers/utils/approve";
 
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import SliderComponent from "../../components/Slider/Slider";
+
+import "../../index.scss";
+import "react-tabs/style/react-tabs.css";
+import "../DepositPage/DepositPage.scss";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -35,6 +39,9 @@ const DepositPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+
+  const [tabIndex, setTabIndex] = useState(0);
+
   async function connect() {
     try {
       await activate(injected);
@@ -156,8 +163,6 @@ const DepositPage: FC = () => {
   }, []);
 
   console.log("connector", connector);
-  const [tabIndex, setTabIndex] = useState(0);
-  console.log(tabIndex, "tabIndex");
   return (
     <div className="background">
       <Header />

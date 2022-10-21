@@ -1,15 +1,17 @@
 import React, { FC } from "react";
+import { useWeb3React } from "@web3-react/core";
+
 import Header from "../../components/Header/Header";
 import Participants from "../../components/Participants/Participants";
-
-import "../../index.scss";
-import "./LottoPage.scss";
-import { useWeb3React } from "@web3-react/core";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
+
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
 import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
+
+import "../../index.scss";
+import "./LottoPage.scss";
 
 const LottoPage: FC = () => {
   const { account, connector, activate } = useWeb3React();

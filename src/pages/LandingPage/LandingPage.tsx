@@ -1,16 +1,19 @@
 import React, { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
+import { injected } from "../../helpers/connectors";
+
 import Header from "../../components/Header/Header";
-import "../../index.scss";
-import "./LandingPage.scss";
+
 import MetaMask from "../../assets/icons/metamask.svg";
 import Cubes from "../../assets/img/landing/cubes.png";
 import LineLeft from "../../assets/img/landing/line-left.png";
 import LineRight from "../../assets/img/landing/line-right.png";
 import LineAboutTop from "../../assets/img/landing/line-about.png";
 import LineAboutBottom from "../../assets/img/landing/line-about.png";
-import { injected } from "../../helpers/connectors";
-import { useWeb3React } from "@web3-react/core";
-import { useNavigate } from "react-router-dom";
+
+import "../../index.scss";
+import "./LandingPage.scss";
 
 const LandingPage: FC = () => {
   const { account, connector, activate } = useWeb3React();

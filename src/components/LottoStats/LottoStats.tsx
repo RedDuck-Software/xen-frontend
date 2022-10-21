@@ -1,4 +1,5 @@
 import React from "react";
+
 import AvatarSix from "../../assets/img/lotto/avatar/avatar-6.svg";
 import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
 import AvatarEight from "../../assets/img/lotto/avatar/avatar-8.svg";

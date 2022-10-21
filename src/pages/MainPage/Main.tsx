@@ -1,10 +1,10 @@
 import React, { FC, useContext } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "../../helpers/connectors";
-import { useNavigate } from "react-router-dom";
+
 import { Context } from "../../Context";
+import { injected } from "../../helpers/connectors";
 
 const Main: FC = () => {
   const { account, library, connector, active, deactivate, activate } = useWeb3React();

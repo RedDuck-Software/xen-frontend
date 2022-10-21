@@ -1,6 +1,8 @@
 import React from "react";
+
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
+
 import "../../index.scss";
 
 const LottoFooter = () => {
