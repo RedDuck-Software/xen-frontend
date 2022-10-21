@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   async function connect() {
     try {
       await activate(injected);
@@ -23,20 +23,20 @@ const LandingPage: FC = () => {
       console.log(ex);
     }
   }
-console.log('connector',connector)
-console.log('account',account)
-  useEffect(()=>{
-    if(connector){
-      navigate('deposit-page');
+  console.log("connector", connector);
+  console.log("account", account);
+  useEffect(() => {
+    if (connector) {
+      navigate("deposit-page");
     }
-  })
+  });
   return (
     <div className="background">
       <Header />
       <div className="landing__block">
         <div className="landing__top">
           <div className="landing__top-block">
-            <p className="landing__title">To get started</p>
+            <p className="landing__title">TO GET STARTED</p>
             <button className="landing__btn" onClick={connect}>
               <img src={MetaMask} alt="" /> Login with MetaMask
             </button>
