@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, {FC, useState, useEffect, useRef} from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
@@ -18,8 +18,10 @@ import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 import "../../index.scss";
 import "./LottoPage.scss";
 import { useNavigate } from "react-router-dom";
+import Countdown from "react-countdown";
 
 const LottoPage: FC = () => {
+  const countdownRef = useRef<any>(null);
   const { account, connector, activate } = useWeb3React();
   const [amount, setAmount] = useState<any>();
   const [accountBalance, setAccountBalance] = useState<any>();
@@ -31,6 +33,9 @@ const LottoPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+
+  const [nextParticipateTimestamp, setNextParticipateTimestamp] = useState<number>(0);
+  const navigate = useNavigate()
 
   async function connect() {
     try {
@@ -133,6 +138,7 @@ const LottoPage: FC = () => {
     const totalAmount = await (await Lottery.totalAmount()).toString();
     const lastWinner = await (await Lottery.lastWinner()).toString();
     const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
+    const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp()).mul(1000).toNumber();
 
     console.log("totalPayout", totalPayout);
     console.log("totalAmount before set", totalAmount);
@@ -143,6 +149,7 @@ const LottoPage: FC = () => {
     setTotalGamesPlayed(totalGamesPlayed);
     setTotalPayout(totalPayout);
     setTotalAmount(totalAmount);
+    setNextParticipateTimestamp(nextParticipateTimestamp);
   }
 
   useEffect(() => {
@@ -158,6 +165,12 @@ const LottoPage: FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (countdownRef?.current && nextParticipateTimestamp) {
+      countdownRef.current.start();
+    }
+  }, [countdownRef, nextParticipateTimestamp])
+
   console.log("connector", connector);
   return (
     <div className="wrapper wrapper-lotto">
@@ -168,7 +181,12 @@ const LottoPage: FC = () => {
           <div className="lotto__timer">
             <div className="lotto__timer-block">
               <p className="lotto__timer-block__title">Next Draw In</p>
-              <p className="lotto__timer-block__date">00:58:23</p>
+              <Countdown
+                ref={countdownRef}
+                autoStart={true}
+                date={new Date(nextParticipateTimestamp)}
+                renderer={({ formatted: f }) => <p className="lotto__timer-block__date">{f.hours}:{f.minutes}:{f.seconds}</p>}
+              />
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
                 🔥18,465,657{" "}

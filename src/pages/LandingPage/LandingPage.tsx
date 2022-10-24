@@ -1,4 +1,8 @@
 import React, { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
+import { injected } from "../../helpers/connectors";
+
 import Header from "../../components/header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
