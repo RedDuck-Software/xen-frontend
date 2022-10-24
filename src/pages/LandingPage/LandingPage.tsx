@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../helpers/connectors";
+
 import Header from "../../components/header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
@@ -11,9 +12,9 @@ import LineLeft from "../../assets/img/landing/line-left.png";
 import LineRight from "../../assets/img/landing/line-right.png";
 import LineAboutTop from "../../assets/img/landing/line-about.png";
 import LineAboutBottom from "../../assets/img/landing/line-about.png";
-
-import "../../index.scss";
-import "./LandingPage.scss";
+import { injected } from "../../helpers/connectors";
+import { useWeb3React } from "@web3-react/core";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
@@ -39,9 +40,9 @@ const LandingPage: FC = () => {
       <div className="landing__block">
         <div className="landing__top">
           <div className="landing__top-block">
-            <p className="landing__title">TO GET STARTED</p>
-            <button className="landing__btn landing__btn-login" onClick={connect}>
-              <img src={MetaMask} alt="" className="landing__btn-img" /> Login with MetaMask
+            <p className="landing__title">To get started</p>
+            <button className="landing__btn" onClick={connect}>
+              <img src={MetaMask} alt="" /> Login with MetaMask
             </button>
           </div>
         </div>
