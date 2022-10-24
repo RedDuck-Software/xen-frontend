@@ -4,7 +4,6 @@ import "./deposit-button.scss";
 
 interface ButtonProps {
   type: string;
-  onClick: any;
 }
 
 const DepositButton: FC<PropsWithChildren<ButtonProps>> = (
