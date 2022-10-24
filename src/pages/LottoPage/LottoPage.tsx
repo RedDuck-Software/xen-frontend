@@ -31,7 +31,7 @@ const LottoPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-  const navigate = useNavigate();
+
   async function connect() {
     try {
       await activate(injected);
