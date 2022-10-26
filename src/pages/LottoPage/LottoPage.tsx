@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
+import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
 import Participants from "../../components/Participants/Participants";
@@ -53,21 +54,15 @@ const LottoPage: FC = () => {
     );
 
     const signer = provider.getSigner(0);
-    const Erc20Contract = XENToken__factory.connect(
-      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
-      signer
-    );
+    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
 
     const tx = await Erc20Contract.approve(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      LOTTERYADDRESS,
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
     );
     await tx.wait();
 
-    const Lottery = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
+    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const tx2 = await Lottery.participate(
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
@@ -82,10 +77,7 @@ const LottoPage: FC = () => {
     );
     const signer = provider.getSigner(0);
 
-    const Erc20Contract = XENToken__factory.connect(
-      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
-      signer
-    );
+    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
 
     console.log("accountaccount", account);
     console.log("signersigner", signer);
@@ -104,10 +96,7 @@ const LottoPage: FC = () => {
     );
     const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
+    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
     const nextRound = await (
       await Lottery.nextParticipateTimestamp()
     ).toString();
@@ -126,16 +115,15 @@ const LottoPage: FC = () => {
     );
     const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
+    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
     console.log("dasdas");
     const totalGamesPlayed = await (
       await Lottery.totalGamesPlayed()
     ).toString();
     const totalPayout = await (await Lottery.totalPayoutToday()).toString();
-    const totalAmount = await (await Lottery.totalAmount()).toString();
+    const totalAmount = await (
+      await Lottery.totalAllTimePrizePool()
+    ).toString();
     const lastWinner = await (await Lottery.lastWinner()).toString();
     const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
@@ -162,10 +150,7 @@ const LottoPage: FC = () => {
 
     const signer = provider.getSigner();
 
-    const amountContract = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      signer
-    );
+    const amountContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const tx = await amountContract.participate(amount);
     await tx.wait();

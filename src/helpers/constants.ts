@@ -1,0 +1,2 @@
+export const XENADDRESS = "";
+export const LOTTERYADDRESS = "0x6e83Bb50b50C7421a2B616F6D3c9583c2cA8B9bD";
