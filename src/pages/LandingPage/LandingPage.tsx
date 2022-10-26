@@ -1,10 +1,14 @@
 import React, { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
+
 import { injected } from "../../helpers/connectors";
+import { Lottery__factory } from "../../typechain";
 import Header from "../../components/header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
+
 import MetaMask from "../../assets/icons/metamask.svg";
 import Cubes from "../../assets/img/landing/cubes.png";
 import LineLeft from "../../assets/img/landing/line-left.png";
@@ -16,6 +20,8 @@ import "../../index.scss";
 import "./LandingPage.scss";
 
 const LandingPage: FC = () => {
+  const [totalPayout, setTotalPayout] = React.useState<any>();
+  const [totalPayoutAllTime, setTotalPayoutAllTime] = React.useState<any>();
   const { account, connector, activate } = useWeb3React();
   const navigate = useNavigate();
   async function connect() {
@@ -33,6 +39,25 @@ const LandingPage: FC = () => {
       navigate("deposit-page");
     }
   });
+
+  async function getTotalInfo() {
+    const provider = new ethers.providers.JsonRpcProvider(
+      `https://eth-goerli.g.alchemy.com/v2/RjtXgibyHZpH_pzNdKAnh28f0Ja_UUEf`
+    );
+    const LotteryCounter = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      provider
+    );
+    const totalPayout = await (await LotteryCounter.totalPayoutToday()).toString();
+    const totalPayoutAllTime = await (await LotteryCounter.totalAmount()).toString();
+    setTotalPayout(totalPayout);
+    setTotalPayoutAllTime(totalPayoutAllTime);
+  }
+
+  useEffect(() => {
+    getTotalInfo();
+  }, []);
+
   return (
     <div className="background">
       <Header />
@@ -50,7 +75,8 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Total Payout Today</p>
               <p className="landing__block-numbers">
-                389,135,105<span className="landing__block-span">XEN</span>
+                {totalPayout}
+                <span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>
@@ -58,7 +84,8 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Total Payout All Time</p>
               <p className="landing__block-numbers">
-                423,846,268<span className="landing__block-span">XEN</span>
+                {totalPayoutAllTime}
+                <span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>
