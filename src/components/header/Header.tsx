@@ -13,22 +13,22 @@ import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
 import { XENToken__factory } from "../../typechain";
 import { ethers } from "ethers";
+import { XENADDRESS } from "../../helpers/constants";
 
 const Header: FC = () => {
-  const [accountBalance,setAccountBalance] = useState<any>()
+  const [accountBalance, setAccountBalance] = useState<any>();
   const { account, connector, activate } = useWeb3React();
   const navigate = useNavigate();
 
   async function getXenBalance() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
 
-    const Erc20Contract = XENToken__factory.connect(
-      "0x82Fbc13cB7e1046ff9F878E7ddcF1c5190416113",
-      signer
-    );
+    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
 
     console.log("accountaccount", account);
     console.log("signersigner", signer);
@@ -38,10 +38,9 @@ const Header: FC = () => {
 
     setAccountBalance(ethers.utils.formatUnits(value.toString()));
   }
-  useEffect(()=>{
-    getXenBalance()
-  })
- 
+  useEffect(() => {
+    getXenBalance();
+  });
 
   return (
     <div>
@@ -73,12 +72,15 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+              {account
+                ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
+                : "Connect Wallet "}
             </a>
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              {accountBalance?+accountBalance:'000,000'} <span className="header__span">XEN</span>
+              {accountBalance ? +accountBalance : "000,000"}{" "}
+              <span className="header__span">XEN</span>
             </a>
           </li>
           <li className="header__btn header__btn-right">

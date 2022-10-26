@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
+import { LOTTERYADDRESS } from "../../helpers/constants";
 
 import { injected } from "../../helpers/connectors";
 import { Lottery__factory } from "../../typechain";
@@ -44,12 +45,13 @@ const LandingPage: FC = () => {
     const provider = new ethers.providers.JsonRpcProvider(
       `https://eth-goerli.g.alchemy.com/v2/RjtXgibyHZpH_pzNdKAnh28f0Ja_UUEf`
     );
-    const LotteryCounter = Lottery__factory.connect(
-      "0xd726259899a2d52da68A8eda4C74719F445ED359",
-      provider
-    );
-    const totalPayout = await (await LotteryCounter.totalPayoutToday()).toString();
-    const totalPayoutAllTime = await (await LotteryCounter.totalAmount()).toString();
+    const LotteryCounter = Lottery__factory.connect(LOTTERYADDRESS, provider);
+    const totalPayout = await (
+      await LotteryCounter.totalPayoutToday()
+    ).toString();
+    const totalPayoutAllTime = await (
+      await LotteryCounter.totalAllTimePrizePool()
+    ).toString();
     setTotalPayout(totalPayout);
     setTotalPayoutAllTime(totalPayoutAllTime);
   }
@@ -65,8 +67,12 @@ const LandingPage: FC = () => {
         <div className="landing__top">
           <div className="landing__top-block">
             <p className="landing__title">TO GET STARTED</p>
-            <button className="landing__btn landing__btn-login" onClick={connect}>
-              <img src={MetaMask} alt="" className="landing__btn-img" /> Login with MetaMask
+            <button
+              className="landing__btn landing__btn-login"
+              onClick={connect}
+            >
+              <img src={MetaMask} alt="" className="landing__btn-img" /> Login
+              with MetaMask
             </button>
           </div>
         </div>
