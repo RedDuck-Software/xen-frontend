@@ -6,7 +6,7 @@ import { LOTTERYADDRESS } from "../../helpers/constants";
 
 import { injected } from "../../helpers/connectors";
 import { Lottery__factory } from "../../typechain";
-import Header from "../../components/header/Header";
+import Header from "../../components/Header/Header";
 import "../../index.scss";
 import "./LandingPage.scss";
 
