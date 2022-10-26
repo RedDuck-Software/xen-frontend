@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import AvatarSix from "../../assets/img/lotto/avatar/avatar-6.svg";
 import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
@@ -16,7 +16,39 @@ import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
 
 import "../../index.scss";
+import { ethers } from "ethers";
+import { useWeb3React } from "@web3-react/core";
+import { Lottery__factory } from "../../typechain";
+import { LOTTERYADDRESS } from "../../helpers/constants";
+
 const LottoStats = () => {
+  const [winners, setWinners] = useState<any>([]);
+  const { connector } = useWeb3React();
+
+  const getWinners = async () => {
+    if (!connector || !winners) return "!args";
+
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+
+    const signer = provider.getSigner();
+
+    const WinnersContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
+
+    const allWinners = await WinnersContract.getAllWinners();
+
+    console.log("winners", allWinners);
+    setWinners(allWinners);
+  };
+
+  useEffect(() => {
+    if (connector) {
+      getWinners();
+      console.log(winners);
+    }
+  }, [connector]);
+
   return (
     <div>
       <div className="lotto__stats">
@@ -43,9 +75,12 @@ const LottoStats = () => {
           </div>
           <img src={LineStats} alt="" className="lotto__stats-my__line" />
           <div className="lotto__stats-my__block">
-            <p className="lotto__stats-my__block-title">Total winnings to date</p>
+            <p className="lotto__stats-my__block-title">
+              Total winnings to date
+            </p>
             <p className="lotto__stats-my__block-numbers">
-              125,567,000 <span className="lotto__stats-my__block-span">XEN</span>
+              125,567,000{" "}
+              <span className="lotto__stats-my__block-span">XEN</span>
             </p>
           </div>
           <img
@@ -67,13 +102,24 @@ const LottoStats = () => {
           <p className="lotto__participants-title">Previou Winners</p>
         </div>
         <div>
-          <div className="lotto__participants-draw">
-            <img src={AvatarSix} alt="" />
-            <p className="lotto__participants-draw-text">Relly Blue</p>
-            <img src={Value} alt="" />
-            <p className="lotto__participants-draw-text">234.55 xen</p>
-          </div>
-          <div className="lotto__participants-draw">
+          {winners.map((winner: any) => (
+            <div
+              key={winner.winnerAddress.toString()}
+              className="lotto__participants-draw"
+            >
+              <img src={AvatarSeven} alt="" />
+              <p className="lotto__participants-draw-text">
+                {winner.winnerAddress.toString().slice(0, 4) +
+                  "..." +
+                  winner.winnerAddress.toString().slice(38, 42)}
+              </p>
+              <p className="lotto__participants-draw-text">
+                {winner.wonAmount.toString()}
+              </p>
+            </div>
+          ))}
+
+          {/* <div className="lotto__participants-draw">
             <img src={AvatarSeven} alt="" />
             <p className="lotto__participants-draw-text">Tim Ckil</p>
             <img src={Value} alt="" />
@@ -114,7 +160,7 @@ const LottoStats = () => {
             <p className="lotto__participants-draw-text">Tim Dexter</p>
             <img src={Value} alt="" />
             <p className="lotto__participants-draw-text">65.77 xen</p>
-          </div>
+          </div> */}
         </div>
         <img
           src={LineTop}

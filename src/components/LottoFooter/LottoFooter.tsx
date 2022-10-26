@@ -10,6 +10,11 @@ export type LottoFooterProps = {
   lastWinner: number;
   lastWonAmount: number;
   totalPayout: number;
+  totalPrizePool: number;
+  nextLottoPrize: number;
+  lottoPriceAllTime: number;
+  totalDrawAllTimeTotal: number;
+  totalWinnerAllTime: number;
 };
 
 const LottoFooter = ({
@@ -18,11 +23,19 @@ const LottoFooter = ({
   lastWinner,
   lastWonAmount,
   totalPayout,
+  totalPrizePool,
+  nextLottoPrize,
+  lottoPriceAllTime,
+  totalWinnerAllTime,
 }: LottoFooterProps) => {
   return (
     <div className="lotto__footer">
       <div className="lotto__footer-block">
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-top" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-top"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Prize</p>
           <p className="landing__block-numbers">
@@ -30,7 +43,11 @@ const LottoFooter = ({
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-center" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-center"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Burn</p>
           <p className="landing__block-numbers">
@@ -38,10 +55,18 @@ const LottoFooter = ({
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
-        <img src={LineBottom} alt="" className="lotto__footer-line lotto__footer-line-bottom" />
+        <img
+          src={LineBottom}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-bottom"
+        />
       </div>
       <div className="lotto__footer-block">
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-top" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-top"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Lotto Prize All Time</p>
           <p className="landing__block-numbers">
@@ -49,7 +74,11 @@ const LottoFooter = ({
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-center" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-center"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Lotto Burn All Time</p>
           <p className="landing__block-numbers">
@@ -57,10 +86,18 @@ const LottoFooter = ({
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
-        <img src={LineBottom} alt="" className="lotto__footer-line lotto__footer-line-bottom" />
+        <img
+          src={LineBottom}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-bottom"
+        />
       </div>
       <div className="lotto__footer-block">
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-top" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-top"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Total Draw All Time</p>
           <p className="landing__block-numbers">
@@ -68,14 +105,22 @@ const LottoFooter = ({
             <span className="landing__block-span">XEN Draws</span>
           </p>
         </div>
-        <img src={LineTop} alt="" className="lotto__footer-line lotto__footer-line-center" />
+        <img
+          src={LineTop}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-center"
+        />
         <div className="landing__block-text">
           <p className="landing__block-title">Total Winner All Time</p>
           <p className="landing__block-numbers">
             567<span className="landing__block-span">Players</span>
           </p>
         </div>
-        <img src={LineBottom} alt="" className="lotto__footer-line lotto__footer-line-bottom" />
+        <img
+          src={LineBottom}
+          alt=""
+          className="lotto__footer-line lotto__footer-line-bottom"
+        />
       </div>
     </div>
   );
