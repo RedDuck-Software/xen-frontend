@@ -7,7 +7,7 @@ import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
 import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
 import Slider from "../../assets/deposit/slider.png";
@@ -43,7 +43,7 @@ const DepositPage: FC = () => {
   const navigate = useNavigate();
   
 
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(1);
 
   async function connect() {
     try {
@@ -93,8 +93,7 @@ const DepositPage: FC = () => {
     console.log("connector", connector);
 
     const value = await Erc20Contract.balanceOf(account);
-    console.log(value);
-    setAccountBalance(value);
+    setAccountBalance(ethers.utils.formatUnits(value.toString()));
   }
 
   async function getTime() {
@@ -151,7 +150,6 @@ const DepositPage: FC = () => {
     }
   }, []);
 
-  console.log("connector", connector);
   return (
     <div className="background">
       <Header />
@@ -167,16 +165,16 @@ const DepositPage: FC = () => {
               <TabList>
                 <Tab>
                   {tabIndex === 0 ? (
-                    <DepositButton type={"primary-blue"}>WITHDRAW</DepositButton>
-                  ) : (
                     <DepositButton type={"outline"}>WITHDRAW</DepositButton>
+                  ) : (
+                    <DepositButton type={"outline-v2"}>WITHDRAW</DepositButton>
                   )}
                 </Tab>
                 <Tab>
                   {tabIndex === 1 ? (
-                    <DepositButton type={"primary-blue"}>Deposit</DepositButton>
-                  ) : (
                     <DepositButton type={"outline"}>Deposit</DepositButton>
+                  ) : (
+                    <DepositButton type={"outline-v2"}>Deposit</DepositButton>
                   )}
                 </Tab>
               </TabList>
@@ -197,14 +195,13 @@ const DepositPage: FC = () => {
                     </div>
                     <div className="deposit__block-title">How much you want to withdraw?</div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
+                      {selectedAmountToDeposit ? selectedAmountToDeposit: "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
-                      value={accountBalance}
-                      handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
+                      handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value.toLocaleString())}
                       min={0}
-                      max={accountBalance ? accountBalance.toString() : "0"}
+                      max={accountBalance ? accountBalance.toLocaleString() : "0"}
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>
@@ -279,16 +276,15 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">How much you want to withdraw?</div>
+                    <div className="deposit__block-title">How much you want to deposit?</div>
                     <div className="deposit__block-balance">
                       {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
-                      value={accountBalance}
                       handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
                       min={0}
-                      max={accountBalance ? accountBalance.toString() : "0"}
+                      max={accountBalance ? accountBalance.toLocaleString() : "0"}                      
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={ApproveAndDeposit}>

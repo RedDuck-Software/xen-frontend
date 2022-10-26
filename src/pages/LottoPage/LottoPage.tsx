@@ -1,8 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
@@ -17,8 +17,11 @@ import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
+import { useNavigate } from "react-router-dom";
+import Countdown from "react-countdown";
 
 const LottoPage: FC = () => {
+  const countdownRef = useRef<any>(null);
   const { account, connector, activate } = useWeb3React();
   const [amount, setAmount] = useState<any>();
   const [accountBalance, setAccountBalance] = useState<any>();
@@ -30,7 +33,10 @@ const LottoPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-
+  const [nextParticipateTimestamp, setNextParticipateTimestamp] =
+    useState<number>(0);
+  const [inputAmountValue, setInputAmountValue] = useState<number>(0);
+  const navigate = useNavigate();
   async function connect() {
     try {
       await activate(injected);
@@ -42,7 +48,9 @@ const LottoPage: FC = () => {
 
   async function ApproveAndDeposit() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
 
     const signer = provider.getSigner(0);
     const Erc20Contract = XENToken__factory.connect(
@@ -56,7 +64,10 @@ const LottoPage: FC = () => {
     );
     await tx.wait();
 
-    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
+    const Lottery = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      signer
+    );
 
     const tx2 = await Lottery.participate(
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
@@ -66,7 +77,9 @@ const LottoPage: FC = () => {
   async function getXenBalance() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
 
     const Erc20Contract = XENToken__factory.connect(
@@ -86,11 +99,18 @@ const LottoPage: FC = () => {
   async function getTime() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
-    const nextRound = await (await Lottery.nextParticipateTimestamp()).toString();
+    const Lottery = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      signer
+    );
+    const nextRound = await (
+      await Lottery.nextParticipateTimestamp()
+    ).toString();
     console.log("nextRound", nextRound);
     const date = new Date(+nextRound * 1000);
     console.log(date);
@@ -101,16 +121,26 @@ const LottoPage: FC = () => {
   async function getTotalInfo() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect("0xd726259899a2d52da68A8eda4C74719F445ED359", signer);
+    const Lottery = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      signer
+    );
     console.log("dasdas");
-    const totalGamesPlayed = await (await Lottery.totalGamesPlayed()).toString();
+    const totalGamesPlayed = await (
+      await Lottery.totalGamesPlayed()
+    ).toString();
     const totalPayout = await (await Lottery.totalPayoutToday()).toString();
     const totalAmount = await (await Lottery.totalAmount()).toString();
     const lastWinner = await (await Lottery.lastWinner()).toString();
     const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
+    const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
+      .mul(1000)
+      .toNumber();
 
     console.log("totalPayout", totalPayout);
     console.log("totalAmount before set", totalAmount);
@@ -121,12 +151,29 @@ const LottoPage: FC = () => {
     setTotalGamesPlayed(totalGamesPlayed);
     setTotalPayout(totalPayout);
     setTotalAmount(totalAmount);
+    setNextParticipateTimestamp(nextParticipateTimestamp);
   }
+
+  const getAmount = async (amount: number) => {
+    if (!connector || !account) return "!args";
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+
+    const signer = provider.getSigner();
+
+    const amountContract = Lottery__factory.connect(
+      "0xd726259899a2d52da68A8eda4C74719F445ED359",
+      signer
+    );
+
+    const tx = await amountContract.participate(amount);
+    await tx.wait();
+  };
+
   useEffect(() => {
     if (!connector) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
+      navigate("/");
     }
     if (connector) {
       console.log("here");
@@ -136,6 +183,12 @@ const LottoPage: FC = () => {
       getTotalInfo();
     }
   }, []);
+
+  useEffect(() => {
+    if (countdownRef?.current && nextParticipateTimestamp) {
+      countdownRef.current.start();
+    }
+  }, [countdownRef, nextParticipateTimestamp]);
 
   console.log("connector", connector);
   return (
@@ -147,20 +200,56 @@ const LottoPage: FC = () => {
           <div className="lotto__timer">
             <div className="lotto__timer-block">
               <p className="lotto__timer-block__title">Next Draw In</p>
-              <p className="lotto__timer-block__date">00:58:23</p>
+              <Countdown
+                ref={countdownRef}
+                autoStart={true}
+                date={new Date(nextParticipateTimestamp)}
+                renderer={({ formatted: f }) => (
+                  <p className="lotto__timer-block__date">
+                    {f.hours}:{f.minutes}:{f.seconds}
+                  </p>
+                )}
+              />
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
-                🔥18,465,657 <span className="lotto__timer-block__span">XEN</span>
+                🔥18,465,657{" "}
+                <span className="lotto__timer-block__span">XEN</span>
               </p>
             </div>
-            <img src={ArrowLeft} alt="" className="lotto__timer-img__arr-left" />
-            <img src={ArrowRight} alt="" className="lotto__timer-img__arr-right" />
-            <img src={CircleTimer} alt="" className="lotto__timer-img__circle" />
+            <img
+              src={ArrowLeft}
+              alt=""
+              className="lotto__timer-img__arr-left"
+            />
+            <img
+              src={ArrowRight}
+              alt=""
+              className="lotto__timer-img__arr-right"
+            />
+            <img
+              src={CircleTimer}
+              alt=""
+              className="lotto__timer-img__circle"
+            />
             <div className="lotto__timer-draw">
-              <input type="text" placeholder="Enter Amount" className="lotto__timer-draw__input" />
-              <button className="lotto__timer-draw__button">ENTER DRAW</button>
+              <input
+                type="text"
+                placeholder="Enter Amount"
+                className="lotto__timer-draw__input"
+                value={inputAmountValue}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInputAmountValue(+e.target.value)
+                }
+              />
+              <button
+                onClick={() => getAmount(inputAmountValue)}
+                className="lotto__timer-draw__button"
+              >
+                ENTER DRAW
+              </button>
             </div>
           </div>
+
           <LottoStats />
         </div>
       </div>
@@ -174,9 +263,15 @@ const LottoPage: FC = () => {
       <div className="lotto__timer-bubbles">
         <div className="lotto__timer-bubbles-L lotto__timer-bubbles-first">
           <div className="lotto__timer-bubbles-block">
-            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <img
+              src={BublesAvatar}
+              alt=""
+              className="lotto__timer-bubbles-block-avatar"
+            />
             <p className="lotto__timer-bubbles-block-account">
-              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+              {account
+                ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
+                : "Connect Wallet "}
             </p>
             <p className="lotto__timer-bubbles-block-numbers">
               220K <span className="lotto__timer-bubbles-block-span">XEN</span>
@@ -186,9 +281,15 @@ const LottoPage: FC = () => {
         </div>
         <div className="lotto__timer-bubbles-L lotto__timer-bubbles-second">
           <div className="lotto__timer-bubbles-block">
-            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <img
+              src={BublesAvatar}
+              alt=""
+              className="lotto__timer-bubbles-block-avatar"
+            />
             <p className="lotto__timer-bubbles-block-account">
-              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+              {account
+                ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
+                : "Connect Wallet "}
             </p>
             <p className="lotto__timer-bubbles-block-numbers">
               120K <span className="lotto__timer-bubbles-block-span">XEN</span>
@@ -198,9 +299,15 @@ const LottoPage: FC = () => {
         </div>
         <div className="lotto__timer-bubbles-L lotto__timer-bubbles-third">
           <div className="lotto__timer-bubbles-block">
-            <img src={BublesAvatar} alt="" className="lotto__timer-bubbles-block-avatar" />
+            <img
+              src={BublesAvatar}
+              alt=""
+              className="lotto__timer-bubbles-block-avatar"
+            />
             <p className="lotto__timer-bubbles-block-account">
-              {account ? account?.slice(0, 4) + "..." + account?.slice(38, 42) : "Connect Wallet "}
+              {account
+                ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
+                : "Connect Wallet "}
             </p>
             <p className="lotto__timer-bubbles-block-numbers">
               110K <span className="lotto__timer-bubbles-block-span">XEN</span>

@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 
-import Header from "../../components/Header/Header";
-
 import { injected } from "../../helpers/connectors";
 import { Lottery__factory } from "../../typechain";
+import Header from "../../components/header/Header";
+import "../../index.scss";
+import "./LandingPage.scss";
 
 import MetaMask from "../../assets/icons/metamask.svg";
 import Cubes from "../../assets/img/landing/cubes.png";
@@ -107,8 +108,16 @@ const LandingPage: FC = () => {
           <div className="landing__main-block-romb ">
             <img src={Cubes} alt="" className="landing__main-block-romb-img" />
             <p className="landing__main-block-romb-title">XEN Lotto</p>
-            <img src={LineLeft} alt="" className="landing__line landing__line-left" />
-            <img src={LineRight} alt="" className="landing__line landing__line-right" />
+            <img
+              src={LineLeft}
+              alt=""
+              className="landing__line landing__line-left"
+            />
+            <img
+              src={LineRight}
+              alt=""
+              className="landing__line landing__line-right"
+            />
           </div>
         </div>
 
@@ -116,16 +125,22 @@ const LandingPage: FC = () => {
           <div className="landing__main-about-block">
             <p className="landing__main-about-title">About Us</p>
             <p className="landing__main-about-text">
-              It is a long established fact that a reader will be distracted by the readable content
-              of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-              more-or-less normal distribution of letteers, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop publishg packages
-              and web page editors now use Lorem Ipsum as their default model text, and a search for
-              'loret is ipsum' will uncover many web sites still in their infancy.
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout. The
+              point of using Lorem Ipsum is that it has a more-or-less normal
+              distribution of letteers, as opposed to using 'Content here,
+              content here', making it look like readable English. Many desktop
+              publishg packages and web page editors now use Lorem Ipsum as
+              their default model text, and a search for 'loret is ipsum' will
+              uncover many web sites still in their infancy.
             </p>
           </div>
         </div>
-        <img src={LineAboutTop} alt="" className="landing__line-about landing__line-about-top" />
+        <img
+          src={LineAboutTop}
+          alt=""
+          className="landing__line-about landing__line-about-top"
+        />
         <img
           src={LineAboutBottom}
           alt=""
