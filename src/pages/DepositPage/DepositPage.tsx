@@ -7,7 +7,7 @@ import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
 import { injected } from "../../helpers/connectors";
-import Header from "../../components/header/Header";
+import Header from "../../components/Header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
 import Slider from "../../assets/deposit/slider.png";
@@ -55,9 +55,7 @@ const DepositPage: FC = () => {
 
   async function ApproveAndDeposit() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
 
     const signer = provider.getSigner(0);
     const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
@@ -70,17 +68,15 @@ const DepositPage: FC = () => {
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
-    const tx2 = await Lottery.participate(
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
-    );
+    if (!selectedAmountToDeposit) return alert("Pick deposit");
+    const tx2 = await Lottery.deposit(ethers.utils.parseEther(selectedAmountToDeposit.toString()));
     await tx2.wait();
   }
+
   async function getXenBalance() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
     const signer = provider.getSigner(0);
 
     const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
@@ -96,15 +92,11 @@ const DepositPage: FC = () => {
   async function getTime() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
     const signer = provider.getSigner(0);
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const nextRound = await (
-      await Lottery.nextParticipateTimestamp()
-    ).toString();
+    const nextRound = await (await Lottery.nextParticipateTimestamp()).toString();
     console.log("nextRound", nextRound);
     const date = new Date(+nextRound * 1000);
     console.log(date);
@@ -115,20 +107,14 @@ const DepositPage: FC = () => {
   async function getTotalInfo() {
     if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
     const signer = provider.getSigner(0);
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
     console.log("dasdas");
-    const totalGamesPlayed = await (
-      await Lottery.totalGamesPlayed()
-    ).toString();
+    const totalGamesPlayed = await (await Lottery.totalGamesPlayed()).toString();
     const totalPayout = await (await Lottery.totalPayoutToday()).toString();
-    const totalAmount = await (
-      await Lottery.totalAllTimePrizePool()
-    ).toString();
+    const totalAmount = await (await Lottery.totalAllTimePrizePool()).toString();
     const lastWinner = await (await Lottery.lastWinner()).toString();
     const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
 
@@ -219,31 +205,26 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">
-                      How much you want to withdraw?
-                    </div>
+                    <div className="deposit__block-title">How much you want to withdraw?</div>
                     <div className="deposit__block-balance">
                       {selectedAmountToDeposit ? selectedAmountToDeposit : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
                       handleChange={(e: any) =>
-                        setSelectedAmountToDeposit(
-                          e.target.value.toLocaleString()
-                        )
+                        setSelectedAmountToDeposit(e.target.value.toLocaleString())
                       }
                       min={0}
-                      max={
-                        accountBalance ? accountBalance.toLocaleString() : "0"
-                      }
+                      max={accountBalance ? accountBalance.toLocaleString() : "0"}
                     />
                     <div className="deposit__block-btn">
+
                       <button className="landing__btn" onClick={Withdraw}>
                         <img
                           src={MetaMaskPng}
                           alt=""
                           className="landing__btn-img"
-                        />
+                        />                      
                         Withdraw
                       </button>
                     </div>
@@ -264,16 +245,12 @@ const DepositPage: FC = () => {
                       </div>
 
                       <div className="deposit__text-item">
-                        <p className="deposit__title">
-                          How i can withdraw my tokens?
-                        </p>
+                        <p className="deposit__title">How i can withdraw my tokens?</p>
                         <p>
-                          1.Enter the amount of tokens you wish to deposit from
-                          your metamask wallet to your burnXEN.io account
-                          balance. 2.Accept the transaction in the metamask
-                          popup. 3.Your tokens will be deposited in accordance
-                          with transaction times on the network you are
-                          depositing from.
+                          1.Enter the amount of tokens you wish to deposit from your metamask wallet
+                          to your burnXEN.io account balance. 2.Accept the transaction in the
+                          metamask popup. 3.Your tokens will be deposited in accordance with
+                          transaction times on the network you are depositing from.
                         </p>
                       </div>
                     </div>
@@ -291,21 +268,13 @@ const DepositPage: FC = () => {
                         <img src={Stick_1} alt="stick" />
                       </div>
                       <div className="deposit__text-item">
-                        <p className="deposit__title ">
-                          Is there a fee to withdraw?
-                        </p>
+                        <p className="deposit__title ">Is there a fee to withdraw?</p>
                         <p>
-                          We do not charge a platform fee to withdraw, the only
-                          fee you will pay is the network fee for the blockchain
-                          transaction.
+                          We do not charge a platform fee to withdraw, the only fee you will pay is
+                          the network fee for the blockchain transaction.
                         </p>
-                        <p className="deposit__title top">
-                          Can i withdraw any time?
-                        </p>
-                        <p>
-                          Of course, your free to do as you choose with your
-                          tokens.
-                        </p>
+                        <p className="deposit__title top">Can i withdraw any time?</p>
+                        <p>Of course, your free to do as you choose with your tokens.</p>
                       </div>
                     </div>
                   </div>
@@ -326,34 +295,19 @@ const DepositPage: FC = () => {
                     <div className="deposit__block-corner-4">
                       <img src={Corner_4} alt="corner" />
                     </div>
-                    <div className="deposit__block-title">
-                      How much you want to deposit?
-                    </div>
+                    <div className="deposit__block-title">How much you want to deposit?</div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit
-                        ? selectedAmountToDeposit.toString()
-                        : "0"}
+                      {selectedAmountToDeposit ? selectedAmountToDeposit.toString() : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
-                      handleChange={(e: any) =>
-                        setSelectedAmountToDeposit(e.target.value)
-                      }
+                      handleChange={(e: any) => setSelectedAmountToDeposit(e.target.value)}
                       min={0}
-                      max={
-                        accountBalance ? accountBalance.toLocaleString() : "0"
-                      }
+                      max={accountBalance ? accountBalance.toLocaleString() : "0"}
                     />
                     <div className="deposit__block-btn">
-                      <button
-                        className="landing__btn"
-                        onClick={ApproveAndDeposit}
-                      >
-                        <img
-                          src={MetaMaskPng}
-                          className="landing__btn-img"
-                          alt=""
-                        />
+                      <button className="landing__btn" onClick={ApproveAndDeposit}>
+                        <img src={MetaMaskPng} className="landing__btn-img" alt="" />
                         Deposit
                       </button>
                     </div>
@@ -374,16 +328,12 @@ const DepositPage: FC = () => {
                       </div>
 
                       <div className="deposit__text-item">
-                        <p className="deposit__title">
-                          How can I deposit tokens?
-                        </p>
+                        <p className="deposit__title">How can I deposit tokens?</p>
                         <p>
-                          1.Enter the amount of tokens you wish to deposit from
-                          your metamask wallet to your burnXEN.io account
-                          balance. 2.Accept the transaction in the metamask
-                          popup. 3.Your tokens will be deposited in accordance
-                          with transaction times on the network you are
-                          depositing from.
+                          1.Enter the amount of tokens you wish to deposit from your metamask wallet
+                          to your burnXEN.io account balance. 2.Accept the transaction in the
+                          metamask popup. 3.Your tokens will be deposited in accordance with
+                          transaction times on the network you are depositing from.
                         </p>
                       </div>
                     </div>
@@ -401,19 +351,17 @@ const DepositPage: FC = () => {
                         <img src={Stick_1} alt="stick" />
                       </div>
                       <div className="deposit__text-item">
-                        <p className="deposit__title ">
-                          When will I see my balance?
-                        </p>
+                        <p className="deposit__title ">When will I see my balance?</p>
                         <p>
-                          After 1 confirmation on the blockchain you are
-                          depositing om. If you have any issues try manual page
-                          refresh and if that doesnt help contact support.
+                          After 1 confirmation on the blockchain you are depositing om. If you have
+                          any issues try manual page refresh and if that doesnt help contact
+                          support.
                         </p>
                         <p className="deposit__title top">Why only XEN and ?</p>
                         <p>
-                          Our mission is to bring adoption to the XEN ecosystem
-                          and add utility to the token. Most importantly all we
-                          want to increase XEN Burn to help reduce the supply
+                          Our mission is to bring adoption to the XEN ecosystem and add utility to
+                          the token. Most importantly all we want to increase XEN Burn to help
+                          reduce the supply
                         </p>
                       </div>
                     </div>
