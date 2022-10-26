@@ -10,7 +10,7 @@ import { injected } from "../../helpers/connectors";
 import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
-import Slider from "../../assets/deposit/slider.png";
+import Slider from "../../assets/deposit/slider.png"; // @todo remove unused import
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
 import Corner_1 from "../../assets/deposit/Vector 4140.png";
 import Corner_2 from "../../assets/deposit/Vector 4141.png";
@@ -19,7 +19,7 @@ import Corner_4 from "../../assets/deposit/Vector 4143.png";
 import Stick_1 from "../../assets/deposit/Group 22724.png";
 import Stick_2 from "../../assets/deposit/Group 22725.png";
 
-import { approveErc20 } from "../../helpers/utils/approve";
+import { approveErc20 } from "../../helpers/utils/approve"; // @todo remove unused import
 
 import SliderComponent from "../../components/Slider/Slider";
 
@@ -30,20 +30,21 @@ import { useNavigate } from "react-router-dom";
 
 const DepositPage: FC = () => {
   const { account, connector, activate } = useWeb3React();
-  const [amount, setAmount] = useState<any>();
+  const [amount, setAmount] = useState<any>(); // @todo remove unused var
   const [accountBalance, setAccountBalance] = useState<any>();
-  const [showModal, setShowModal] = useState<boolean>();
-  const [timer, setTimer] = useState<any>();
-  const [totalPayout, setTotalPayout] = useState<any>();
-  const [totalAmount, setTotalAmount] = useState<any>();
-  const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
-  const [lastWinner, setLastWinner] = useState<any>();
+  const [showModal, setShowModal] = useState<boolean>(); // @todo remove unused var
+  const [timer, setTimer] = useState<any>(); // @todo remove unused var
+  const [totalPayout, setTotalPayout] = useState<any>(); // @todo remove unused var
+  const [totalAmount, setTotalAmount] = useState<any>(); // @todo remove unused var
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>(); // @todo remove unused var
+  const [lastWinner, setLastWinner] = useState<any>(); // @todo remove unused var
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // @todo remove unused var
 
   const [tabIndex, setTabIndex] = useState(1);
 
+  // @todo remove unused func
   async function connect() {
     try {
       await activate(injected);
@@ -94,7 +95,7 @@ const DepositPage: FC = () => {
     const value = await Erc20Contract.balanceOf(account);
     setAccountBalance(ethers.utils.formatUnits(value.toString()));
   }
-
+  // @todo remove unused func
   async function getTime() {
     if (!connector || !account) return "!args";
 
@@ -106,14 +107,14 @@ const DepositPage: FC = () => {
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
     const nextRound = await (
       await Lottery.nextParticipateTimestamp()
-    ).toString();
+    ).toString(); // @todo remove useless await
     console.log("nextRound", nextRound);
     const date = new Date(+nextRound * 1000);
     console.log(date);
 
     setTimer(date);
   }
-
+  // @todo remove unused func
   async function getTotalInfo() {
     if (!connector || !account) return "!args";
 
@@ -126,13 +127,13 @@ const DepositPage: FC = () => {
     console.log("dasdas");
     const totalGamesPlayed = await (
       await Lottery.totalGamesPlayed()
-    ).toString();
-    const totalPayout = await (await Lottery.totalPayoutToday()).toString();
+    ).toString(); // @todo remove useless await
+    const totalPayout = await (await Lottery.totalPayoutToday()).toString(); // @todo remove useless await
     const totalAmount = await (
       await Lottery.totalAllTimePrizePool()
-    ).toString();
-    const lastWinner = await (await Lottery.lastWinner()).toString();
-    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
+    ).toString(); // @todo remove useless await
+    const lastWinner = await (await Lottery.lastWinner()).toString(); // @todo remove useless await
+    const lastWonAmount = await (await Lottery.lastWonAmount()).toString(); // @todo remove useless await
 
     console.log("totalPayout", totalPayout);
     console.log("totalAmount before set", totalAmount);
@@ -145,6 +146,7 @@ const DepositPage: FC = () => {
     setTotalAmount(totalAmount);
   }
 
+  // @todo change function naming to lowercase
   async function Withdraw() {
     if (!connector) return alert("!connector");
     const provider = new ethers.providers.Web3Provider(
