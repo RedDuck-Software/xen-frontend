@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; // @todo remove unused import
 
 import styled from "styled-components";
 
 type SliderComponentProps = {
-  handleChange: any;
+  handleChange: any; // @todo any keyword
   min: number;
   max: number;
 };
 
 const SliderComponent = ({ handleChange, min, max }: SliderComponentProps) => {
-  console.log('max',max)
+  console.log("max", max);
 
   return (
     <Container>

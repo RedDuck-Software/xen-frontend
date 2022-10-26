@@ -11,13 +11,13 @@ import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
-import { Lottery__factory, XENToken__factory } from "../../typechain";
+import { Lottery__factory, XENToken__factory } from "../../typechain"; // @todo remove unused import
 import { ethers } from "ethers";
-import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
+import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants"; // @todo remove unused import
 
 const Header: FC = () => {
   const [accountBalance, setAccountBalance] = useState<any>();
-  const { account, connector, activate } = useWeb3React();
+  const { account, connector, activate } = useWeb3React(); // @todo remove unused var
   const navigate = useNavigate();
 
   async function getXenBalance() {

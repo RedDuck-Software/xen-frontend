@@ -1,8 +1,8 @@
-import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
-import React, { FC, useState } from "react";
-import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
-import Circle from "../../assets/circle.svg";
+import { useWeb3React } from "@web3-react/core"; // @todo remove unused import
+import { ethers } from "ethers"; // @todo remove unused import
+import React, { FC, useState } from "react"; // @todo remove unused imports
+import { XENToken__factory } from "../../typechain/factories/XENToken__factory"; // @todo remove unused import
+import Circle from "../../assets/circle.svg"; // @todo remove unused import
 import "../../index.scss";
 import "../DepositPage/DepositPage.scss";
 import "./AccountPage.scss";
