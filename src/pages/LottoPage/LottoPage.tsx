@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";

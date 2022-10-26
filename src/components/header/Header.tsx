@@ -11,9 +11,9 @@ import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
-import { XENToken__factory } from "../../typechain";
+import { Lottery__factory, XENToken__factory } from "../../typechain";
 import { ethers } from "ethers";
-import { XENADDRESS } from "../../helpers/constants";
+import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
 const Header: FC = () => {
   const [accountBalance, setAccountBalance] = useState<any>();
@@ -28,15 +28,16 @@ const Header: FC = () => {
     );
     const signer = provider.getSigner(0);
 
-    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
+    const LotteryContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
-    console.log("accountaccount", account);
-    console.log("signersigner", signer);
-    console.log("connector", connector);
+    const userAddress = await signer.getAddress();
 
-    const value = await Erc20Contract.balanceOf(account);
+    const userContractBal = await LotteryContract.usersContractBalance(
+      userAddress
+    );
+    // ethers.utils.formatUnits(userContractBal, 18);
 
-    setAccountBalance(ethers.utils.formatUnits(value.toString()));
+    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
   }
   useEffect(() => {
     getXenBalance();
