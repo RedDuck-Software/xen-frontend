@@ -43,84 +43,20 @@ const Participants = ({ participants }: IParticipants) => {
         <img src={ParticipantsSvg} alt="" className="lotto__participants-img" />{' '}
         Participants This Draw
       </p>
-      <div className="lotto__participants-draw">
-        <img src={AvatarFirst} alt="" />
-        <p className="lotto__participants-draw-text">Joe Lury</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">595.12 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarSecond} alt="" />
-        <p className="lotto__participants-draw-text">Harry Clix</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">459.88 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarThird} alt="" />
-        <p className="lotto__participants-draw-text">Nazreen Bob</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">310.45 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarFourth} alt="" />
-        <p className="lotto__participants-draw-text">Joe Kitten</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">299.65 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarFive} alt="" />
-        <p className="lotto__participants-draw-text">Larry Pag</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">278.56 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarSix} alt="" />
-        <p className="lotto__participants-draw-text">Relly Blue</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">234.55 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarSeven} alt="" />
-        <p className="lotto__participants-draw-text">Tim Ckil</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">199.45 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarEight} alt="" />
-        <p className="lotto__participants-draw-text">Flip Trox</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">186.32 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarNine} alt="" />
-        <p className="lotto__participants-draw-text">Sam Dux</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">167.30 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarTen} alt="" />
-        <p className="lotto__participants-draw-text">Quentine Liv</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">102.12 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarEleven} alt="" />
-        <p className="lotto__participants-draw-text">Yuval Hip</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">85.12 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarTwelve} alt="" />
-        <p className="lotto__participants-draw-text">Maxxy Lip</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">72.21 xen</p>
-      </div>
-      <div className="lotto__participants-draw">
-        <img src={AvatarThirteen} alt="" />
-        <p className="lotto__participants-draw-text">Tim Dexter</p>
-        <img src={Value} alt="" />
-        <p className="lotto__participants-draw-text">65.77 xen</p>
-      </div>
+      {participants.map((participant: any) => (
+        <div className="lotto__participants-draw">
+          <img src={AvatarFirst} alt="" />
+          <p className="lotto__participants-draw-text">
+            {participant.address.slice(0, 4) +
+              '...' +
+              participant.address.slice(38, 42)}
+          </p>
+          <img src={Value} alt="" />
+          <p className="lotto__participants-draw-text">
+            {participant.tokenAmount} xen
+          </p>
+        </div>
+      ))}
     </div>
   )
 }
