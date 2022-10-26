@@ -70,11 +70,13 @@ const DepositPage: FC = () => {
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
-    const tx2 = await Lottery.participate(
+    if (!selectedAmountToDeposit) return alert("Pick deposit");
+    const tx2 = await Lottery.deposit(
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
     );
     await tx2.wait();
   }
+
   async function getXenBalance() {
     if (!connector || !account) return "!args";
 

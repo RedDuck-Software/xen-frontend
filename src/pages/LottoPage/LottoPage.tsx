@@ -36,9 +36,15 @@ const LottoPage: FC = () => {
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>()
   const [nextParticipateTimestamp, setNextParticipateTimestamp] =
     useState<number>(0)
-  const [inputAmountValue, setInputAmountValue] = useState<number>(0)
   const [allParticipants, setAllParticipants] = useState<any>([])
-  const navigate = useNavigate()
+  const [inputAmountValue, setInputAmountValue] = useState<number>(0);
+  const navigate = useNavigate();
+  const [nextLottoPrize, setNextLottoPrize] = useState<any>();
+  const [totalPrizePool, setTotalPrizePool] = useState<any>();
+  const [lottoPriceAllTime, setLottoPriceAllTime] = useState<any>();
+  const [totalDrawAllTimeTotal, setTotalDrawAllTimeTotal] = useState<any>();
+  const [totalWinnerAllTime, setTotalWinnerAllTime] = useState<any>();
+
   async function connect() {
     try {
       await activate(injected)
@@ -70,6 +76,7 @@ const LottoPage: FC = () => {
     )
     await tx2.wait()
   }
+
   async function getXenBalance() {
     if (!connector || !account) return '!args'
 
@@ -193,7 +200,32 @@ const LottoPage: FC = () => {
     }
   }, [countdownRef, nextParticipateTimestamp])
 
-  console.log('connector', connector)
+  const getStaticticsData = async () => {
+    if (!connector) return;
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
+    const signer = provider.getSigner(0);
+    console.log("lotterAdress", signer);
+    const contract = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const nextLottoPrize = await contract.totalPrizePool();
+    const totalPrizePool = await contract.totalAllTimePrizePool();
+    const lottoPriceAllTime = await contract.totalAllTimePrizePool();
+    const totalDrawAllTimeTotal = await contract.totalGamesPlayed();
+    const totalWinnerAllTime = await contract.totalGamesPlayed();
+
+    setNextLottoPrize(nextLottoPrize);
+    setTotalPrizePool(totalPrizePool);
+    setLottoPriceAllTime(lottoPriceAllTime);
+    setTotalDrawAllTimeTotal(totalDrawAllTimeTotal);
+    setTotalWinnerAllTime(totalWinnerAllTime);
+  };
+
+  useEffect(() => {
+    getStaticticsData();
+  }, [connector]);
+
+  console.log("connector", connector);
   return (
     <div className="wrapper wrapper-lotto">
       <Header />
@@ -262,6 +294,11 @@ const LottoPage: FC = () => {
         totalAmount={totalAmount}
         lastWinner={lastWinner}
         lastWonAmount={lastWonAmount}
+        nextLottoPrize={nextLottoPrize}
+        totalPrizePool={totalPrizePool}
+        lottoPriceAllTime={lottoPriceAllTime}
+        totalDrawAllTimeTotal={totalDrawAllTimeTotal}
+        totalWinnerAllTime={totalWinnerAllTime}
       />
       <div className="lotto__timer-bubbles">
         {allParticipants.slice(0, 3).map((item: any, key: number) => {
