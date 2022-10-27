@@ -132,93 +132,101 @@
       }
     }
   }
-  .account__transaction-history {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    .account__transaction-history-title {
-      font-family: "Roboto Condensed";
-      color: #fff;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 23px;
-      text-align: center;
 
-      margin-bottom: 20px;
+  .account__transaction-history-title {
+    font-family: "Roboto Condensed";
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+
+    margin-bottom: 20px;
+  }
+  .account__transaction-histoty-statistic {
+    // min-width: 1032px;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    max-width: 1032;
+
+    background: linear-gradient(
+        109.86deg,
+        rgba(244, 238, 244, 0.17) -59.62%,
+        rgba(98, 28, 100, 0) 140.65%,
+        #fa06ff 140.67%
+      ),
+      radial-gradient(
+          123.11% 288.11% at 44.46% 13%,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0) 100%,
+          rgba(5, 5, 5, 0.2) 100%
+        )
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    backdrop-filter: blur(30px);
+    .statistic__stick-1 {
+      position: absolute;
+      width: 153.35px;
+      height: 9.25px;
+      top: -4px;
+      left: -3px;
     }
-    .account__transaction-histoty-statistic {
+    .statistic__stick-3 {
+      position: absolute;
+      width: 153.35px;
+      height: 9.25px;
+      bottom: -4px;
+      right: -3px;
+    }
+
+    .statistic__stick-2 {
+      position: absolute;
+      width: 153.35px;
+      height: 9.25px;
+      top: -4px;
+      right: -3px;
+    }
+    .statistic__stick-4 {
+      position: absolute;
+      width: 153.35px;
+      height: 9.25px;
+      bottom: -4px;
+      left: -3px;
+    }
+
+    .statistic-list {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
-      gap: 48px;
-      padding: 15px 0;
+      gap: 30px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      color: #fff;
 
-      background: linear-gradient(
-          109.86deg,
-          rgba(244, 238, 244, 0.17) -59.62%,
-          rgba(98, 28, 100, 0) 140.65%,
-          #fa06ff 140.67%
-        ),
-        radial-gradient(
-            123.11% 288.11% at 44.46% 13%,
-            rgba(0, 0, 0, 0.2) 0%,
-            rgba(0, 0, 0, 0) 100%,
-            rgba(5, 5, 5, 0.2) 100%
-          )
-          /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-      backdrop-filter: blur(30px);
-      .statistic__stick-1 {
-        position: absolute;
-        width: 153.35px;
-        height: 9.25px;
-        top: -4px;
-        left: -3px;
-      }
-      .statistic__stick-3 {
-        position: absolute;
-        width: 153.35px;
-        height: 9.25px;
-        bottom: -4px;
-        right: -3px;
-      }
+      border-bottom: 1px solid rgba(42, 195, 191, 0.5);
+      border-top: 1px solid rgba(42, 195, 191, 0.5);
 
-      .statistic__stick-2 {
-        position: absolute;
-        width: 153.35px;
-        height: 9.25px;
-        top: -4px;
-        right: -3px;
+      li {
+        height: 7px;
+        margin-top: 10px;
+        text-align: center;
       }
-      .statistic__stick-4 {
-        position: absolute;
-        width: 153.35px;
-        height: 9.25px;
-        bottom: -4px;
-        left: -3px;
+      .green {
+        color: #6ae320;
       }
-      .statictic-list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        font-family: "Inter";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 17px;
-        color: #fff;
-        .green {
-          color: #6ae320;
-        }
-        .red {
-          color: #ff4545;
-        }
-        .blue {
-          color: #2ac3bf;
-        }
-        li {
-          margin-bottom: 25px;
-        }
+      .red {
+        color: #ff4545;
+      }
+      .blue {
+        color: #2ac3bf;
+      }
+      li {
+        margin-bottom: 25px;
       }
     }
   }
