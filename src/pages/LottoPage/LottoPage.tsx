@@ -199,20 +199,7 @@ const LottoPage: FC = () => {
     }
   }, []);
 
-  const getCurent = async () => {
-    if (!connector || !account) return "!args";
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
 
-    const signer = provider.getSigner();
-
-    const currentContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
-    const tx = await currentContract.getCurrect();
-    console.log("TX", tx);
-    setCurrent(tx);
-  };
   useEffect(() => {
     if (countdownRef?.current && nextParticipateTimestamp) {
       countdownRef.current.start();
@@ -232,7 +219,10 @@ const LottoPage: FC = () => {
     const lottoPriceAllTime = await contract.totalAllTimePrizePool();
     const totalDrawAllTimeTotal = await contract.totalGamesPlayed();
     const totalWinnerAllTime = await contract.totalGamesPlayed();
-
+    const tx = await contract.getCurrect();
+    
+    console.log("TX", tx);
+    setCurrent(tx.toNumber());
     setNextLottoPrize(nextLottoPrize);
     setTotalPrizePool(totalPrizePool);
     setLottoPriceAllTime(lottoPriceAllTime);
@@ -242,10 +232,8 @@ const LottoPage: FC = () => {
 
   useEffect(() => {
     getStaticticsData();
-    getCurent();
   }, [connector, nextParticipateTimestamp]);
 
-  console.log("current", +current.toString());
   console.log("P", nextParticipateTimestamp);
   console.log("current", current);
 
@@ -302,16 +290,16 @@ const LottoPage: FC = () => {
               />
               <button
                 disabled={
-                  +nextParticipateTimestamp.toString() / 1000 <=
-                  +current.toString()
+                  nextParticipateTimestamp / 1000 <=
+                  current
                     ? true
                     : false
                 }
                 onClick={() => getAmount(inputAmountValue)}
                 className="lotto__timer-draw__button"
               >
-                {+nextParticipateTimestamp.toString() / 1000 <=
-                +current.toString()
+                {nextParticipateTimestamp / 1000 <=
+                current
                   ? "Chossing winner…"
                   : "ENTER DRAW"}
               </button>
