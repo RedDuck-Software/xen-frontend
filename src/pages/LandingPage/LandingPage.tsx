@@ -1,65 +1,65 @@
-import React, { FC, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
-import { LOTTERYADDRESS } from "../../helpers/constants";
+import React, { FC, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ethers } from 'ethers'
+import { useWeb3React } from '@web3-react/core'
+import { LOTTERYADDRESS } from '../../helpers/constants'
 
-import { injected } from "../../helpers/connectors";
-import { Lottery__factory } from "../../typechain";
-import Header from "../../components/header/Header";
-import "../../index.scss";
-import "./LandingPage.scss";
+import { injected } from '../../helpers/connectors'
+import { Lottery__factory } from '../../typechain'
+import Header from '../../components/header/Header'
+import '../../index.scss'
+import './LandingPage.scss'
 
-import MetaMask from "../../assets/icons/metamask.svg";
-import Cubes from "../../assets/img/landing/cubes.png";
-import LineLeft from "../../assets/img/landing/line-left.png";
-import LineRight from "../../assets/img/landing/line-right.png";
-import LineAboutTop from "../../assets/img/landing/line-about.png";
-import LineAboutBottom from "../../assets/img/landing/line-about.png";
+import MetaMask from '../../assets/icons/metamask.svg'
+import Cubes from '../../assets/img/landing/cubes.png'
+import LineLeft from '../../assets/img/landing/line-left.png'
+import LineRight from '../../assets/img/landing/line-right.png'
+import LineAboutTop from '../../assets/img/landing/line-about.png'
+import LineAboutBottom from '../../assets/img/landing/line-about.png'
 
-import "../../index.scss";
-import "./LandingPage.scss";
+import '../../index.scss'
+import './LandingPage.scss'
 
 const LandingPage: FC = () => {
-  const [totalPayout, setTotalPayout] = React.useState<any>();
-  const [totalPayoutAllTime, setTotalPayoutAllTime] = React.useState<any>();
-  const { account, connector, activate } = useWeb3React();
-  const navigate = useNavigate();
+  const [totalPayout, setTotalPayout] = React.useState<any>()
+  const [totalPayoutAllTime, setTotalPayoutAllTime] = React.useState<any>()
+  const { account, connector, activate } = useWeb3React()
+  const navigate = useNavigate()
   async function connect() {
     try {
-      await activate(injected);
-      sessionStorage.setItem("isWalletConnected", "true");
+      await activate(injected)
+      sessionStorage.setItem('isWalletConnected', 'true')
     } catch (ex) {
-      console.log("err");
-      console.log(ex);
+      console.log('err')
+      console.log(ex)
     }
   }
-  console.log("connector", connector);
-  console.log("account", account);
+  console.log('connector', connector)
+  console.log('account', account)
   useEffect(() => {
     if (connector) {
-      navigate("deposit-page");
+      navigate('deposit-page')
     }
-  });
+  })
 
   async function getTotalInfo() {
     const provider = new ethers.providers.JsonRpcProvider(
       `https://eth-goerli.g.alchemy.com/v2/RjtXgibyHZpH_pzNdKAnh28f0Ja_UUEf`
-    );
-    const LotteryCounter = Lottery__factory.connect(LOTTERYADDRESS, provider);
-    /*const totalPayout = await (
+    )
+    const LotteryCounter = Lottery__factory.connect(LOTTERYADDRESS, provider)
+    const totalPayout = await (
       await LotteryCounter.totalPayoutToday()
-    ).toString()*/
+    ).toString()
     const totalPayoutAllTime = await (
       await LotteryCounter.totalAllTimePrizePool()
-    ).toString();
-    setTotalPayout(totalPayout);
-    setTotalPayoutAllTime(totalPayoutAllTime);
+    ).toString()
+    setTotalPayout(totalPayout)
+    setTotalPayoutAllTime(totalPayoutAllTime)
   }
 
   useEffect(() => {
-    getTotalInfo();
-  }, []);
+    getTotalInfo()
+  }, [])
 
   return (
     <div className="background">
@@ -155,7 +155,7 @@ const LandingPage: FC = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage
