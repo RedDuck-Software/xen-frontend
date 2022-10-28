@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import AvatarSix from "../../assets/img/lotto/avatar/avatar-6.svg";
 import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
+import makeBlockie from 'ethereum-blockies-base64';
 import AvatarEight from "../../assets/img/lotto/avatar/avatar-8.svg";
 import AvatarNine from "../../assets/img/lotto/avatar/avatar-9.svg";
 import AvatarTen from "../../assets/img/lotto/avatar/avatar-10.svg";
@@ -37,6 +38,8 @@ const LottoStats = () => {
     const WinnersContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const allWinners = await WinnersContract.getAllWinners();
+
+
 
     console.log("winners", allWinners);
     setWinners(allWinners);
@@ -99,7 +102,7 @@ const LottoStats = () => {
         <div className="lotto__winners__header">
           {" "}
           <img src={Crown} alt="" className="lotto__participants-img" />
-          <p className="lotto__participants-title">Previou Winners</p>
+          <p className="lotto__participants-title">Previous Winners</p>
         </div>
         <div>
           {winners.map((winner: any) => (
@@ -107,7 +110,7 @@ const LottoStats = () => {
               key={winner.winnerAddress.toString()}
               className="lotto__participants-draw"
             >
-              <img src={AvatarSeven} alt="" />
+              <img className="lotto__participants-draw-images" src={makeBlockie(winner.winnerAddress.toString())} alt="" />
               <p className="lotto__participants-draw-text">
                 {winner.winnerAddress.toString().slice(0, 4) +
                   "..." +
