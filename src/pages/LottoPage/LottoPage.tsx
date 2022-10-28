@@ -271,7 +271,7 @@ const LottoPage: FC = () => {
             />
             <div className="lotto__timer-draw">
               <input
-                type="text"
+                type="number"
                 placeholder="Enter Amount"
                 className="lotto__timer-draw__input"
                 value={inputAmountValue}
