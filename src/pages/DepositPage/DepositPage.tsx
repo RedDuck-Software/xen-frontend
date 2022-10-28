@@ -131,17 +131,19 @@ const DepositPage: FC = () => {
 
   async function Withdraw() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
     const signer = provider.getSigner(0);
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
-    if (!selectedAmountToDeposit) return alert("Pick withdraw");
-    const tx2 = await Lottery.withdraw(
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
-    );
+    const userAddress = await signer.getAddress();
+
+    const userContractBal = await Lottery.usersContractBalance(userAddress);
+
+    if (!userContractBal) return alert("Pick withdraw");
+    const tx2 = await Lottery.withdraw(ethers.utils.parseEther(userContractBal.toString()));
     await tx2.wait();
+
+    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
     //       erc20: !allowance
     // reverted reason :erc20: !allowance
     // revert
@@ -218,13 +220,8 @@ const DepositPage: FC = () => {
                       max={accountBalance ? accountBalance.toLocaleString() : "0"}
                     />
                     <div className="deposit__block-btn">
-
                       <button className="landing__btn" onClick={Withdraw}>
-                        <img
-                          src={MetaMaskPng}
-                          alt=""
-                          className="landing__btn-img"
-                        />                      
+                        <img src={MetaMaskPng} alt="" className="landing__btn-img" />
                         Withdraw
                       </button>
                     </div>
