@@ -40,6 +40,9 @@ const DepositPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+  const [selectedAmountToWD, setSelectedAmountToWD] = useState<any>();
+  const [userTokenBalance, setUserTokenBalance] = useState<any>();
+
   const navigate = useNavigate();
 
   const [tabIndex, setTabIndex] = useState(1);
@@ -74,10 +77,12 @@ const DepositPage: FC = () => {
     const tx2 = await Lottery.deposit(
       ethers.utils.parseEther(selectedAmountToDeposit.toString())
     );
+    console.log(selectedAmountToDeposit)
     await tx2.wait();
   }
 
   async function getXenBalance() {
+    console.log('dad')
     if (!connector || !account) return "!args";
 
     const provider = new ethers.providers.Web3Provider(
@@ -92,14 +97,14 @@ const DepositPage: FC = () => {
     console.log("connector", connector);
 
     const value = await Erc20Contract.balanceOf(account);
-    setAccountBalance(ethers.utils.formatUnits(value.toString()));
+    setAccountBalance(ethers.utils.formatUnits(value,18));
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const userAddress = await signer.getAddress();
     const userContractBal = await Lottery.usersContractBalance(userAddress);
-    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
-
+    setUserTokenBalance(userContractBal.toString())
+    console.log(userTokenBalance)
   }
 
   async function getTime() {
@@ -159,9 +164,8 @@ const DepositPage: FC = () => {
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
 
-    const tx2 = await Lottery.withdraw(ethers.utils.parseEther(accountBalance.toString()));
+    const tx2 = await Lottery.withdraw(ethers.utils.parseEther(selectedAmountToWD.toString()));
     await tx2.wait();
-
 
   }
 
@@ -227,18 +231,18 @@ const DepositPage: FC = () => {
                       How much you want to withdraw?
                     </div>
                     <div className="deposit__block-balance">
-                      {accountBalance ? accountBalance : "0"}
+                      {selectedAmountToWD ? selectedAmountToWD : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
                       handleChange={(e: any) =>
-                        setSelectedAmountToDeposit(
+                        setSelectedAmountToWD(
                           e.target.value.toLocaleString()
                         )
                       }
                       min={0}
                       max={
-                        accountBalance ? accountBalance.toLocaleString() : "0"
+                        userTokenBalance ? userTokenBalance.toLocaleString() : "0"
                       }
                     />
                     <div className="deposit__block-btn">

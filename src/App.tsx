@@ -26,7 +26,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (!connector) {
-      // navigate('./')
+      navigate('./')
     }
   }, [connector]);
 
