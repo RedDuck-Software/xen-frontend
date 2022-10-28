@@ -93,6 +93,13 @@ const DepositPage: FC = () => {
 
     const value = await Erc20Contract.balanceOf(account);
     setAccountBalance(ethers.utils.formatUnits(value.toString()));
+
+    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
+
+    const userAddress = await signer.getAddress();
+    const userContractBal = await Lottery.usersContractBalance(userAddress);
+    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
+
   }
 
   async function getTime() {
@@ -151,18 +158,11 @@ const DepositPage: FC = () => {
     const signer = provider.getSigner(0);
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
-    const userAddress = await signer.getAddress();
 
-    const userContractBal = await Lottery.usersContractBalance(userAddress);
-
-    if (!userContractBal) return alert("Pick withdraw");
-    const tx2 = await Lottery.withdraw(ethers.utils.parseEther(userContractBal.toString()));
+    const tx2 = await Lottery.withdraw(ethers.utils.parseEther(accountBalance.toString()));
     await tx2.wait();
 
-    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
-    //       erc20: !allowance
-    // reverted reason :erc20: !allowance
-    // revert
+
   }
 
   useEffect(() => {
@@ -227,7 +227,7 @@ const DepositPage: FC = () => {
                       How much you want to withdraw?
                     </div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit ? selectedAmountToDeposit : "0"}
+                      {accountBalance ? accountBalance : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent

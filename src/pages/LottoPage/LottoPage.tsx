@@ -170,13 +170,13 @@ const LottoPage: FC = () => {
 
     const contract = Lottery__factory.connect(LOTTERYADDRESS, signer)
     const tx = await contract.getParticipants()
+    console.log('getParticipants',tx)
     const allParticipants = tx
-      .sort((a, b) => +b.tokenAmount.toString() - +a.tokenAmount.toString())
       .map((item) => ({
         address: item.participantAddress,
         tokenAmount: item.tokenAmount.toString(),
       }))
-
+console.log('allParticipants',allParticipants)
     setAllParticipants(allParticipants)
   }
 
@@ -225,7 +225,7 @@ const LottoPage: FC = () => {
     getStaticticsData();
   }, [connector]);
 
-  console.log("connector", connector);
+  console.log("allParticipants", allParticipants);
   return (
     <div className="wrapper wrapper-lotto">
       <Header />

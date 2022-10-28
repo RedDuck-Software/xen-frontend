@@ -25,7 +25,7 @@ interface IParticipants {
 }
 
 const Participants = ({ participants }: IParticipants) => {
-  console.log('Participants: ', participants)
+  console.log('Participan222ts: ', participants)
 
   return (
     <div className="lotto__participants">

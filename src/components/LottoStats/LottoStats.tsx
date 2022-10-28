@@ -104,7 +104,7 @@ const LottoStats = () => {
         <div>
           {winners.map((winner: any) => (
             <div
-              key={winner.winnerAddress.toString()}
+              
               className="lotto__participants-draw"
             >
               <img src={AvatarSeven} alt="" />
