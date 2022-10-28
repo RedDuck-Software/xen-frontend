@@ -65,7 +65,8 @@ const LottoStats = () => {
           <div className="lotto__stats-my__block">
             <p className="lotto__stats-my__block-title">My Entry</p>
             <p className="lotto__stats-my__number">
-              20,000 <span className="lotto__stats-my__block-span">XEN</span>
+              {/* {tokenAmount.toString()} */}
+              <span className="lotto__stats-my__block-span">XEN</span>
             </p>
           </div>
           <img src={LineStats} alt="" className="lotto__stats-my__line" />
