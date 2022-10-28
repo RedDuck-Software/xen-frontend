@@ -1,43 +1,266 @@
-.deposit {
-  display: flex;
-  justify-content: space-around;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+.wrap {
+  max-width: 1042px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-// .background {
-//   background: rgba(74, 72, 72, 0.38);
-// }
-
-.deposit__sidebar {
+.deposit {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 .deposit__links {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.withraw-btn {
+  margin-right: 20px;
 }
 
 .deposit__block {
-  height: 240px;
-  width: 875px;
-  background: #1d1717;
-  margin: 0 auto;
-  margin-bottom: 75px;
+  margin-bottom: 45px;
+
+  border-radius: 14px;
+  background: linear-gradient(
+      122.58deg,
+      rgba(244, 238, 244, 0.17) -47.99%,
+      rgba(98, 28, 100, 0) 116.04%,
+      #fa06ff 116.05%
+    ),
+    radial-gradient(
+        121.41% 160.58% at 45.23% 7.25%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0) 100%,
+        rgba(5, 5, 5, 0.2) 100%
+      )
+      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border: 1px solid #2ac4bf;
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
 }
 
-.deposit__block-text {
-  width: 874px;
-  height: 376px;
-  background: #1d1717;
-  margin: 0 auto;
+.btn-deposit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
+  }
+}
+
+.deposit__block-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 6px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #ffffff;
+
+  opacity: 0.7;
+}
+
+.deposit__block-balance {
+  display: flex;
+  justify-content: center;
+
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+  /* identical to box height */
+
+  color: #ffffff;
+  span {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 65px;
+    margin-left: 9px;
+
+    color: #fff;
+
+    opacity: 0.5;
+  }
+}
+
+.deposit__block-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deposit__block-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 38px;
 }
 
 p {
   color: white;
 }
 
-.account-avatar {
+.deposit__block-corner-1 {
+  position: absolute;
+  width: 32.5px;
+  height: 31.5px;
+  left: -3px;
+  top: -3px;
+}
+.deposit__block-corner-2 {
+  position: absolute;
+  width: 32.5px;
+  height: 31.5px;
+  left: -3px;
+  bottom: -3px;
+}
+.deposit__block-corner-3 {
+  position: absolute;
+  width: 32.5px;
+  height: 31.5px;
+  right: -3px;
+  top: -3px;
+}
+.deposit__block-corner-4 {
+  position: absolute;
+  width: 32.5px;
+  height: 31.5px;
+  right: -3px;
+  bottom: -3px;
+}
+
+.deposit__block-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 43px;
+  margin-bottom: 59px;
+}
+
+.deposit__text {
+  display: flex;
+  margin: 0 -15px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+
+  opacity: 0.7;
+}
+
+.top {
+  margin-top: 5px;
+}
+
+.col {
+  flex: 0 1 50%;
+  padding: 0 15px;
   position: relative;
-  top: -40px;
-  right: -17px;
+}
+
+.deposit__text-item {
+  height: 216px;
+  padding: 20px 30px;
+  background: linear-gradient(
+      109.86deg,
+      rgba(244, 238, 244, 0.17) -59.62%,
+      rgba(98, 28, 100, 0) 140.65%,
+      #fa06ff 140.67%
+    ),
+    radial-gradient(
+        123.11% 288.11% at 44.46% 13%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0) 100%,
+        rgba(5, 5, 5, 0.2) 100%
+      )
+      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  backdrop-filter: blur(30px);
+}
+
+.deposit__title {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #ffffff;
+
+  margin-bottom: 7px;
+}
+
+.deposit__text-stick-1 {
+  position: absolute;
+  width: 153.35px;
+  height: 9.25px;
+  top: -4px;
+  left: 13px;
+}
+.deposit__text-stick-3 {
+  position: absolute;
+  width: 153.35px;
+  height: 9.25px;
+  bottom: -4px;
+  right: 13px;
+}
+
+.deposit__text-stick-2 {
+  position: absolute;
+  width: 153.35px;
+  height: 9.25px;
+  top: -4px;
+  right: 13px;
+}
+.deposit__text-stick-4 {
+  position: absolute;
+  width: 153.35px;
+  height: 9.25px;
+  bottom: -4px;
+  left: 13px;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-bottom: none;
+  bottom: 25px;
+  right: -300px;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.react-tabs [role="tab"]:focus {
+  box-shadow: none;
+  border-color: none;
+  outline: none;
+}
+
+.react-tabs [role="tab"]:focus:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  left: -4px;
+  right: -4px;
+  bottom: -5px;
+  background: transparent;
 }
