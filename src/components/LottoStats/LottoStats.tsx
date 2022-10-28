@@ -99,7 +99,7 @@ const LottoStats = () => {
         <div className="lotto__winners__header">
           {" "}
           <img src={Crown} alt="" className="lotto__participants-img" />
-          <p className="lotto__participants-title">Previou Winners</p>
+          <p className="lotto__participants-title">Previous Winners</p>
         </div>
         <div>
           {winners.map((winner: any) => (
