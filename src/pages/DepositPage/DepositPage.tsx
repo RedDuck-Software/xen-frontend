@@ -40,6 +40,9 @@ const DepositPage: FC = () => {
   const [lastWinner, setLastWinner] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+  const [selectedAmountToWD, setSelectedAmountToWD] = useState<any>();
+  const [userContractBal, setUserContractBal] = useState<any>();
+
   const navigate = useNavigate();
 
   const [tabIndex, setTabIndex] = useState(1);
@@ -93,12 +96,12 @@ const DepositPage: FC = () => {
 
     const value = await Erc20Contract.balanceOf(account);
     setAccountBalance(ethers.utils.formatUnits(value.toString()));
-
+    console.log('account',account)
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const userAddress = await signer.getAddress();
     const userContractBal = await Lottery.usersContractBalance(userAddress);
-    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
+    setUserContractBal(ethers.utils.formatUnits(userContractBal));
   }
 
   async function getTime() {
@@ -160,7 +163,7 @@ const DepositPage: FC = () => {
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
     const tx2 = await Lottery.withdraw(
-      ethers.utils.parseEther(accountBalance.toString())
+      ethers.utils.parseEther(selectedAmountToWD.toString())
     );
     await tx2.wait();
   }
@@ -227,18 +230,18 @@ const DepositPage: FC = () => {
                       How much you want to withdraw?
                     </div>
                     <div className="deposit__block-balance">
-                      {accountBalance ? accountBalance : "0"}
+                      {selectedAmountToWD ? selectedAmountToWD : "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
                       handleChange={(e: any) =>
-                        setSelectedAmountToDeposit(
+                        setSelectedAmountToWD(
                           e.target.value.toLocaleString()
                         )
                       }
                       min={0}
                       max={
-                        accountBalance ? accountBalance.toLocaleString() : "0"
+                        userContractBal ? userContractBal.toLocaleString() : "0"
                       }
                     />
                     <div className="deposit__block-btn">
