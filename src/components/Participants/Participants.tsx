@@ -2,6 +2,7 @@ import React from 'react'
 
 import ParticipantsSvg from '../../assets/img/lotto/participants.svg'
 import AvatarFirst from '../../assets/img/lotto/avatar/avatar-1.svg'
+import makeBlockie from 'ethereum-blockies-base64';
 import AvatarSecond from '../../assets/img/lotto/avatar/avatar-2.svg'
 import AvatarThird from '../../assets/img/lotto/avatar/avatar-3.svg'
 import AvatarFourth from '../../assets/img/lotto/avatar/avatar-4.svg'
@@ -45,7 +46,7 @@ const Participants = ({ participants }: IParticipants) => {
       </p>
       {participants.map((participant: any) => (
         <div className="lotto__participants-draw">
-          <img src={AvatarFirst} alt="" />
+          <img className="lotto__participants-draw-images" src={makeBlockie(participant.address)} alt="" />
           <p className="lotto__participants-draw-text">
             {participant.address.slice(0, 4) +
               '...' +
