@@ -1,0 +1,207 @@
+.landing {
+  display: flex;
+  justify-content: space-around;
+
+  &__title {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.035em;
+    color: #ffffff;
+    font-family: "Roboto Medium";
+    margin-top: 70px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    &-text {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    &-title {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      opacity: 0.7;
+      font-family: "Inter";
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    &-numbers {
+      font-size: 40px;
+      line-height: 47px;
+      font-family: "Roboto Condensed-Medium";
+      color: #ffffff;
+      text-align: center;
+    }
+    &-span {
+      font-size: 20px;
+      line-height: 23px;
+      font-family: "Roboto Condensed-Medium";
+      opacity: 0.5;
+      margin-left: 10px;
+    }
+  }
+
+  &__main {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 1200px;
+    height: 320px;
+
+    &-block {
+      background: rgba(74, 72, 72, 0.38);
+      display: flex;
+      margin-bottom: 20px;
+      width: 570px;
+      height: 138px;
+      display: flex;
+      justify-content: center;
+
+      &-left {
+        background: url("../../assets/img/landing/block-left.png");
+        background-size: 570px 138px;
+      }
+
+      &-right {
+        background: url("../../assets/img/landing/block-right.png");
+        background-size: 570px 138px;
+      }
+
+      &-down-left {
+        background: url("../../assets/img/landing/block-down-left.png");
+        background-size: 570px 138px;
+      }
+
+      &-down-right {
+        background: url("../../assets/img/landing/block-down-right.png");
+        background-size: 570px 138px;
+      }
+
+      &-romb {
+        position: relative;
+        top: -280px;
+        width: 220px;
+        height: 220px;
+        background: url("../../assets/img/landing/romb.png");
+        background-size: 220px 220px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        &-img {
+          margin-bottom: 10px;
+        }
+        &-title {
+          font-size: 30px;
+          line-height: 35px;
+          color: #ffffff;
+          font-family: "Roboto Medium";
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+    }
+
+    &-about {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 35px;
+
+      &-block {
+        width: 840px;
+        text-align: center;
+        background: rgba(74, 72, 72, 0.38);
+        padding: 20px 30px;
+      }
+      &-title {
+        font-size: 20px;
+        line-height: 23px;
+        text-align: left;
+        font-family: "Roboto Condensed-Bold";
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+      &-text {
+        font-size: 16px;
+        font-family: "Inter Medium";
+        text-align: center;
+        line-height: 19px;
+        color: #ffffff;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: center;
+    &-block {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__btn {
+    width: 320px;
+    height: 50px;
+    background: #564adf;
+    box-shadow: 0px 4px 54px rgba(232, 130, 30, 0.25);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    font-family: "Roboto Condensed-Bold";
+    color: #fff;
+    margin-top: 70px;
+
+    &-img {
+        margin-right: 10px;
+    }
+
+    &-login {
+        margin-bottom: 70px;
+        margin-top: 0px;
+    }
+  }
+
+  &__line {
+    position: relative;
+    min-width: 425px;
+    &-left {
+      top: -45px;
+      right: 350px;
+    }
+
+    &-right {
+      top: -55px;
+      left: 350px;
+    }
+
+    &-about {
+      position: relative;
+      width: 840px;
+
+      &-bottom {
+        left: 285px;
+        top: -45px;
+      }
+
+      &-top {
+        top: -205px;
+        left: 285px;
+      }
+    }
+  }
+}

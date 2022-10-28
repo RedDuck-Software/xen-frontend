@@ -1,18 +1,21 @@
-import React, { FC } from "react";
-
+import React, { FC, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
+
+import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
-import { useNavigate } from "react-router-dom";
 
 const Main: FC = () => {
-  const { account, library, connector, active, deactivate, activate } =
-    useWeb3React();
-  const navigate = useNavigate()
+  const { account, library, connector, active, deactivate, activate } = useWeb3React();
+  const navigate = useNavigate();
+
+  const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
 
   async function connect() {
     try {
       await activate(injected);
+      setSigner(connector);
     } catch (ex) {
       console.log("err");
       console.log(ex);
@@ -32,7 +35,7 @@ const Main: FC = () => {
       <div>Total payout all time: 20000 XEN</div>
       <div>Burnt today: 20124 XEN</div>
       <div>Burnt all time: 252105 XEN</div>
-      <button onClick={() => navigate('/deposit-page')}>GoTo deposit page</button>
+      <button onClick={() => navigate("/deposit-page")}>GoTo deposit page</button>
     </div>
   );
 };

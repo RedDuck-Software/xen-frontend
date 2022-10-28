@@ -28,117 +28,192 @@ import type {
 } from "./common";
 
 export declare namespace Lottery {
-  export type ParticipationInfoStruct = {
-    totalAmountFrom: PromiseOrValue<BigNumberish>;
-    totalAmountTo: PromiseOrValue<BigNumberish>;
+  export type WinnersInfoStruct = {
+    winnerAddress: PromiseOrValue<string>;
+    wonAmount: PromiseOrValue<BigNumberish>;
   };
 
-  export type ParticipationInfoStructOutput = [BigNumber, BigNumber] & {
-    totalAmountFrom: BigNumber;
-    totalAmountTo: BigNumber;
+  export type WinnersInfoStructOutput = [string, BigNumber] & {
+    winnerAddress: string;
+    wonAmount: BigNumber;
+  };
+
+  export type ParticipantsInfoStruct = {
+    participantAddress: PromiseOrValue<string>;
+    tokenAmount: PromiseOrValue<BigNumberish>;
+  };
+
+  export type ParticipantsInfoStructOutput = [string, BigNumber] & {
+    participantAddress: string;
+    tokenAmount: BigNumber;
   };
 }
 
 export interface LotteryInterface extends utils.Interface {
   functions: {
-    "claimWinnerReward(address,uint256)": FunctionFragment;
-    "getRandomNumber(uint256)": FunctionFragment;
-    "getUserParticipations(address)": FunctionFragment;
+    "deposit(uint256)": FunctionFragment;
+    "generateRandomNumber(uint256)": FunctionFragment;
+    "getAllWinners()": FunctionFragment;
+    "getCurrect()": FunctionFragment;
+    "getParticipants()": FunctionFragment;
+    "interval()": FunctionFragment;
+    "lastWinner()": FunctionFragment;
+    "lastWonAmount()": FunctionFragment;
     "lotteryToken()": FunctionFragment;
+    "nextParticipateTimestamp()": FunctionFragment;
     "participate(uint256)": FunctionFragment;
-    "participateEnd()": FunctionFragment;
-    "participateStart()": FunctionFragment;
-    "rawFulfillRandomWords(uint256,uint256[])": FunctionFragment;
+    "randomNumber()": FunctionFragment;
+    "randomWinnerIdx()": FunctionFragment;
     "rewardClaimed()": FunctionFragment;
-    "s_randomWords(uint256)": FunctionFragment;
-    "s_requestId()": FunctionFragment;
     "selectRandomWinner()": FunctionFragment;
-    "totalAmount()": FunctionFragment;
+    "totalAllTimePrizePool()": FunctionFragment;
+    "totalGamesPlayed()": FunctionFragment;
+    "totalParticipants()": FunctionFragment;
+    "totalPayoutToday()": FunctionFragment;
+    "totalPlayedAmount()": FunctionFragment;
+    "totalPrizePool()": FunctionFragment;
+    "usersContractBalance(address)": FunctionFragment;
     "winNumber()": FunctionFragment;
+    "withdraw(uint256)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "claimWinnerReward"
-      | "getRandomNumber"
-      | "getUserParticipations"
+      | "deposit"
+      | "generateRandomNumber"
+      | "getAllWinners"
+      | "getCurrect"
+      | "getParticipants"
+      | "interval"
+      | "lastWinner"
+      | "lastWonAmount"
       | "lotteryToken"
+      | "nextParticipateTimestamp"
       | "participate"
-      | "participateEnd"
-      | "participateStart"
-      | "rawFulfillRandomWords"
+      | "randomNumber"
+      | "randomWinnerIdx"
       | "rewardClaimed"
-      | "s_randomWords"
-      | "s_requestId"
       | "selectRandomWinner"
-      | "totalAmount"
+      | "totalAllTimePrizePool"
+      | "totalGamesPlayed"
+      | "totalParticipants"
+      | "totalPayoutToday"
+      | "totalPlayedAmount"
+      | "totalPrizePool"
+      | "usersContractBalance"
       | "winNumber"
+      | "withdraw"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "claimWinnerReward",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRandomNumber",
+    functionFragment: "deposit",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getUserParticipations",
+    functionFragment: "generateRandomNumber",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAllWinners",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCurrect",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getParticipants",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "interval", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "lastWinner",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastWonAmount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lotteryToken",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "nextParticipateTimestamp",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "participate",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "randomNumber",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "randomWinnerIdx",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "rewardClaimed",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "selectRandomWinner",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalAllTimePrizePool",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalGamesPlayed",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalParticipants",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalPayoutToday",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalPlayedAmount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalPrizePool",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "usersContractBalance",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "lotteryToken",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "participate",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "participateEnd",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "participateStart",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rawFulfillRandomWords",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardClaimed",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "s_randomWords",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "s_requestId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "selectRandomWinner",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalAmount",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "winNumber", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "claimWinnerReward",
+    functionFragment: "generateRandomNumber",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getRandomNumber",
+    functionFragment: "getAllWinners",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getCurrect", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getUserParticipations",
+    functionFragment: "getParticipants",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lastWinner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "lastWonAmount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -146,19 +221,19 @@ export interface LotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "nextParticipateTimestamp",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "participate",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "participateEnd",
+    functionFragment: "randomNumber",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "participateStart",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "rawFulfillRandomWords",
+    functionFragment: "randomWinnerIdx",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -166,31 +241,46 @@ export interface LotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "s_randomWords",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "s_requestId",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "selectRandomWinner",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "totalAmount",
+    functionFragment: "totalAllTimePrizePool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalGamesPlayed",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalParticipants",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalPayoutToday",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalPlayedAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalPrizePool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "usersContractBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "winNumber", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "RandomWinningNumberSelect(address,uint256)": EventFragment;
-    "UserParticipate(address,uint256,uint256,uint256)": EventFragment;
     "WinnerClaim(address,uint256,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "RandomWinningNumberSelect"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UserParticipate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WinnerClaim"): EventFragment;
 }
 
@@ -205,19 +295,6 @@ export type RandomWinningNumberSelectEvent = TypedEvent<
 
 export type RandomWinningNumberSelectEventFilter =
   TypedEventFilter<RandomWinningNumberSelectEvent>;
-
-export interface UserParticipateEventObject {
-  user: string;
-  totalAmountFrom: BigNumber;
-  totalAmountTo: BigNumber;
-  userParticipationId: BigNumber;
-}
-export type UserParticipateEvent = TypedEvent<
-  [string, BigNumber, BigNumber, BigNumber],
-  UserParticipateEventObject
->;
-
-export type UserParticipateEventFilter = TypedEventFilter<UserParticipateEvent>;
 
 export interface WinnerClaimEventObject {
   winner: string;
@@ -258,155 +335,212 @@ export interface Lottery extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    claimWinnerReward(
-      _winner: PromiseOrValue<string>,
-      _winnerIntervalId: PromiseOrValue<BigNumberish>,
+    deposit(
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    generateRandomNumber(
+      _participants: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-    getUserParticipations(
-      user: PromiseOrValue<string>,
+    getAllWinners(
       overrides?: CallOverrides
-    ): Promise<[Lottery.ParticipationInfoStructOutput[]]>;
+    ): Promise<[Lottery.WinnersInfoStructOutput[]]>;
+
+    getCurrect(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getParticipants(
+      overrides?: CallOverrides
+    ): Promise<[Lottery.ParticipantsInfoStructOutput[]]>;
+
+    interval(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    lastWinner(overrides?: CallOverrides): Promise<[string]>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     lotteryToken(overrides?: CallOverrides): Promise<[string]>;
 
+    nextParticipateTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     participate(
-      _tokenAmount: PromiseOrValue<BigNumberish>,
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    participateEnd(overrides?: CallOverrides): Promise<[BigNumber]>;
+    randomNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    participateStart(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    randomWinnerIdx(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     rewardClaimed(overrides?: CallOverrides): Promise<[boolean]>;
-
-    s_randomWords(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    s_requestId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     selectRandomWinner(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    totalAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    totalAllTimePrizePool(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalGamesPlayed(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalPayoutToday(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalPlayedAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalPrizePool(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    usersContractBalance(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     winNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    withdraw(
+      _tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
-  claimWinnerReward(
-    _winner: PromiseOrValue<string>,
-    _winnerIntervalId: PromiseOrValue<BigNumberish>,
+  deposit(
+    tokenAmount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  getRandomNumber(
-    maxNumber: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  generateRandomNumber(
+    _participants: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
-  getUserParticipations(
-    user: PromiseOrValue<string>,
+  getAllWinners(
     overrides?: CallOverrides
-  ): Promise<Lottery.ParticipationInfoStructOutput[]>;
+  ): Promise<Lottery.WinnersInfoStructOutput[]>;
+
+  getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getParticipants(
+    overrides?: CallOverrides
+  ): Promise<Lottery.ParticipantsInfoStructOutput[]>;
+
+  interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+  lastWinner(overrides?: CallOverrides): Promise<string>;
+
+  lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   lotteryToken(overrides?: CallOverrides): Promise<string>;
 
+  nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
   participate(
-    _tokenAmount: PromiseOrValue<BigNumberish>,
+    tokenAmount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  participateEnd(overrides?: CallOverrides): Promise<BigNumber>;
+  randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
-  participateStart(overrides?: CallOverrides): Promise<BigNumber>;
-
-  rawFulfillRandomWords(
-    requestId: PromiseOrValue<BigNumberish>,
-    randomWords: PromiseOrValue<BigNumberish>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
 
   rewardClaimed(overrides?: CallOverrides): Promise<boolean>;
-
-  s_randomWords(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  s_requestId(overrides?: CallOverrides): Promise<BigNumber>;
 
   selectRandomWinner(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
+  totalAllTimePrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalPlayedAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalPrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+  usersContractBalance(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   winNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
+  withdraw(
+    _tokenAmount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
-    claimWinnerReward(
-      _winner: PromiseOrValue<string>,
-      _winnerIntervalId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getUserParticipations(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<Lottery.ParticipationInfoStructOutput[]>;
-
-    lotteryToken(overrides?: CallOverrides): Promise<string>;
-
-    participate(
-      _tokenAmount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    participateEnd(overrides?: CallOverrides): Promise<BigNumber>;
-
-    participateStart(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
+    deposit(
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    rewardClaimed(overrides?: CallOverrides): Promise<boolean>;
-
-    s_randomWords(
-      arg0: PromiseOrValue<BigNumberish>,
+    generateRandomNumber(
+      _participants: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    s_requestId(overrides?: CallOverrides): Promise<BigNumber>;
+    getAllWinners(
+      overrides?: CallOverrides
+    ): Promise<Lottery.WinnersInfoStructOutput[]>;
+
+    getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getParticipants(
+      overrides?: CallOverrides
+    ): Promise<Lottery.ParticipantsInfoStructOutput[]>;
+
+    interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWinner(overrides?: CallOverrides): Promise<string>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lotteryToken(overrides?: CallOverrides): Promise<string>;
+
+    nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    participate(
+      tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
+
+    rewardClaimed(overrides?: CallOverrides): Promise<boolean>;
 
     selectRandomWinner(overrides?: CallOverrides): Promise<void>;
 
-    totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    totalAllTimePrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPlayedAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    usersContractBalance(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     winNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    withdraw(
+      _tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -418,19 +552,6 @@ export interface Lottery extends BaseContract {
       txSender?: PromiseOrValue<string> | null,
       winningNumber?: null
     ): RandomWinningNumberSelectEventFilter;
-
-    "UserParticipate(address,uint256,uint256,uint256)"(
-      user?: PromiseOrValue<string> | null,
-      totalAmountFrom?: null,
-      totalAmountTo?: null,
-      userParticipationId?: null
-    ): UserParticipateEventFilter;
-    UserParticipate(
-      user?: PromiseOrValue<string> | null,
-      totalAmountFrom?: null,
-      totalAmountTo?: null,
-      userParticipationId?: null
-    ): UserParticipateEventFilter;
 
     "WinnerClaim(address,uint256,uint256)"(
       winner?: PromiseOrValue<string> | null,
@@ -445,106 +566,140 @@ export interface Lottery extends BaseContract {
   };
 
   estimateGas: {
-    claimWinnerReward(
-      _winner: PromiseOrValue<string>,
-      _winnerIntervalId: PromiseOrValue<BigNumberish>,
+    deposit(
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    generateRandomNumber(
+      _participants: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    getUserParticipations(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getAllWinners(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getCurrect(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getParticipants(overrides?: CallOverrides): Promise<BigNumber>;
+
+    interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWinner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     lotteryToken(overrides?: CallOverrides): Promise<BigNumber>;
 
+    nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
     participate(
-      _tokenAmount: PromiseOrValue<BigNumberish>,
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    participateEnd(overrides?: CallOverrides): Promise<BigNumber>;
+    randomNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
-    participateStart(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    randomWinnerIdx(overrides?: CallOverrides): Promise<BigNumber>;
 
     rewardClaimed(overrides?: CallOverrides): Promise<BigNumber>;
 
-    s_randomWords(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    s_requestId(overrides?: CallOverrides): Promise<BigNumber>;
-
     selectRandomWinner(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    totalAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    totalAllTimePrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalGamesPlayed(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPayoutToday(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPlayedAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalPrizePool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    usersContractBalance(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     winNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    withdraw(
+      _tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    claimWinnerReward(
-      _winner: PromiseOrValue<string>,
-      _winnerIntervalId: PromiseOrValue<BigNumberish>,
+    deposit(
+      tokenAmount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    getRandomNumber(
-      maxNumber: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    generateRandomNumber(
+      _participants: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    getUserParticipations(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getAllWinners(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getCurrect(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getParticipants(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    interval(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastWinner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastWonAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lotteryToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    participate(
-      _tokenAmount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    participateEnd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    participateStart(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    rewardClaimed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    s_randomWords(
-      arg0: PromiseOrValue<BigNumberish>,
+    nextParticipateTimestamp(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    s_requestId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    participate(
+      tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    randomNumber(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    randomWinnerIdx(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    rewardClaimed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     selectRandomWinner(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    totalAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    totalAllTimePrizePool(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    totalGamesPlayed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalParticipants(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalPayoutToday(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalPlayedAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalPrizePool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    usersContractBalance(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     winNumber(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    withdraw(
+      _tokenAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
   };
 }
