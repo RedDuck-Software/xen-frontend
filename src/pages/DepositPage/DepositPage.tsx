@@ -103,8 +103,10 @@ const DepositPage: FC = () => {
 
     const userAddress = await signer.getAddress();
     const userContractBal = await Lottery.usersContractBalance(userAddress);
+
     setUserTokenBalance(userContractBal.toString())
     console.log(userTokenBalance)
+
   }
 
   async function getTime() {
@@ -139,7 +141,7 @@ const DepositPage: FC = () => {
     const totalGamesPlayed = await (
       await Lottery.totalGamesPlayed()
     ).toString();
-    const totalPayout = await (await Lottery.totalPayoutToday()).toString();
+    // const totalPayout = await (await Lottery.totalPayoutToday()).toString();
     const totalAmount = await (
       await Lottery.totalAllTimePrizePool()
     ).toString();
@@ -159,13 +161,17 @@ const DepositPage: FC = () => {
 
   async function Withdraw() {
     if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(await connector.getProvider());
+    const provider = new ethers.providers.Web3Provider(
+      await connector.getProvider()
+    );
     const signer = provider.getSigner(0);
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
 
 
+
     const tx2 = await Lottery.withdraw(ethers.utils.parseEther(selectedAmountToWD.toString()));
     await tx2.wait();
+
 
   }
 
@@ -247,9 +253,11 @@ const DepositPage: FC = () => {
                     />
                     <div className="deposit__block-btn">
                       <button className="landing__btn" onClick={Withdraw}>
-
-                        <img src={MetaMaskPng} alt="" className="landing__btn-img" />
-
+                        <img
+                          src={MetaMaskPng}
+                          alt=""
+                          className="landing__btn-img"
+                        />
                         Withdraw
                       </button>
                     </div>
