@@ -13,6 +13,7 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import { Context } from "./Context";
 
 import "./index.scss";
+import MetamaskProvider from "./components/MetamaskProvider/MetamaskProvider";
 
 const App: FC = () => {
   function getLibrary(provider: any) {
@@ -20,38 +21,39 @@ const App: FC = () => {
     return new Web3Provider(provider);
   }
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
-  const { account, connector, activate } = useWeb3React();
+  const { connector } = useWeb3React();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('here')
     if (!connector) {
-      navigate("./");
+      // navigate('./')
     }
-  }, []);
+  }, [connector]);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Context.Provider
-        value={{
-          loggedIn,
-          setLoggedIn,
-          signer,
-          setSigner,
-        }}
-      >
-        <div className="wrapper__background">
-          <div className="wrapper">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/deposit-page" element={<DepositPage />} />
-              <Route path="/landing-page" element={<LandingPage />} />
-              <Route path="/lotto-page" element={<LottoPage />} />
-              <Route path="/account-page" element={<AccountPage />} />
-            </Routes>
+      <MetamaskProvider>
+        <Context.Provider
+          value={{
+            loggedIn,
+            setLoggedIn,
+            signer,
+            setSigner,
+          }}
+        >
+          <div className="wrapper__background">
+            <div className="wrapper">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/deposit-page" element={<DepositPage />} />
+                <Route path="/landing-page" element={<LandingPage />} />
+                <Route path="/lotto-page" element={<LottoPage />} />
+                <Route path="/account-page" element={<AccountPage />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </Context.Provider>
+        </Context.Provider>
+      </MetamaskProvider>
     </Web3ReactProvider>
   );
 };

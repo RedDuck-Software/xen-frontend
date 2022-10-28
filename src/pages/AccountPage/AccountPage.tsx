@@ -6,7 +6,7 @@ import Circle from "../../assets/circle.svg";
 import "../../index.scss";
 import "../DepositPage/DepositPage.scss";
 import "./AccountPage.scss";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/Header";
 import Logo from "../../assets/account/Vector 4144.png";
 import Copy from "../../assets/account/CopyImg.png";
 import Corner_1 from "../../assets/deposit/Vector 4140.png";
@@ -69,63 +69,58 @@ const AccountPage: FC = () => {
               <div className="statistic__stick-4">
                 <img src={Stick_1} alt="stick" />
               </div>
-              <ul className="statictic-list">
+              <ul className="statistic-list statistic-list-header">
                 <li>DATE</li>
-                <li>12/10/22</li>
-                <li>12/10/22</li>
-                <li>12/10/22</li>
-                <li>12/10/22</li>
-              </ul>
-              <ul className="statictic-list">
                 <li>TOKEN</li>
-                <li>XEN</li>
-                <li>XEN</li>
-                <li>XEN</li>
-                <li>XEN</li>
-              </ul>
-
-              <ul className="statictic-list">
                 <li>Debit/Credit</li>
-                <li className="green">10,768,89</li>
-                <li className="red">10,768,89</li>
-                <li className="green">27,768,89</li>
-                <li className="red"> 10,768,89</li>
-              </ul>
-              <ul className="statictic-list">
                 <li>Possible Win</li>
-                <li className="blue">50,768,89</li>
-                <li className="blue">20,239,89</li>
-                <li className="blue">100,989,33</li>
-                <li className="blue">30,376,22</li>
+                <li>GAME</li>
+                <li>BET</li>
+                <li>CHANCE</li>
+                <li>Win/Lose</li>
               </ul>
 
-              <ul className="statictic-list">
-                <li>GAME</li>
+              <ul className="statistic-list">
+                <li>12/10/22</li>
+                <li className="statistic-list__xen">XEN</li>
+                <li className="green">10,768,89</li>
+                <li className="blue">50,768,89</li>
                 <li>XEN lotto</li>
-                <li>XEN lotto</li>
-                <li>XEN lotto</li>
-                <li>XEN lotto</li>
-              </ul>
-              <ul className="statictic-list">
-                <li>BET</li>
                 <li>Auto</li>
-                <li>Manual</li>
-                <li>Auto</li>
-                <li>Manual</li>
-              </ul>
-              <ul className="statictic-list">
-                <li>CHANCE</li>
                 <li>85.22%</li>
-                <li>5.75%</li>
-                <li>57.44%</li>
-                <li>5.75%</li>
+                <li className="green">Win</li>
               </ul>
-              <ul className="statictic-list">
-                <li>Win/Lose</li>
-                <li className="green">Win</li>
+
+              <ul className="statistic-list">
+                <li>12/10/22</li>
+                <li className="statistic-list__xen">XEN</li>
+                <li className="red">10,768,89</li>
+                <li className="blue">20,239,89</li>
+                <li>XEN lotto</li>
+                <li>Manual</li>
+                <li>5.75%</li>
                 <li className="red">Lose</li>
+              </ul>
+              <ul className="statistic-list">
+                <li>12/10/22</li>
+                <li className="statistic-list__xen">XEN</li>
+                <li className="green">27,768,89</li>
+                <li className="blue">100,989,33</li>
+                <li>XEN lotto</li>
+                <li>Auto</li>
+                <li>57.44%</li>
                 <li className="green">Win</li>
-                <li className="red">Win</li>
+              </ul>
+
+              <ul className="statistic-list">
+                <li>12/10/22</li>
+                <li className="statistic-list__xen">XEN</li>
+                <li className="red"> 10,768,89</li>
+                <li className="blue">30,376,22</li>
+                <li>XEN lotto</li>
+                <li>Manual</li>
+                <li>5.75%</li>
+                <li className="red">Lose</li>
               </ul>
             </div>
           </div>
