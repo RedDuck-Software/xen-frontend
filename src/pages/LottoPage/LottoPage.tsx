@@ -32,6 +32,7 @@ const LottoPage: FC = () => {
   const [totalAmount, setTotalAmount] = useState<any>();
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
   const [lastWinner, setLastWinner] = useState<any>();
+  const [totalRoundPrizePool, setTotalRoundPrizePool] = useState<any>();
   const [lastWonAmount, setLastWonAmount] = useState<any>();
   const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
   const [nextParticipateTimestamp, setNextParticipateTimestamp] =
@@ -111,7 +112,7 @@ const LottoPage: FC = () => {
     console.log("nextRound", nextRound);
     const date = new Date(+nextRound * 1000);
     console.log(date);
-
+    
     setTimer(date);
   }
 
@@ -137,11 +138,11 @@ const LottoPage: FC = () => {
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
-
+    const totalRoundPrize = await(await Lottery.totalPrizePool()).toString()
     console.log("totalPayout", totalPayout);
     console.log("totalAmount before set", totalAmount);
     console.log("totalGamesPlayed", totalGamesPlayed);
-
+    setTotalRoundPrizePool(totalRoundPrize)
     setLastWinner(lastWinner);
     setLastWonAmount(lastWonAmount);
     setTotalGamesPlayed(totalGamesPlayed);
@@ -177,7 +178,7 @@ const LottoPage: FC = () => {
     console.log("getParticipants", tx);
     const allParticipants = tx.map((item) => ({
       address: item.participantAddress,
-      tokenAmount: item.depositedAmount.toString(),
+      tokenAmount: item.tokenAmount.toString(),
     }));
     console.log("allParticipants", allParticipants);
     setAllParticipants(allParticipants);
@@ -250,7 +251,7 @@ const LottoPage: FC = () => {
               />
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
-                🔥18,465,657{" "}
+                🔥{totalRoundPrizePool}{" "}
                 <span className="lotto__timer-block__span">XEN</span>
               </p>
             </div>

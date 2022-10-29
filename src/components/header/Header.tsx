@@ -86,7 +86,7 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              Ethereum<span></span>
+              Goerli Testnet<span></span>
             </a>
           </li>
         </ul>

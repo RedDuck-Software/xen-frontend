@@ -95,6 +95,7 @@ const DepositPage: FC = () => {
     console.log("connector", connector);
 
     const value = await Erc20Contract.balanceOf(account);
+    console.log('valueee',value)
     setAccountBalance(ethers.utils.formatUnits(value.toString()));
     console.log('account',account)
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
@@ -181,7 +182,7 @@ const DepositPage: FC = () => {
       // getTime();
       // getTotalInfo();
     }
-  }, []);
+  }, [connector]);
 
   return (
     <div className="background">
