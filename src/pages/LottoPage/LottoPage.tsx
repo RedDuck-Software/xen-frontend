@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
-import makeBlockie from 'ethereum-blockies-base64';
+import makeBlockie from "ethereum-blockies-base64";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
@@ -113,7 +113,7 @@ const LottoPage: FC = () => {
     console.log("nextRound", nextRound);
     const date = new Date(+nextRound * 1000);
     console.log(date);
-    
+
     setTimer(date);
   }
 
@@ -139,11 +139,11 @@ const LottoPage: FC = () => {
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
-    const totalRoundPrize = await(await Lottery.totalPrizePool()).toString()
+    const totalRoundPrize = await (await Lottery.totalPrizePool()).toString();
     console.log("totalPayout", totalPayout);
     console.log("totalAmount before set", totalAmount);
     console.log("totalGamesPlayed", totalGamesPlayed);
-    setTotalRoundPrizePool(totalRoundPrize)
+    setTotalRoundPrizePool(totalRoundPrize);
     setLastWinner(lastWinner);
     setLastWonAmount(lastWonAmount);
     setTotalGamesPlayed(totalGamesPlayed);
@@ -313,9 +313,9 @@ const LottoPage: FC = () => {
             >
               <div className="lotto__timer-bubbles-block">
                 <img
-                    src={makeBlockie(item.address)}
-                    alt=""
-                    className="lotto__timer-bubbles-block-avatar"
+                  src={makeBlockie(item.address)}
+                  alt=""
+                  className="lotto__timer-bubbles-block-avatar"
                 />
                 <p className="lotto__timer-bubbles-block-account">
                   {item.address
@@ -328,7 +328,9 @@ const LottoPage: FC = () => {
                   {item.tokenAmount}{" "}
                   <span className="lotto__timer-bubbles-block-span">XEN</span>
                 </p>
-                <p className="lotto__timer-bubbles-block-percent">69%</p>
+                <p className="lotto__timer-bubbles-block-percent">
+                  {(item.tokenAmount * 100) / totalRoundPrizePool}%
+                </p>
               </div>
             </div>
           );
