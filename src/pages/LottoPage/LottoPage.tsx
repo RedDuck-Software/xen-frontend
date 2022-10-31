@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
+import makeBlockie from 'ethereum-blockies-base64';
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
@@ -312,9 +313,9 @@ const LottoPage: FC = () => {
             >
               <div className="lotto__timer-bubbles-block">
                 <img
-                  src={BublesAvatar}
-                  alt=""
-                  className="lotto__timer-bubbles-block-avatar"
+                    src={makeBlockie(item.address)}
+                    alt=""
+                    className="lotto__timer-bubbles-block-avatar"
                 />
                 <p className="lotto__timer-bubbles-block-account">
                   {item.address

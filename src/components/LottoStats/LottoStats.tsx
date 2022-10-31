@@ -9,6 +9,8 @@ import AvatarEleven from "../../assets/img/lotto/avatar/avatar-11.svg";
 import AvatarTwelve from "../../assets/img/lotto/avatar/avatar-12.svg";
 import AvatarThirteen from "../../assets/img/lotto/avatar/avatar-13.svg";
 import Value from "../../assets/img/lotto/value.svg";
+
+import makeBlockie from 'ethereum-blockies-base64';
 import Share from "../../assets/img/lotto/share.svg";
 import LineStats from "../../assets/img/lotto/line-stats.png";
 import Crown from "../../assets/img/lotto/crown.svg";
@@ -107,7 +109,7 @@ const LottoStats = () => {
               
               className="lotto__participants-draw"
             >
-              <img src={AvatarSeven} alt="" />
+              <img className="lotto__participants-draw-images" src={makeBlockie(winner.winnerAddress.toString())} alt="" />
               <p className="lotto__participants-draw-text">
                 {winner.winnerAddress.toString().slice(0, 4) +
                   "..." +
