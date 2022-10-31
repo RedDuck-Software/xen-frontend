@@ -4,29 +4,19 @@ import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
 
 import "../../index.scss";
-export type LottoFooterProps = {
-  totalGamesPlayed: number;
-  totalAmount: number;
-  lastWinner: number;
-  lastWonAmount: number;
-  totalPayout: number;
-  totalPrizePool: number;
-  nextLottoPrize: number;
-  lottoPriceAllTime: number;
-  totalDrawAllTimeTotal: number;
-  totalWinnerAllTime: number;
+
+type LottoFooterProps = {
+  nextLottoPrize: string | undefined;
+  lottoPriceAllTime: string | undefined;
+  totalWinnerAllTime: string | undefined;
+  totalDrawAllTime: string | undefined;
 };
 
 const LottoFooter = ({
-  totalGamesPlayed,
-  totalAmount,
-  lastWinner,
-  lastWonAmount,
-  totalPayout,
-  totalPrizePool,
   nextLottoPrize,
   lottoPriceAllTime,
   totalWinnerAllTime,
+  totalDrawAllTime,
 }: LottoFooterProps) => {
   return (
     <div className="lotto__footer">
@@ -39,7 +29,7 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Prize</p>
           <p className="landing__block-numbers">
-            {totalAmount}
+            {nextLottoPrize ? nextLottoPrize : ""}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
@@ -51,7 +41,6 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Burn</p>
           <p className="landing__block-numbers">
-            {totalAmount}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
@@ -70,7 +59,7 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Lotto Prize All Time</p>
           <p className="landing__block-numbers">
-            {totalPayout}
+            {lottoPriceAllTime ? lottoPriceAllTime : ""}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
@@ -82,7 +71,7 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Lotto Burn All Time</p>
           <p className="landing__block-numbers">
-            {totalAmount}
+            {/* {totalAmount} */}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
@@ -101,7 +90,7 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Total Draw All Time</p>
           <p className="landing__block-numbers">
-            {totalGamesPlayed}
+            {totalDrawAllTime}
             <span className="landing__block-span">XEN Draws</span>
           </p>
         </div>
@@ -113,7 +102,8 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Total Winner All Time</p>
           <p className="landing__block-numbers">
-            567<span className="landing__block-span">Players</span>
+            {totalWinnerAllTime ? totalWinnerAllTime : ""}
+            <span className="landing__block-span">Players</span>
           </p>
         </div>
         <img

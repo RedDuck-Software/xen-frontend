@@ -29,15 +29,14 @@ const Header: FC = () => {
     const signer = provider.getSigner(0);
 
     const LotteryContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
     const userAddress = await signer.getAddress();
-
     const userContractBal = await LotteryContract.usersContractBalance(
       userAddress
     );
     // ethers.utils.formatUnits(userContractBal, 18);
 
     setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
+    console.log("account balance: ", userContractBal.toString());
   }
   useEffect(() => {
     getXenBalance();
