@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
+import makeBlockie from 'ethereum-blockies-base64';
 import Share from "../../assets/img/lotto/share.svg";
 import LineStats from "../../assets/img/lotto/line-stats.png";
 import Crown from "../../assets/img/lotto/crown.svg";
@@ -113,8 +114,11 @@ const LottoStats = ({
         </div>
         <div>
           {winners.map((winner: any) => (
-            <div className="lotto__participants-draw">
-              <img src={AvatarSeven} alt="" />
+            <div
+              
+              className="lotto__participants-draw"
+            >
+              <img className="lotto__participants-draw-images" src={makeBlockie(winner.winnerAddress.toString())} alt="" />
               <p className="lotto__participants-draw-text">
                 {winner.winnerAddress.toString().slice(0, 4) +
                   "..." +

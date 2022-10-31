@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { LOTTERYADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
+import makeBlockie from "ethereum-blockies-base64";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
@@ -51,7 +52,6 @@ const LottoPage: FC = () => {
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
-
     setTotalPrizePool(totalPrizePool);
     setTotalAllTimePrizePool(totalAllTimePrizePool);
     setTotalGamesPlayed(totalGamesPlayed);
@@ -229,7 +229,7 @@ const LottoPage: FC = () => {
             >
               <div className="lotto__timer-bubbles-block">
                 <img
-                  src={BublesAvatar}
+                  src={makeBlockie(item.address)}
                   alt=""
                   className="lotto__timer-bubbles-block-avatar"
                 />
@@ -244,7 +244,9 @@ const LottoPage: FC = () => {
                   {item.tokenAmount}{" "}
                   <span className="lotto__timer-bubbles-block-span">XEN</span>
                 </p>
-                <p className="lotto__timer-bubbles-block-percent">69%</p>
+                <p className="lotto__timer-bubbles-block-percent">
+                  {(item.tokenAmount * 100) / totalRoundPrizePool}%
+                </p>
               </div>
             </div>
           );

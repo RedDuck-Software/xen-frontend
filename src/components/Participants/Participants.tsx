@@ -5,6 +5,7 @@ import AvatarFirst from "../../assets/img/lotto/avatar/avatar-1.svg";
 import Value from "../../assets/img/lotto/value.svg";
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
+import makeBlockie from 'ethereum-blockies-base64';
 
 import "../../pages/LottoPage/LottoPage.scss";
 
@@ -31,7 +32,7 @@ const Participants = ({ participants }: IParticipants) => {
       </p>
       {participants.map((participant: any) => (
         <div className="lotto__participants-draw">
-          <img src={AvatarFirst} alt="" />
+          <img className="lotto__participants-draw-images" src={makeBlockie(participant.address.toString())} alt="" />
           <p className="lotto__participants-draw-text">
             {participant.address.slice(0, 4) +
               "..." +
