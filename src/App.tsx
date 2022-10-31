@@ -14,6 +14,7 @@ import { Context } from "./Context";
 
 import "./index.scss";
 import MetamaskProvider from "./components/MetamaskProvider/MetamaskProvider";
+import ChainSwapHandler from "./helpers/handleChainSwap";
 
 const App: FC = () => {
   function getLibrary(provider: any) {
@@ -26,34 +27,36 @@ const App: FC = () => {
 
   useEffect(() => {
     if (!connector) {
-      // navigate('./')
+      navigate("./");
     }
   }, [connector]);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <MetamaskProvider>
-        <Context.Provider
-          value={{
-            loggedIn,
-            setLoggedIn,
-            signer,
-            setSigner,
-          }}
-        >
-          <div className="wrapper__background">
-            <div className="wrapper">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/deposit-page" element={<DepositPage />} />
-                <Route path="/landing-page" element={<LandingPage />} />
-                <Route path="/lotto-page" element={<LottoPage />} />
-                <Route path="/account-page" element={<AccountPage />} />
-              </Routes>
+      <ChainSwapHandler>
+        <MetamaskProvider>
+          <Context.Provider
+            value={{
+              loggedIn,
+              setLoggedIn,
+              signer,
+              setSigner,
+            }}
+          >
+            <div className="wrapper__background">
+              <div className="wrapper">
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/deposit-page" element={<DepositPage />} />
+                  <Route path="/landing-page" element={<LandingPage />} />
+                  <Route path="/lotto-page" element={<LottoPage />} />
+                  <Route path="/account-page" element={<AccountPage />} />
+                </Routes>
+              </div>
             </div>
-          </div>
-        </Context.Provider>
-      </MetamaskProvider>
+          </Context.Provider>
+        </MetamaskProvider>
+      </ChainSwapHandler>
     </Web3ReactProvider>
   );
 };

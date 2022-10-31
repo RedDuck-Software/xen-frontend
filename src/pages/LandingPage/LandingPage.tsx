@@ -2,7 +2,7 @@ import React, { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { LOTTERYADDRESS } from "../../helpers/constants";
+import { BSC_RPC_URL, LOTTERYADDRESS } from "../../helpers/constants";
 
 import { injected } from "../../helpers/connectors";
 import { Lottery__factory } from "../../typechain";
@@ -22,6 +22,9 @@ import "./LandingPage.scss";
 
 const LandingPage: FC = () => {
   const [totalPayout, setTotalPayout] = React.useState<any>();
+  const [totalGamesPlayed, setTotalGamesPlayed] = React.useState<any>();
+  const [currentPrizePool, setCurrentPrizePool] = React.useState<any>();
+  const [lastWonAmount, setLastWonAmount] = React.useState<any>();
   const [totalPayoutAllTime, setTotalPayoutAllTime] = React.useState<any>();
   const { account, connector, activate } = useWeb3React();
   const navigate = useNavigate();
@@ -44,13 +47,26 @@ const LandingPage: FC = () => {
 
   async function getTotalInfo() {
     const provider = new ethers.providers.JsonRpcProvider(
-      `https://eth-goerli.g.alchemy.com/v2/RjtXgibyHZpH_pzNdKAnh28f0Ja_UUEf`
+      BSC_RPC_URL
     );
     const LotteryCounter = Lottery__factory.connect(LOTTERYADDRESS, provider);
-    /*const totalPayout = await (
-      await LotteryCounter.totalPayoutToday()
-    ).toString()*/
 
+    const totalGamesPlayed = await (
+        await LotteryCounter.totalGamesPlayed()
+    ).toString();
+    setTotalGamesPlayed(totalGamesPlayed);
+    console.log('ds222as')
+
+      console.log('totalGamesPlayed',totalGamesPlayed)
+    const currentPrizePool = await (
+        await LotteryCounter.totalPrizePool()
+    ).toString();
+    setCurrentPrizePool(currentPrizePool);
+
+    const lastWonAmount = await (
+        await LotteryCounter.lastWonAmount()
+    ).toString();
+    setLastWonAmount(lastWonAmount);
 
     const totalPayoutAllTime = await (
       await LotteryCounter.totalAllTimePrizePool()
@@ -82,9 +98,9 @@ const LandingPage: FC = () => {
         <div className="landing__main">
           <div className="landing__main-block landing__main-block-left">
             <div className="landing__block-text">
-              <p className="landing__block-title">Total Payout Today</p>
+              <p className="landing__block-title">Last Won Amount</p>
               <p className="landing__block-numbers">
-                {totalPayout}
+                {lastWonAmount}
                 <span className="landing__block-span">XEN</span>
               </p>
             </div>
@@ -100,17 +116,17 @@ const LandingPage: FC = () => {
           </div>
           <div className="landing__main-block landing__main-block-down-left">
             <div className="landing__block-text">
-              <p className="landing__block-title">Burnt today</p>
+              <p className="landing__block-title">Current Prize Pool</p>
               <p className="landing__block-numbers">
-                11,901,431<span className="landing__block-span">XEN</span>
+                {currentPrizePool}<span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>
           <div className="landing__main-block landing__main-block-down-right">
             <div className="landing__block-text">
-              <p className="landing__block-title">Burnt All Time</p>
+              <p className="landing__block-title">Total Games Played</p>
               <p className="landing__block-numbers">
-                80,953,235<span className="landing__block-span">XEN</span>
+                {totalGamesPlayed}<span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
 import makeBlockie from "ethereum-blockies-base64";
 import Share from "../../assets/img/lotto/share.svg";
 import LineStats from "../../assets/img/lotto/line-stats.png";
@@ -10,9 +9,8 @@ import LineBottom from "../../assets/img/lotto/line-bottom.png";
 
 import "../../index.scss";
 import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
 import { Lottery__factory } from "../../typechain";
-import { LOTTERYADDRESS } from "../../helpers/constants";
+import { BSC_RPC_URL, LOTTERYADDRESS } from "../../helpers/constants";
 
 type LottoFooterProps = {
   myEntry: string | undefined;
@@ -26,27 +24,19 @@ const LottoStats = ({
   chancesOfWinning,
 }: LottoFooterProps) => {
   const [winners, setWinners] = useState<any>([]);
-  const { connector } = useWeb3React();
 
   const getWinners = async () => {
-    if (!connector || !winners) return "!args";
+    const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner();
-
-    const WinnersContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const WinnersContract = Lottery__factory.connect(LOTTERYADDRESS, provider);
     const allWinners = await WinnersContract.getAllWinners();
 
-    setWinners(allWinners);
+    setWinners(allWinners.slice(allWinners.length - 5, allWinners.length));
   };
 
   useEffect(() => {
-    if (connector) {
-      getWinners();
-    }
-  }, [connector]);
+    getWinners();
+  }, []);
 
   return (
     <div>
@@ -119,8 +109,8 @@ const LottoStats = ({
           <p className="lotto__participants-title">Previous Winners</p>
         </div>
         <div>
-          {winners.map((winner: any) => (
-            <div className="lotto__participants-draw">
+          {winners.slice().map((winner: any, key: number) => (
+            <div className="lotto__participants-draw" key={winner + key}>
               <img
                 className="lotto__participants-draw-images"
                 src={makeBlockie(winner.winnerAddress.toString())}
