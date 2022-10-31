@@ -10,6 +10,8 @@ type LottoFooterProps = {
   lottoPriceAllTime: string | undefined;
   totalWinnerAllTime: string | undefined;
   totalDrawAllTime: string | undefined;
+  lastWonAmount: string | undefined;
+  totalParticipants:string | undefined;
 };
 
 const LottoFooter = ({
@@ -17,6 +19,8 @@ const LottoFooter = ({
   lottoPriceAllTime,
   totalWinnerAllTime,
   totalDrawAllTime,
+  lastWonAmount,
+  totalParticipants
 }: LottoFooterProps) => {
   return (
     <div className="lotto__footer">
@@ -39,10 +43,12 @@ const LottoFooter = ({
           className="lotto__footer-line lotto__footer-line-center"
         />
         <div className="landing__block-text">
-          <p className="landing__block-title">Next Lotto Burn</p>
+          <p className="landing__block-title">Last Won amount</p>
           <p className="landing__block-numbers">
+          {lastWonAmount}
             <span className="landing__block-span">XEN</span>
           </p>
+          
         </div>
         <img
           src={LineBottom}
@@ -69,9 +75,9 @@ const LottoFooter = ({
           className="lotto__footer-line lotto__footer-line-center"
         />
         <div className="landing__block-text">
-          <p className="landing__block-title">Lotto Burn All Time</p>
+          <p className="landing__block-title">Total participants</p>
           <p className="landing__block-numbers">
-            {/* {totalAmount} */}
+            {totalParticipants}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import { LOTTERYADDRESS } from "../../helpers/constants";
+import { BSC_RPC_URL, LOTTERYADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
 import makeBlockie from "ethereum-blockies-base64";
@@ -32,16 +32,15 @@ const LottoPage: FC = () => {
   const [myEntry, setMyEntry] = useState<string>();
   const [chancesOfWinning, setChancesOfWinning] = useState<string>();
   const [inputAmountValue, setInputAmountValue] = useState<number>(0);
+  const [lastWonAmount, setLastWonAmount] = useState<string>();
 
   async function getTotalInfo() {
-    if (!connector || !account) return "!args";
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
+    const provider = new ethers.providers.JsonRpcProvider(
+      BSC_RPC_URL
     );
-    const signer = provider.getSigner(0);
 
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, provider);
     const totalPrizePool = await (await Lottery.totalPrizePool()).toString();
     const totalAllTimePrizePool = await (
       await Lottery.totalAllTimePrizePool()
@@ -49,13 +48,19 @@ const LottoPage: FC = () => {
     const totalGamesPlayed = await (
       await Lottery.totalGamesPlayed()
     ).toString();
+
+  
+    const lastWonAmount = await (
+      await Lottery.lastWonAmount()
+    ).toString();
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
+
     setTotalPrizePool(totalPrizePool);
     setTotalAllTimePrizePool(totalAllTimePrizePool);
     setTotalGamesPlayed(totalGamesPlayed);
-
+    setLastWonAmount(lastWonAmount)
     setNextParticipateTimestamp(nextParticipateTimestamp);
   }
 
@@ -74,20 +79,18 @@ const LottoPage: FC = () => {
   };
 
   const getParticipants = async () => {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
+    const provider = new ethers.providers.JsonRpcProvider(
+      BSC_RPC_URL
     );
-    const signer = provider.getSigner();
-
-    const contract = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const contract = Lottery__factory.connect(LOTTERYADDRESS, provider);
     const tx = await contract.getParticipants();
+    console.log('txtxtx',tx)
+
     const allParticipants = tx.map((item) => ({
       address: item.participantAddress,
-      tokenAmount: item.tokenAmount.toString(),
+      tokenAmount: item.depositedAmount.toString(),
     }));
-
+    console.log('DASDASDASDA',allParticipants[1].tokenAmount)
     setAllParticipants(allParticipants);
     getMyEntry();
   };
@@ -130,11 +133,11 @@ const LottoPage: FC = () => {
   };
 
   useEffect(() => {
-    if (connector) {
+
       getTotalInfo();
       getParticipants();
-    }
-  }, [connector]);
+    console.log('re')
+  },[]);
 
   useEffect(() => {
     if (allParticipants.length && account) {
@@ -211,7 +214,7 @@ const LottoPage: FC = () => {
           <LottoStats
             myEntry={myEntry}
             totalWinningToDate={totalWinningToDate}
-            chancesOfWinning={chancesOfWinning}
+            chancesOfWinning={chancesOfWinning}            
           />
         </div>
       </div>
@@ -220,6 +223,8 @@ const LottoPage: FC = () => {
         lottoPriceAllTime={totalAllTimePrizePool}
         totalWinnerAllTime={totalGamesPlayed}
         totalDrawAllTime={totalGamesPlayed}
+        lastWonAmount={lastWonAmount}
+        totalParticipants={allParticipants.length}
       />
       <div className="lotto__timer-bubbles">
         {allParticipants.slice(0, 3).map((item: any, key: number) => {
@@ -246,7 +251,7 @@ const LottoPage: FC = () => {
                 </p>
                 {totalPrizePool && (
                   <p className="lotto__timer-bubbles-block-percent">
-                    {(item.tokenAmount * 100) / +totalPrizePool}%
+                    {((item.tokenAmount * 100) / +totalPrizePool).toFixed(2)}%
                   </p>
                 )}
               </div>

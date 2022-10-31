@@ -1,2 +1,3 @@
-export const XENADDRESS = "0xbCA60080cA21Dc4d302C23B38D39B8DC4AAC46Eb"; // BSC testnet
-export const LOTTERYADDRESS = "0xfd44366B7eC6B1A27706c9264F1d12c7B3CD09b3"; // BSC testnet
+export const XENADDRESS = "0xffa85b03EFfFCE7519CCA24CDd69ea802B616B07"; // BSC testnet
+export const LOTTERYADDRESS = "0x0A95f29867a3c4fb2aD5f35796d503dd56b50eB1"; // BSC testnet
+export const BSC_RPC_URL = `https://data-seed-prebsc-1-s1.binance.org:8545/`

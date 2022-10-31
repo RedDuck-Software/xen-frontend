@@ -74,7 +74,7 @@ const Header: FC = () => {
             <a href="" className="header__link">
               {account
                 ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
-                : "Connect Wallet "}
+                : <button onClick={()=>navigate('/')}>Connect wallet</button>}
             </a>
           </li>
           <li className="header__btn header__btn-right">
@@ -85,7 +85,7 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              Goerli Testnet<span></span>
+              BSC Testnet<span></span>
             </a>
           </li>
         </ul>
