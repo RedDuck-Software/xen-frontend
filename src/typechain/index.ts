@@ -3,6 +3,8 @@
 /* eslint-disable */
 export type { Lottery } from "./Lottery";
 export type { XENToken } from "./XENToken";
+export type { Package } from "./Package";
 export * as factories from "./factories";
 export { Lottery__factory } from "./factories/Lottery__factory";
+export { Package__factory } from "./factories/Package__factory";
 export { XENToken__factory } from "./factories/XENToken__factory";

@@ -3,3 +3,4 @@
 /* eslint-disable */
 export { Lottery__factory } from "./Lottery__factory";
 export { XENToken__factory } from "./XENToken__factory";
+export { Package__factory } from "./Package__factory";

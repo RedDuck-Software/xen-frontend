@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import AvatarSeven from "../../assets/img/lotto/avatar/avatar-7.svg";
-import makeBlockie from 'ethereum-blockies-base64';
+import makeBlockie from "ethereum-blockies-base64";
 import Share from "../../assets/img/lotto/share.svg";
 import LineStats from "../../assets/img/lotto/line-stats.png";
 import Crown from "../../assets/img/lotto/crown.svg";
@@ -89,10 +89,16 @@ const LottoStats = ({
             <p className="lotto__stats-my__block-title">
               Total winnings to date
             </p>
-            <p className="lotto__stats-my__block-numbers">
-              {totalWinningToDate ? totalWinningToDate : ""}
-              <span className="lotto__stats-my__block-span">XEN</span>
-            </p>
+            {totalWinningToDate ? (
+              <p className="lotto__stats-my__block-numbers">
+                {totalWinningToDate}
+                <span className="lotto__stats-my__block-span">XEN</span>
+              </p>
+            ) : (
+              <p className="lotto__stats-my__block-span">
+                No draw was deposited
+              </p>
+            )}
           </div>
           <img
             src={LineBottom}
@@ -114,11 +120,12 @@ const LottoStats = ({
         </div>
         <div>
           {winners.map((winner: any) => (
-            <div
-              
-              className="lotto__participants-draw"
-            >
-              <img className="lotto__participants-draw-images" src={makeBlockie(winner.winnerAddress.toString())} alt="" />
+            <div className="lotto__participants-draw">
+              <img
+                className="lotto__participants-draw-images"
+                src={makeBlockie(winner.winnerAddress.toString())}
+                alt=""
+              />
               <p className="lotto__participants-draw-text">
                 {winner.winnerAddress.toString().slice(0, 4) +
                   "..." +

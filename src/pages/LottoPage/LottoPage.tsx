@@ -244,9 +244,11 @@ const LottoPage: FC = () => {
                   {item.tokenAmount}{" "}
                   <span className="lotto__timer-bubbles-block-span">XEN</span>
                 </p>
-                <p className="lotto__timer-bubbles-block-percent">
-                  {(item.tokenAmount * 100) / totalRoundPrizePool}%
-                </p>
+                {totalPrizePool && (
+                  <p className="lotto__timer-bubbles-block-percent">
+                    {(item.tokenAmount * 100) / +totalPrizePool}%
+                  </p>
+                )}
               </div>
             </div>
           );
