@@ -74,7 +74,7 @@
           font-size: 30px;
           line-height: 35px;
           letter-spacing: 0.035em;
-          font-family: 'Roboto Bold';
+          font-family: "Roboto Bold";
           color: #ffbc6d;
           margin-bottom: 15px;
         }
@@ -83,7 +83,7 @@
           font-size: 30px;
           line-height: 35px;
           letter-spacing: 0.035em;
-          font-family: 'Roboto Bold';
+          font-family: "Roboto Bold";
           color: #26e5ff;
           margin-bottom: 15px;
         }
@@ -92,7 +92,7 @@
           font-size: 20px;
           line-height: 23px;
           letter-spacing: 0.035em;
-          font-family: 'Roboto Bold';
+          font-family: "Roboto Bold";
           color: #ffffff;
         }
 
@@ -101,12 +101,12 @@
           line-height: 35px;
           text-align: center;
           letter-spacing: 0.035em;
-          font-family: 'Roboto Bold';
+          font-family: "Roboto Bold";
           color: #1fea33;
         }
       }
       &-L {
-        background: url('../../assets/img/lotto/timer/bubles.png');
+        background: url("../../assets/img/lotto/timer/bubles.png");
         width: 280px;
         height: 280px;
       }
@@ -117,7 +117,7 @@
       justify-content: center;
       align-items: center;
       background-repeat: no-repeat;
-      background: url('../../assets/img/lotto/timer/timer-bg.png');
+      background: url("../../assets/img/lotto/timer/timer-bg.png");
       width: 300px;
       height: 300px;
       background-size: 300px 300px;
@@ -130,7 +130,7 @@
         line-height: 23px;
         letter-spacing: 0.035em;
         color: #ffffff;
-        font-family: 'Roboto Medium';
+        font-family: "Roboto Medium";
       }
 
       &__date {
@@ -138,7 +138,7 @@
         line-height: 61px;
         letter-spacing: 0.035em;
         color: #ffffff;
-        font-family: 'Inter';
+        font-family: "Inter";
         margin: 5px 0px;
       }
 
@@ -146,7 +146,7 @@
         font-size: 20px;
         line-height: 23px;
         letter-spacing: 0.035em;
-        font-family: 'Roboto Medium';
+        font-family: "Roboto Medium";
         margin-bottom: 5px;
         color: #ffffff;
       }
@@ -156,7 +156,7 @@
         font-size: 26px;
         line-height: 32px;
         color: #ffffff;
-        font-family: 'Inter';
+        font-family: "Inter";
       }
 
       &__span {
@@ -164,7 +164,7 @@
         line-height: 21px;
         letter-spacing: 0.035em;
         color: #ffffff;
-        font-family: 'Roboto Condensed-Bold';
+        font-family: "Roboto Condensed-Bold";
       }
     }
 
@@ -183,7 +183,7 @@
 
       &__input::placeholder {
         color: #fff;
-        font-family: 'Inter Medium';
+        font-family: "Inter Medium";
         font-size: 14px;
         line-height: 17px;
         letter-spacing: 0.035em;
@@ -197,7 +197,7 @@
         font-size: 18px;
         line-height: 21px;
         color: #ffffff;
-        font-family: 'Roboto Condensed-Bold';
+        font-family: "Roboto Condensed-Bold";
       }
     }
   }
@@ -236,7 +236,7 @@
   }
 
   &__stats {
-    background: url('../../assets/img/lotto/bg-stats.png');
+    background: url("../../assets/img/lotto/bg-stats.png");
     height: 250px;
     margin-top: 50px;
     background-size: 100% 250px;
@@ -251,13 +251,13 @@
         width: 230px;
         height: 45px;
         margin-bottom: 5px;
-        background: url('../../assets/img/lotto/header-bg.png');
+        background: url("../../assets/img/lotto/header-bg.png");
 
         &-title {
           color: #2ac3bf;
           font-size: 16px;
           line-height: 19px;
-          font-family: 'Roboto Condensed-Bold';
+          font-family: "Roboto Condensed-Bold";
         }
 
         &-img {
@@ -275,7 +275,7 @@
         margin-bottom: 10px;
         &-title {
           color: #ffffff;
-          font-family: 'Inter';
+          font-family: "Inter";
           font-size: 14px;
           line-height: 17px;
           opacity: 0.7;
@@ -286,14 +286,14 @@
           margin-left: 5px;
           font-size: 14px;
           line-height: 16px;
-          font-family: 'Roboto Condensed-Bold';
+          font-family: "Roboto Condensed-Bold";
           color: #ffffff;
           opacity: 0.7;
         }
         &-numbers {
           font-size: 20px;
           line-height: 23px;
-          font-family: 'Roboto Condensed-Bold';
+          font-family: "Roboto Condensed-Bold";
           color: #ffffff;
         }
       }
@@ -309,7 +309,7 @@
   &__winners {
     display: flex;
     flex-direction: column;
-    background: url('../../assets/img/lotto/bg-stats.png');
+    background: url("../../assets/img/lotto/bg-stats.png");
     margin-top: 50px;
 
     &__header {
@@ -319,7 +319,7 @@
       width: 230px;
       height: 45px;
       margin-bottom: 5px;
-      background: url('../../assets/img/lotto/header-bg.png');
+      background: url("../../assets/img/lotto/header-bg.png");
     }
   }
 
@@ -355,11 +355,11 @@
     height: 730px;
     align-items: center;
     flex-direction: column;
-    font-family: 'Roboto Condensed-Medium';
+    font-family: "Roboto Condensed-Medium";
     margin-left: 15px;
     margin-top: 60px;
     margin-bottom: 80px;
-    background: url('../../assets/img/lotto/bg-participants.png');
+    background: url("../../assets/img/lotto/bg-participants.png");
     &-title {
       display: flex;
       align-items: center;
@@ -367,7 +367,7 @@
       line-height: 19px;
       color: #2bb0ad;
       margin-top: 15px;
-      background: url('../../assets/img/lotto/participants-title-bg.png');
+      background: url("../../assets/img/lotto/participants-title-bg.png");
       margin-bottom: 20px;
     }
 
@@ -382,19 +382,20 @@
     }
 
     &-draw {
-      background: url('../../assets/img/lotto/avatar-bg.png');
+      background: url("../../assets/img/lotto/avatar-bg.png");
       min-width: 210px;
       height: 44px;
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding: 0 15px;
       margin-bottom: 5px;
       background-size: 230px 44px;
       &-text {
         font-size: 12px;
         line-height: 14px;
         color: #ffffff;
-        font-family: 'Roboto Medium';
+        font-family: "Roboto Medium";
       }
       &-images {
         width: 20px;
@@ -417,7 +418,7 @@
     &-block {
       width: 380px;
       height: 270px;
-      background: url('../../assets/img/lotto/bg-footer.png');
+      background: url("../../assets/img/lotto/bg-footer.png");
     }
     &-line {
       position: relative;

@@ -1,16 +1,14 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
+import { LOTTERYADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
 import makeBlockie from "ethereum-blockies-base64";
 import Participants from "../../components/Participants/Participants";
 import LottoFooter from "../../components/LottoFooter/LottoFooter";
 import LottoStats from "../../components/LottoStats/LottoStats";
-import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
-import { injected } from "../../helpers/connectors";
 
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
@@ -19,103 +17,21 @@ import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
-import { useNavigate } from "react-router-dom";
 import Countdown from "react-countdown";
 
 const LottoPage: FC = () => {
   const countdownRef = useRef<any>(null);
-  const { account, connector, activate } = useWeb3React();
-  const [amount, setAmount] = useState<any>();
-  const [accountBalance, setAccountBalance] = useState<any>();
-  const [showModal, setShowModal] = useState<boolean>();
-  const [timer, setTimer] = useState<any>();
-  const [totalPayout, setTotalPayout] = useState<any>();
-  const [totalAmount, setTotalAmount] = useState<any>();
-  const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
-  const [lastWinner, setLastWinner] = useState<any>();
-  const [totalRoundPrizePool, setTotalRoundPrizePool] = useState<any>();
-  const [lastWonAmount, setLastWonAmount] = useState<any>();
-  const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
+  const { account, connector } = useWeb3React();
+  const [totalAllTimePrizePool, setTotalAllTimePrizePool] = useState<string>();
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState<string>();
+  const [totalPrizePool, setTotalPrizePool] = useState<string>();
   const [nextParticipateTimestamp, setNextParticipateTimestamp] =
     useState<number>(0);
   const [allParticipants, setAllParticipants] = useState<any>([]);
+  const [totalWinningToDate, setTotalWinningToDate] = useState<string>();
+  const [myEntry, setMyEntry] = useState<string>();
+  const [chancesOfWinning, setChancesOfWinning] = useState<string>();
   const [inputAmountValue, setInputAmountValue] = useState<number>(0);
-  const navigate = useNavigate();
-  const [nextLottoPrize, setNextLottoPrize] = useState<any>();
-  const [totalPrizePool, setTotalPrizePool] = useState<any>();
-  const [lottoPriceAllTime, setLottoPriceAllTime] = useState<any>();
-  const [totalDrawAllTimeTotal, setTotalDrawAllTimeTotal] = useState<any>();
-  const [totalWinnerAllTime, setTotalWinnerAllTime] = useState<any>();
-
-  async function connect() {
-    try {
-      await activate(injected);
-    } catch (ex) {
-      console.log("err");
-      console.log(ex);
-    }
-  }
-
-  async function ApproveAndDeposit() {
-    if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-
-    const signer = provider.getSigner(0);
-    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
-
-    const tx = await Erc20Contract.approve(
-      LOTTERYADDRESS,
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
-    );
-    await tx.wait();
-
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
-    const tx2 = await Lottery.participate(
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
-    );
-    await tx2.wait();
-  }
-
-  async function getXenBalance() {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-
-    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
-
-    console.log("accountaccount", account);
-    console.log("signersigner", signer);
-    console.log("connector", connector);
-
-    const value = await Erc20Contract.balanceOf(account);
-    console.log(value);
-    setAccountBalance(value);
-  }
-
-  async function getTime() {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const nextRound = await (
-      await Lottery.nextParticipateTimestamp()
-    ).toString();
-    console.log("nextRound", nextRound);
-    const date = new Date(+nextRound * 1000);
-    console.log(date);
-
-    setTimer(date);
-  }
 
   async function getTotalInfo() {
     if (!connector || !account) return "!args";
@@ -126,78 +42,106 @@ const LottoPage: FC = () => {
     const signer = provider.getSigner(0);
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    console.log("dasdas");
+    const totalPrizePool = await (await Lottery.totalPrizePool()).toString();
+    const totalAllTimePrizePool = await (
+      await Lottery.totalAllTimePrizePool()
+    ).toString();
     const totalGamesPlayed = await (
       await Lottery.totalGamesPlayed()
     ).toString();
-    // const totalPayout = await (await Lottery.totalPayoutToday()).toString()
-    const totalAmount = await (
-      await Lottery.totalAllTimePrizePool()
-    ).toString();
-    const lastWinner = await (await Lottery.lastWinner()).toString();
-    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
-    const totalRoundPrize = await (await Lottery.totalPrizePool()).toString();
-    console.log("totalPayout", totalPayout);
-    console.log("totalAmount before set", totalAmount);
-    console.log("totalGamesPlayed", totalGamesPlayed);
-    setTotalRoundPrizePool(totalRoundPrize);
-    setLastWinner(lastWinner);
-    setLastWonAmount(lastWonAmount);
+    setTotalPrizePool(totalPrizePool);
+    setTotalAllTimePrizePool(totalAllTimePrizePool);
     setTotalGamesPlayed(totalGamesPlayed);
-    setTotalPayout(totalPayout);
-    setTotalAmount(totalAmount);
+
     setNextParticipateTimestamp(nextParticipateTimestamp);
   }
 
   const getAmount = async (amount: number) => {
     if (!connector || !account) return "!args";
+
     const provider = new ethers.providers.Web3Provider(
       await connector.getProvider()
     );
-
     const signer = provider.getSigner();
 
     const amountContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
     const tx = await amountContract.participate(amount);
+
     await tx.wait();
   };
 
   const getParticipants = async () => {
     if (!connector || !account) return "!args";
+
     const provider = new ethers.providers.Web3Provider(
       await connector.getProvider()
     );
-
     const signer = provider.getSigner();
 
     const contract = Lottery__factory.connect(LOTTERYADDRESS, signer);
     const tx = await contract.getParticipants();
-    console.log("getParticipants", tx);
     const allParticipants = tx.map((item) => ({
       address: item.participantAddress,
       tokenAmount: item.tokenAmount.toString(),
     }));
-    console.log("allParticipants", allParticipants);
+
     setAllParticipants(allParticipants);
+    getMyEntry();
+  };
+
+  const getMyEntry = () => {
+    if (!allParticipants.length || !account) return;
+
+    const myEntry = allParticipants.find(
+      (participant: any) => participant.address === account
+    );
+
+    if (!myEntry) return;
+    setMyEntry(myEntry.tokenAmount);
+  };
+
+  const getTotalWinningToDate = () => {
+    if (!allParticipants.length) return;
+
+    const totalWinningToDate = allParticipants.reduce(
+      (totalWinning: string, participant: any) =>
+        totalWinning + +participant.tokenAmount,
+      0
+    );
+
+    setTotalWinningToDate(totalWinningToDate.toString());
+    getChancesOfWinning(totalWinningToDate.toString());
+  };
+
+  const getChancesOfWinning = (totalWinningToDate: string) => {
+    if (!allParticipants.length || !totalWinningToDate || !account) return;
+
+    const user = allParticipants.find(
+      (participant: any) => participant.address === account
+    );
+
+    if (!user) return;
+
+    const chancesOfWinning = (100 * user.tokenAmount) / +totalWinningToDate;
+    setChancesOfWinning(chancesOfWinning.toString());
   };
 
   useEffect(() => {
-    if (!connector) {
-      navigate("/");
-    }
     if (connector) {
-      console.log("here");
-      console.log("connector", account);
-      getXenBalance();
-      getTime();
       getTotalInfo();
       getParticipants();
     }
-  }, []);
+  }, [connector]);
+
+  useEffect(() => {
+    if (allParticipants.length && account) {
+      getMyEntry();
+      getTotalWinningToDate();
+    }
+  }, [account, allParticipants]);
 
   useEffect(() => {
     if (countdownRef?.current && nextParticipateTimestamp) {
@@ -205,32 +149,6 @@ const LottoPage: FC = () => {
     }
   }, [countdownRef, nextParticipateTimestamp]);
 
-  const getStaticticsData = async () => {
-    if (!connector) return;
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-    console.log("lotterAdress", signer);
-    const contract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const nextLottoPrize = await contract.totalPrizePool();
-    const totalPrizePool = await contract.totalAllTimePrizePool();
-    const lottoPriceAllTime = await contract.totalAllTimePrizePool();
-    const totalDrawAllTimeTotal = await contract.totalGamesPlayed();
-    const totalWinnerAllTime = await contract.totalGamesPlayed();
-
-    setNextLottoPrize(nextLottoPrize);
-    setTotalPrizePool(totalPrizePool);
-    setLottoPriceAllTime(lottoPriceAllTime);
-    setTotalDrawAllTimeTotal(totalDrawAllTimeTotal);
-    setTotalWinnerAllTime(totalWinnerAllTime);
-  };
-
-  useEffect(() => {
-    getStaticticsData();
-  }, [connector]);
-
-  console.log("allParticipants", allParticipants);
   return (
     <div className="wrapper wrapper-lotto">
       <Header />
@@ -252,7 +170,7 @@ const LottoPage: FC = () => {
               />
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
-                🔥{totalRoundPrizePool}{" "}
+                🔥{totalPrizePool}{" "}
                 <span className="lotto__timer-block__span">XEN</span>
               </p>
             </div>
@@ -290,20 +208,18 @@ const LottoPage: FC = () => {
             </div>
           </div>
 
-          <LottoStats />
+          <LottoStats
+            myEntry={myEntry}
+            totalWinningToDate={totalWinningToDate}
+            chancesOfWinning={chancesOfWinning}
+          />
         </div>
       </div>
       <LottoFooter
-        totalGamesPlayed={totalGamesPlayed}
-        totalPayout={totalPayout}
-        totalAmount={totalAmount}
-        lastWinner={lastWinner}
-        lastWonAmount={lastWonAmount}
-        nextLottoPrize={nextLottoPrize}
-        totalPrizePool={totalPrizePool}
-        lottoPriceAllTime={lottoPriceAllTime}
-        totalDrawAllTimeTotal={totalDrawAllTimeTotal}
-        totalWinnerAllTime={totalWinnerAllTime}
+        nextLottoPrize={totalPrizePool}
+        lottoPriceAllTime={totalAllTimePrizePool}
+        totalWinnerAllTime={totalGamesPlayed}
+        totalDrawAllTime={totalGamesPlayed}
       />
       <div className="lotto__timer-bubbles">
         {allParticipants.slice(0, 3).map((item: any, key: number) => {
