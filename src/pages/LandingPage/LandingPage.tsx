@@ -50,6 +50,8 @@ const LandingPage: FC = () => {
     /*const totalPayout = await (
       await LotteryCounter.totalPayoutToday()
     ).toString()*/
+
+
     const totalPayoutAllTime = await (
       await LotteryCounter.totalAllTimePrizePool()
     ).toString();
