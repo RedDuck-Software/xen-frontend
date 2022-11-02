@@ -164,7 +164,10 @@ const LottoPage: FC = () => {
               />
               <p className="lotto__timer-block__prize">Lotto Prize</p>
               <p className="lotto__timer-block__numbers">
-                🔥{totalPrizePool}{" "}
+                🔥
+                {totalPrizePool
+                  ? ethers.utils.formatEther(totalPrizePool)
+                  : ""}{" "}
                 <span className="lotto__timer-block__span">XEN</span>
               </p>
             </div>
@@ -237,7 +240,7 @@ const LottoPage: FC = () => {
                     : "Connect Wallet "}
                 </p>
                 <p className="lotto__timer-bubbles-block-numbers">
-                  {item.tokenAmount}{" "}
+                  {ethers.utils.formatEther(item.tokenAmount)}{" "}
                   <span className="lotto__timer-bubbles-block-span">XEN</span>
                 </p>
                 {totalPrizePool && (

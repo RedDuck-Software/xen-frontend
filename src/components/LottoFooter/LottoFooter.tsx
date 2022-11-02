@@ -1,4 +1,5 @@
 import React from "react";
+import { ethers } from "ethers";
 
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
@@ -11,7 +12,7 @@ type LottoFooterProps = {
   totalWinnerAllTime: string | undefined;
   totalDrawAllTime: string | undefined;
   lastWonAmount: string | undefined;
-  totalParticipants:string | undefined;
+  totalParticipants: string | undefined;
 };
 
 const LottoFooter = ({
@@ -20,7 +21,7 @@ const LottoFooter = ({
   totalWinnerAllTime,
   totalDrawAllTime,
   lastWonAmount,
-  totalParticipants
+  totalParticipants,
 }: LottoFooterProps) => {
   return (
     <div className="lotto__footer">
@@ -33,7 +34,7 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Prize</p>
           <p className="landing__block-numbers">
-            {nextLottoPrize ? nextLottoPrize : ""}
+            {nextLottoPrize ? ethers.utils.formatEther(nextLottoPrize) : ""}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
@@ -45,10 +46,13 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Last Won amount</p>
           <p className="landing__block-numbers">
-          {lastWonAmount}
+            {lastWonAmount
+              ? ethers.utils
+                  .formatEther(lastWonAmount)
+                  .replace(/\.(\d{1,2}).*$/, ".$1")
+              : ""}
             <span className="landing__block-span">XEN</span>
           </p>
-          
         </div>
         <img
           src={LineBottom}
@@ -65,7 +69,11 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Lotto Prize All Time</p>
           <p className="landing__block-numbers">
-            {lottoPriceAllTime ? lottoPriceAllTime : ""}
+            {lottoPriceAllTime
+              ? ethers.utils
+                  .formatEther(lottoPriceAllTime)
+                  .replace(/\.(\d{1,2}).*$/, ".$1")
+              : ""}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>

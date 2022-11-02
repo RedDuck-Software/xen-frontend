@@ -55,7 +55,7 @@ const LottoStats = ({
             <p className="lotto__stats-my__block-title">My Entry</p>
             {myEntry ? (
               <p className="lotto__stats-my__number">
-                {myEntry}{" "}
+                {ethers.utils.formatEther(myEntry)}{" "}
                 <span className="lotto__stats-my__block-span">XEN</span>
               </p>
             ) : (
@@ -81,7 +81,7 @@ const LottoStats = ({
             </p>
             {totalWinningToDate ? (
               <p className="lotto__stats-my__block-numbers">
-                {totalWinningToDate}
+                {ethers.utils.formatEther(totalWinningToDate)}
                 <span className="lotto__stats-my__block-span">XEN</span>
               </p>
             ) : (
@@ -122,7 +122,9 @@ const LottoStats = ({
                   winner.winnerAddress.toString().slice(38, 42)}
               </p>
               <p className="lotto__participants-draw-text">
-                {winner.wonAmount.toString()}
+                {ethers.utils
+                  .formatEther(winner.wonAmount.toString())
+                  .replace(/\.(\d{1,2}).*$/, ".$1")}
               </p>
             </div>
           ))}
