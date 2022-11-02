@@ -53,8 +53,6 @@ const LandingPage: FC = () => {
       await LotteryCounter.totalGamesPlayed()
     ).toString();
     setTotalGamesPlayed(totalGamesPlayed);
-
-    console.log("totalGamesPlayed", totalGamesPlayed);
     const currentPrizePool = await (
       await LotteryCounter.totalPrizePool()
     ).toString();
@@ -97,7 +95,10 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Last Won Amount</p>
               <p className="landing__block-numbers">
-                {lastWonAmount}
+                {lastWonAmount &&
+                  ethers.utils
+                    .formatEther(lastWonAmount)
+                    .replace(/\.(\d{1,2}).*$/, ".$1")}
                 <span className="landing__block-span">XEN</span>
               </p>
             </div>
@@ -106,7 +107,10 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Total Payout All Time</p>
               <p className="landing__block-numbers">
-                {totalPayoutAllTime}
+                {totalPayoutAllTime &&
+                  ethers.utils
+                    .formatEther(totalPayoutAllTime)
+                    .replace(/\.(\d{1,2}).*$/, ".$1")}
                 <span className="landing__block-span">XEN</span>
               </p>
             </div>
@@ -115,7 +119,10 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Current Prize Pool</p>
               <p className="landing__block-numbers">
-                {currentPrizePool}
+                {currentPrizePool &&
+                  ethers.utils
+                    .formatEther(currentPrizePool)
+                    .replace(/\.(\d{1,2}).*$/, ".$1")}
                 <span className="landing__block-span">XEN</span>
               </p>
             </div>
