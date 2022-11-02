@@ -35,10 +35,7 @@ const LottoPage: FC = () => {
   const [lastWonAmount, setLastWonAmount] = useState<string>();
 
   async function getTotalInfo() {
-
-    const provider = new ethers.providers.JsonRpcProvider(
-      BSC_RPC_URL
-    );
+    const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
 
     const Lottery = Lottery__factory.connect(LOTTERYADDRESS, provider);
     const totalPrizePool = await (await Lottery.totalPrizePool()).toString();
@@ -49,10 +46,7 @@ const LottoPage: FC = () => {
       await Lottery.totalGamesPlayed()
     ).toString();
 
-  
-    const lastWonAmount = await (
-      await Lottery.lastWonAmount()
-    ).toString();
+    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
     const nextParticipateTimestamp = (await Lottery.nextParticipateTimestamp())
       .mul(1000)
       .toNumber();
@@ -60,7 +54,7 @@ const LottoPage: FC = () => {
     setTotalPrizePool(totalPrizePool);
     setTotalAllTimePrizePool(totalAllTimePrizePool);
     setTotalGamesPlayed(totalGamesPlayed);
-    setLastWonAmount(lastWonAmount)
+    setLastWonAmount(lastWonAmount);
     setNextParticipateTimestamp(nextParticipateTimestamp);
   }
 
@@ -73,24 +67,22 @@ const LottoPage: FC = () => {
     const signer = provider.getSigner();
 
     const amountContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const tx = await amountContract.participate(amount);
+    const tx = await amountContract.participate(
+      ethers.utils.parseUnits(amount.toString(), "ether")
+    );
 
     await tx.wait();
   };
 
   const getParticipants = async () => {
-    const provider = new ethers.providers.JsonRpcProvider(
-      BSC_RPC_URL
-    );
+    const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
     const contract = Lottery__factory.connect(LOTTERYADDRESS, provider);
     const tx = await contract.getParticipants();
-    console.log('txtxtx',tx)
 
     const allParticipants = tx.map((item) => ({
       address: item.participantAddress,
       tokenAmount: item.depositedAmount.toString(),
     }));
-    console.log('DASDASDASDA',allParticipants[1].tokenAmount)
     setAllParticipants(allParticipants);
     getMyEntry();
   };
@@ -133,11 +125,10 @@ const LottoPage: FC = () => {
   };
 
   useEffect(() => {
-
-      getTotalInfo();
-      getParticipants();
-    console.log('re')
-  },[]);
+    getTotalInfo();
+    getParticipants();
+    console.log("re");
+  }, []);
 
   useEffect(() => {
     if (allParticipants.length && account) {
@@ -214,7 +205,7 @@ const LottoPage: FC = () => {
           <LottoStats
             myEntry={myEntry}
             totalWinningToDate={totalWinningToDate}
-            chancesOfWinning={chancesOfWinning}            
+            chancesOfWinning={chancesOfWinning}
           />
         </div>
       </div>
