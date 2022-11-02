@@ -45,7 +45,10 @@ const Participants = ({ participants }: IParticipants) => {
           </p>
           <img src={Value} alt="" />
           <p className="lotto__participants-draw-text">
-            {ethers.utils.formatEther(participant.tokenAmount)} xen
+            {ethers.utils
+              .formatEther(participant.tokenAmount)
+              .replace(/\.(\d{1,2}).*$/, ".$1")}{" "}
+            xen
           </p>
         </div>
       ))}

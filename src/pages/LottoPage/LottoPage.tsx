@@ -13,7 +13,6 @@ import { Lottery__factory } from "../../typechain";
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
 import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
-import BublesAvatar from "../../assets/img/lotto/timer/bubles-avatar.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
@@ -33,6 +32,8 @@ const LottoPage: FC = () => {
   const [chancesOfWinning, setChancesOfWinning] = useState<string>();
   const [inputAmountValue, setInputAmountValue] = useState<number>(0);
   const [lastWonAmount, setLastWonAmount] = useState<string>();
+  const [drawError, setDrawError] = useState<boolean>(false);
+  const [bubbleSize, setBubbleSize] = useState<number>();
 
   async function getTotalInfo() {
     const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
@@ -59,7 +60,13 @@ const LottoPage: FC = () => {
   }
 
   const getAmount = async (amount: number) => {
+    setDrawError(false);
+
     if (!connector || !account) return "!args";
+    if (amount < 1) {
+      setDrawError(true);
+      return;
+    }
 
     const provider = new ethers.providers.Web3Provider(
       await connector.getProvider()
@@ -166,7 +173,9 @@ const LottoPage: FC = () => {
               <p className="lotto__timer-block__numbers">
                 🔥
                 {totalPrizePool
-                  ? ethers.utils.formatEther(totalPrizePool)
+                  ? ethers.utils
+                      .formatEther(totalPrizePool)
+                      .replace(/\.(\d{1,2}).*$/, ".$1")
                   : ""}{" "}
                 <span className="lotto__timer-block__span">XEN</span>
               </p>
@@ -186,6 +195,11 @@ const LottoPage: FC = () => {
               alt=""
               className="lotto__timer-img__circle"
             />
+            {drawError && (
+              <span className="lotto__timer-error">
+                You cannot enter less than 1 XEN token
+              </span>
+            )}
             <div className="lotto__timer-draw">
               <input
                 type="number"
@@ -240,7 +254,9 @@ const LottoPage: FC = () => {
                     : "Connect Wallet "}
                 </p>
                 <p className="lotto__timer-bubbles-block-numbers">
-                  {ethers.utils.formatEther(item.tokenAmount)}{" "}
+                  {ethers.utils
+                    .formatEther(item.tokenAmount)
+                    .replace(/\.(\d{1,2}).*$/, ".$1")}{" "}
                   <span className="lotto__timer-bubbles-block-span">XEN</span>
                 </p>
                 {totalPrizePool && (

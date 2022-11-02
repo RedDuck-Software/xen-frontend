@@ -34,7 +34,11 @@ const LottoFooter = ({
         <div className="landing__block-text">
           <p className="landing__block-title">Next Lotto Prize</p>
           <p className="landing__block-numbers">
-            {nextLottoPrize ? ethers.utils.formatEther(nextLottoPrize) : ""}
+            {nextLottoPrize
+              ? ethers.utils
+                  .formatEther(nextLottoPrize)
+                  .replace(/\.(\d{1,2}).*$/, ".$1")
+              : ""}
             <span className="landing__block-span">XEN</span>
           </p>
         </div>
