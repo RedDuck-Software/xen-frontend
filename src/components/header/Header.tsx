@@ -11,35 +11,21 @@ import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
-import { Lottery__factory, XENToken__factory } from "../../typechain";
-import { ethers } from "ethers";
-import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
+
+import { getBalances } from "../../utils/getBalances";
 
 const Header: FC = () => {
-  const [accountBalance, setAccountBalance] = useState<any>();
-  const { account, connector, activate } = useWeb3React();
+  const [depositedBalance, setDepositedBalance] = useState<number>();
+  const { account } = useWeb3React();
   const navigate = useNavigate();
 
-  async function getXenBalance() {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-
-    const LotteryContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const userAddress = await signer.getAddress();
-    const userContractBal = await LotteryContract.usersContractBalance(
-      userAddress
-    );
-    // ethers.utils.formatUnits(userContractBal, 18);
-
-    setAccountBalance(ethers.utils.formatUnits(userContractBal, 18));
-    console.log("account balance: ", userContractBal.toString());
-  }
   useEffect(() => {
-    getXenBalance();
+    const setBalances = async () => {
+      if (!account) return;
+      const { depositedBalance } = await getBalances(account);
+      setDepositedBalance(depositedBalance);
+    };
+    setBalances();
   });
 
   return (
@@ -72,14 +58,16 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              {account
-                ? account?.slice(0, 4) + "..." + account?.slice(38, 42)
-                : <button onClick={()=>navigate('/')}>Connect wallet</button>}
+              {account ? (
+                account?.slice(0, 4) + "..." + account?.slice(38, 42)
+              ) : (
+                <button onClick={() => navigate("/")}>Connect wallet</button>
+              )}
             </a>
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              {accountBalance ? +accountBalance : "000,000"}{" "}
+              {depositedBalance ? +depositedBalance : "000,000"}{" "}
               <span className="header__span">XEN</span>
             </a>
           </li>

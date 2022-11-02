@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
 
@@ -6,14 +6,24 @@ type SliderComponentProps = {
   handleChange: any;
   min: number;
   max: number;
+  value: string;
 };
 
-const SliderComponent = ({ handleChange, min, max }: SliderComponentProps) => {
-  console.log('max',max)
-
+const SliderComponent = ({
+  handleChange,
+  min,
+  max,
+  value,
+}: SliderComponentProps) => {
   return (
     <Container>
-      <Slider type="range" onChange={handleChange} min={min} max={max} />
+      <Slider
+        value={value}
+        type="range"
+        onChange={handleChange}
+        min={min}
+        max={max}
+      />
     </Container>
   );
 };

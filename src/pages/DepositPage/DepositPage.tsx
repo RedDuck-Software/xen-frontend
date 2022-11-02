@@ -1,16 +1,14 @@
 import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import React, { FC, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
 
 import { XENToken__factory } from "../../typechain/factories/XENToken__factory";
 import { Lottery__factory } from "../../typechain";
-import { injected } from "../../helpers/connectors";
 import Header from "../../components/header/Header";
 import DepositButton from "../../components/DepositButton/DepositButtton";
 
-import Slider from "../../assets/deposit/slider.png";
 import MetaMaskPng from "../../assets/deposit/MetaMask_Fox 1.png";
 import Corner_1 from "../../assets/deposit/Vector 4140.png";
 import Corner_2 from "../../assets/deposit/Vector 4141.png";
@@ -19,170 +17,64 @@ import Corner_4 from "../../assets/deposit/Vector 4143.png";
 import Stick_1 from "../../assets/deposit/Group 22724.png";
 import Stick_2 from "../../assets/deposit/Group 22725.png";
 
-import { approveErc20 } from "../../helpers/utils/approve";
-
 import SliderComponent from "../../components/Slider/Slider";
 
 import "../../index.scss";
 import "react-tabs/style/react-tabs.css";
 import "../DepositPage/DepositPage.scss";
-import { useNavigate } from "react-router-dom";
+import { getBalances } from "../../utils/getBalances";
 
 const DepositPage: FC = () => {
-  const { account, connector, activate } = useWeb3React();
-  const [amount, setAmount] = useState<any>();
-  const [accountBalance, setAccountBalance] = useState<any>();
-  const [showModal, setShowModal] = useState<boolean>();
-  const [timer, setTimer] = useState<any>();
-  const [totalPayout, setTotalPayout] = useState<any>();
-  const [totalAmount, setTotalAmount] = useState<any>();
-  const [totalGamesPlayed, setTotalGamesPlayed] = useState<any>();
-  const [lastWinner, setLastWinner] = useState<any>();
-  const [lastWonAmount, setLastWonAmount] = useState<any>();
-  const [selectedAmountToDeposit, setSelectedAmountToDeposit] = useState<any>();
-  const [selectedAmountToWD, setSelectedAmountToWD] = useState<any>();
-  const [userContractBal, setUserContractBal] = useState<any>();
-
-  const navigate = useNavigate();
-
+  const { account } = useWeb3React();
+  const [depositedAmount, setDepositedAmount] = useState<number>();
+  const [accountBalance, setAccountBalance] = useState<number>();
+  const [amountToDeposit, setAmountToDeposit] = useState<string>();
+  const [amountToWithdraw, setAmountToWithdraw] = useState<string>();
   const [tabIndex, setTabIndex] = useState(1);
 
-  async function connect() {
-    try {
-      await activate(injected);
-    } catch (ex) {
-      console.log("err");
-      console.log(ex);
-    }
-  }
+  async function deposit() {
+    if (!amountToDeposit) return alert("Choose correct amount to deposit!");
 
-  async function ApproveAndDeposit() {
-    if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
-    const signer = provider.getSigner(0);
-    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
-
-    const tx = await Erc20Contract.approve(
+    const erc20 = XENToken__factory.connect(XENADDRESS, signer);
+    const approve = await erc20.approve(
       LOTTERYADDRESS,
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
+      ethers.utils.parseEther(amountToDeposit)
     );
-    await tx.wait();
+    await approve.wait();
 
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
-    if (!selectedAmountToDeposit) return alert("Pick deposit");
-    const tx2 = await Lottery.deposit(
-      ethers.utils.parseEther(selectedAmountToDeposit.toString())
+    const lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const deposit = await lottery.deposit(
+      ethers.utils.parseEther(amountToDeposit)
     );
-    await tx2.wait();
+    await deposit.wait();
   }
 
-  async function getXenBalance() {
-    if (!connector || !account) return "!args";
+  async function withdraw() {
+    if (!amountToWithdraw) return alert("Choose correct amount to withdraw!");
 
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner(0);
 
-    const Erc20Contract = XENToken__factory.connect(XENADDRESS, signer);
-
-    console.log("accountaccount", account);
-    console.log("signersigner", signer);
-    console.log("connector", connector);
-
-    const value = await Erc20Contract.balanceOf(account);
-    console.log('valueee',value)
-    setAccountBalance(ethers.utils.formatUnits(value.toString()));
-    console.log('account',account)
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
-    const userAddress = await signer.getAddress();
-    const userContractBal = await Lottery.usersContractBalance(userAddress);
-    setUserContractBal(ethers.utils.formatUnits(userContractBal));
-  }
-
-  async function getTime() {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
+    const lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
+    const withdraw = await lottery.withdraw(
+      ethers.utils.parseEther(amountToWithdraw)
     );
-    const signer = provider.getSigner(0);
-
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    const nextRound = await (
-      await Lottery.nextParticipateTimestamp()
-    ).toString();
-    console.log("nextRound", nextRound);
-    const date = new Date(+nextRound * 1000);
-    console.log(date);
-
-    setTimer(date);
-  }
-
-  async function getTotalInfo() {
-    if (!connector || !account) return "!args";
-
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-    console.log("dasdas");
-    const totalGamesPlayed = await (
-      await Lottery.totalGamesPlayed()
-    ).toString();
-    // const totalPayout = await (await Lottery.totalPayoutToday()).toString();
-    const totalAmount = await (
-      await Lottery.totalAllTimePrizePool()
-    ).toString();
-    const lastWinner = await (await Lottery.lastWinner()).toString();
-    const lastWonAmount = await (await Lottery.lastWonAmount()).toString();
-
-    console.log("totalPayout", totalPayout);
-    console.log("totalAmount before set", totalAmount);
-    console.log("totalGamesPlayed", totalGamesPlayed);
-
-    setLastWinner(lastWinner);
-    setLastWonAmount(lastWonAmount);
-    setTotalGamesPlayed(totalGamesPlayed);
-    setTotalPayout(totalPayout);
-    setTotalAmount(totalAmount);
-  }
-
-  async function Withdraw() {
-    if (!connector) return alert("!connector");
-    const provider = new ethers.providers.Web3Provider(
-      await connector.getProvider()
-    );
-    const signer = provider.getSigner(0);
-    const Lottery = Lottery__factory.connect(LOTTERYADDRESS, signer);
-
-    const tx2 = await Lottery.withdraw(
-      ethers.utils.parseEther(selectedAmountToWD.toString())
-    );
-    await tx2.wait();
+    await withdraw.wait();
   }
 
   useEffect(() => {
-    if (!connector) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
-    if (connector) {
-      console.log("here");
-      console.log("connector", account);
-      getXenBalance();
-      // getTime();
-      // getTotalInfo();
-    }
-  }, [connector]);
+    const setBalances = async () => {
+      if (!account) return;
+      const { accountBalance, depositedBalance } = await getBalances(account);
+
+      setAccountBalance(accountBalance);
+      setDepositedAmount(depositedBalance);
+    };
+    setBalances();
+  }, [account]);
 
   return (
     <div className="background">
@@ -231,22 +123,19 @@ const DepositPage: FC = () => {
                       How much you want to withdraw?
                     </div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToWD ? selectedAmountToWD : "0"}
+                      {amountToWithdraw || "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
                       handleChange={(e: any) =>
-                        setSelectedAmountToWD(
-                          e.target.value.toLocaleString()
-                        )
+                        setAmountToWithdraw(e.target.value.toLocaleString())
                       }
+                      value={amountToWithdraw || "0"}
                       min={0}
-                      max={
-                        userContractBal ? userContractBal.toLocaleString() : "0"
-                      }
+                      max={depositedAmount || 0}
                     />
                     <div className="deposit__block-btn">
-                      <button className="landing__btn" onClick={Withdraw}>
+                      <button className="landing__btn" onClick={withdraw}>
                         <img
                           src={MetaMaskPng}
                           alt=""
@@ -338,25 +227,19 @@ const DepositPage: FC = () => {
                       How much you want to deposit?
                     </div>
                     <div className="deposit__block-balance">
-                      {selectedAmountToDeposit
-                        ? selectedAmountToDeposit.toString()
-                        : "0"}
+                      {amountToDeposit || "0"}
                       <span>XEN</span>
                     </div>
                     <SliderComponent
                       handleChange={(e: any) =>
-                        setSelectedAmountToDeposit(e.target.value)
+                        setAmountToDeposit(e.target.value)
                       }
+                      value={amountToDeposit || "0"}
                       min={0}
-                      max={
-                        accountBalance ? accountBalance.toLocaleString() : "0"
-                      }
+                      max={accountBalance || 0}
                     />
                     <div className="deposit__block-btn">
-                      <button
-                        className="landing__btn"
-                        onClick={ApproveAndDeposit}
-                      >
+                      <button className="landing__btn" onClick={deposit}>
                         <img
                           src={MetaMaskPng}
                           className="landing__btn-img"

@@ -53,9 +53,6 @@ const LandingPage: FC = () => {
       await LotteryCounter.totalGamesPlayed()
     ).toString();
     setTotalGamesPlayed(totalGamesPlayed);
-    console.log("ds222as");
-
-    console.log("totalGamesPlayed", totalGamesPlayed);
     const currentPrizePool = await (
       await LotteryCounter.totalPrizePool()
     ).toString();
