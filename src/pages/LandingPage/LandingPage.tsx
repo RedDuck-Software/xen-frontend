@@ -46,25 +46,22 @@ const LandingPage: FC = () => {
   });
 
   async function getTotalInfo() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      BSC_RPC_URL
-    );
+    const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
     const LotteryCounter = Lottery__factory.connect(LOTTERYADDRESS, provider);
 
     const totalGamesPlayed = await (
-        await LotteryCounter.totalGamesPlayed()
+      await LotteryCounter.totalGamesPlayed()
     ).toString();
     setTotalGamesPlayed(totalGamesPlayed);
-    console.log('ds222as')
 
-      console.log('totalGamesPlayed',totalGamesPlayed)
+    console.log("totalGamesPlayed", totalGamesPlayed);
     const currentPrizePool = await (
-        await LotteryCounter.totalPrizePool()
+      await LotteryCounter.totalPrizePool()
     ).toString();
     setCurrentPrizePool(currentPrizePool);
 
     const lastWonAmount = await (
-        await LotteryCounter.lastWonAmount()
+      await LotteryCounter.lastWonAmount()
     ).toString();
     setLastWonAmount(lastWonAmount);
 
@@ -118,7 +115,8 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Current Prize Pool</p>
               <p className="landing__block-numbers">
-                {currentPrizePool}<span className="landing__block-span">XEN</span>
+                {currentPrizePool}
+                <span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>
@@ -126,7 +124,8 @@ const LandingPage: FC = () => {
             <div className="landing__block-text">
               <p className="landing__block-title">Total Games Played</p>
               <p className="landing__block-numbers">
-                {totalGamesPlayed}<span className="landing__block-span">XEN</span>
+                {totalGamesPlayed}
+                <span className="landing__block-span">XEN</span>
               </p>
             </div>
           </div>
