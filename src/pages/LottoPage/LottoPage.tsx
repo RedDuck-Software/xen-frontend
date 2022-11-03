@@ -17,6 +17,7 @@ import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
 import "../../index.scss";
 import "./LottoPage.scss";
 import Countdown from "react-countdown";
+import { getBalances } from "../../utils/getBalances";
 
 const LottoPage: FC = () => {
   const countdownRef = useRef<any>(null);
@@ -33,6 +34,7 @@ const LottoPage: FC = () => {
   const [inputAmountValue, setInputAmountValue] = useState<number>(0);
   const [lastWonAmount, setLastWonAmount] = useState<string>();
   const [drawError, setDrawError] = useState<boolean>(false);
+  const [depositedAmount, setDepositedAmount] = useState<number>();
   const [bubbleSize, setBubbleSize] = useState<number>();
 
   async function getTotalInfo() {
@@ -134,13 +136,18 @@ const LottoPage: FC = () => {
   useEffect(() => {
     getTotalInfo();
     getParticipants();
-    console.log("re");
   }, []);
 
   useEffect(() => {
     if (allParticipants.length && account) {
-      getMyEntry();
-      getTotalWinningToDate();
+      const getData = async () => {
+        getMyEntry();
+        getTotalWinningToDate();
+
+        const { depositedBalance } = await getBalances(account);
+        setDepositedAmount(depositedBalance);
+      };
+      getData();
     }
   }, [account, allParticipants]);
 
@@ -203,6 +210,8 @@ const LottoPage: FC = () => {
             <div className="lotto__timer-draw">
               <input
                 type="number"
+                min={0}
+                max={depositedAmount}
                 placeholder="Enter Amount"
                 className="lotto__timer-draw__input"
                 value={inputAmountValue}
