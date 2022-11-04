@@ -84,6 +84,7 @@ const LottoPage: FC = () => {
     setNextParticipateTimestamp(nextParticipateTimestamp);
     setAllParticipants(formattedParticipants);
     setTotalWinningToDate(totalWinningToDate.toString());
+    setIsLoading(false);
   }
 
   const participate = async (amount: number) => {
@@ -115,7 +116,6 @@ const LottoPage: FC = () => {
     await tx.wait();
 
     setFinishedTxCounter((prevState) => prevState + 1);
-    setIsLoading(false);
   };
 
   useEffect(() => {
