@@ -2,6 +2,9 @@ import React from "react";
 
 import styled from "styled-components";
 
+import sliderThumb from "../../assets/slider/slider-thumb.svg";
+import sliderDots from "../../assets/slider/slider-dots.png";
+
 type SliderComponentProps = {
   handleChange: any;
   min: number;
@@ -15,6 +18,10 @@ const SliderComponent = ({
   max,
   value,
 }: SliderComponentProps) => {
+  const getBackgroundSize = () => {
+    return { backgroundSize: `${(Number(value) * 100) / max}% 100%` };
+  };
+
   return (
     <Container>
       <Slider
@@ -23,16 +30,20 @@ const SliderComponent = ({
         onChange={handleChange}
         min={min}
         max={max}
+        style={getBackgroundSize()}
       />
+      <Dots />
     </Container>
   );
 };
 
 export default SliderComponent;
+
 const Container = styled.div`
   display: grid;
   place-items: center;
   margin-left: 10px;
+  position: relative;
 `;
 
 const Slider = styled.input`
@@ -43,16 +54,27 @@ const Slider = styled.input`
   outline: 0;
   margin-top: 40px;
   cursor: pointer;
-  background: ${(value) =>
-    `linear-gradient(to right, #e4ab19 0%, #e4ab19 ${value}%, #fff ${value}%, #fff 100%);`};
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  background: #2a67c34d;
+  background-image: linear-gradient(#c3982a, #c3982a);
+  background-repeat: no-repeat;
 
-::-webkit-slider-thumb {
+  ::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+
+  ::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 34px;
     height: 34px;
-    background: #e4ab19;
-    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.5);
+    background: url(${sliderThumb});
+    background-size: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
   ::-moz-range-thumb {
     width: 16px;
     height: 16px;
@@ -61,4 +83,13 @@ const Slider = styled.input`
     cursor: pointer;
     border: none;
   }
+`;
+
+const Dots = styled.div`
+  position: absolute;
+  z-index: 1;
+  width: 383px;
+  height: 5px;
+  background: url(${sliderDots});
+  top: 47px;
 `;
