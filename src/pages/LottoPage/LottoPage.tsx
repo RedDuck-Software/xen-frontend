@@ -12,7 +12,7 @@ import { Lottery__factory } from "../../typechain";
 
 import ArrowLeft from "../../assets/img/lotto/timer/arr-left.png";
 import ArrowRight from "../../assets/img/lotto/timer/arr-right.png";
-import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
+import CircleTimer from "../../assets/img/lotto/timer/timer-border.svg";
 
 import "../../index.scss";
 import "./LottoPage.scss";
