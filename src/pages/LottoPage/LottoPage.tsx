@@ -34,7 +34,7 @@ const LottoPage: FC = () => {
   const [chancesOfWinning, setChancesOfWinning] = useState<string>();
   const [inputAmountValue, setInputAmountValue] = useState<number>(0);
   const [lastWonAmount, setLastWonAmount] = useState<string>();
-  const [drawError, setDrawError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>();
   const [depositedAmount, setDepositedAmount] = useState<number>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [finishedTxCounter, setFinishedTxCounter] = useState<number>(0);
@@ -87,11 +87,17 @@ const LottoPage: FC = () => {
   }
 
   const participate = async (amount: number) => {
-    setDrawError(false);
+    setErrorText("");
 
     if (!connector || !account) return "!args";
+
     if (amount < 1) {
-      setDrawError(true);
+      setErrorText("You can't enter less than 1 XEN token");
+      return;
+    }
+
+    if (!depositedAmount || amount > depositedAmount) {
+      setErrorText("You can't enter more than your deposited XEN balance");
       return;
     }
 
@@ -176,15 +182,13 @@ const LottoPage: FC = () => {
                 alt=""
                 className="lotto__timer-img__circle"
               />
-              {drawError && (
-                <span className="lotto__timer-error">
-                  You cannot enter less than 1 XEN token
-                </span>
+              {errorText && (
+                <span className="lotto__timer-error">{errorText}</span>
               )}
               <div className="lotto__timer-draw">
                 <input
                   type="number"
-                  min={0}
+                  min={1}
                   max={depositedAmount}
                   placeholder="Enter Amount"
                   className="lotto__timer-draw__input"
