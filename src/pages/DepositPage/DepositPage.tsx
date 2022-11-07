@@ -23,9 +23,12 @@ import "../../index.scss";
 import "react-tabs/style/react-tabs.css";
 import "../DepositPage/DepositPage.scss";
 import { getBalances } from "../../utils/getBalances";
+import { useAppDispatch } from "../../state/hooks";
+import { fetchDepositBalanceDetails } from "../../state/actions/balancesActions";
 
 const DepositPage: FC = () => {
   const { account } = useWeb3React();
+  const dispatch = useAppDispatch();
   const [depositedAmount, setDepositedAmount] = useState<number>();
   const [accountBalance, setAccountBalance] = useState<number>();
   const [amountToDeposit, setAmountToDeposit] = useState<string>();
@@ -50,6 +53,7 @@ const DepositPage: FC = () => {
       ethers.utils.parseEther(amountToDeposit)
     );
     await deposit.wait();
+    if (account) dispatch(fetchDepositBalanceDetails(account));
   }
 
   async function withdraw() {

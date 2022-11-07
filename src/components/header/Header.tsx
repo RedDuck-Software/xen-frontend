@@ -12,21 +12,14 @@ import Cards from "../../assets/icons/cards.svg";
 import { useWeb3React } from "@web3-react/core";
 import { useNavigate } from "react-router-dom";
 
-import { getBalances } from "../../utils/getBalances";
+import { useAppSelector } from "../../state/hooks";
 
 const Header: FC = () => {
-  const [depositedBalance, setDepositedBalance] = useState<number>();
+  const depositedBalance = useAppSelector(
+    (state) => state.balances.depositBalance
+  );
   const { account } = useWeb3React();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const setBalances = async () => {
-      if (!account) return;
-      const { depositedBalance } = await getBalances(account);
-      setDepositedBalance(depositedBalance);
-    };
-    setBalances();
-  });
 
   return (
     <div>
@@ -67,8 +60,7 @@ const Header: FC = () => {
           </li>
           <li className="header__btn header__btn-right">
             <a href="" className="header__link">
-              {depositedBalance ? +depositedBalance : "000,000"}{" "}
-              <span className="header__span">XEN</span>
+              {depositedBalance} <span className="header__span">XEN</span>
             </a>
           </li>
           <li className="header__btn header__btn-right">

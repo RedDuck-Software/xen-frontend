@@ -17,8 +17,11 @@ import CircleTimer from "../../assets/img/lotto/timer/circle-3.png";
 import "../../index.scss";
 import "./LottoPage.scss";
 import Countdown from "react-countdown";
+import { useAppDispatch } from "../../state/hooks";
+import { fetchDepositBalanceDetails } from "../../state/actions/balancesActions";
 
 const LottoPage: FC = () => {
+  const dispatch = useAppDispatch();
   const countdownRef = useRef<any>(null);
   const { account, connector } = useWeb3React();
   const [totalAllTimePrizePool, setTotalAllTimePrizePool] = useState<string>();
@@ -79,6 +82,7 @@ const LottoPage: FC = () => {
     );
 
     await tx.wait();
+    if (account) dispatch(fetchDepositBalanceDetails(account));
   };
 
   const getParticipants = async () => {
@@ -133,9 +137,14 @@ const LottoPage: FC = () => {
   };
 
   useEffect(() => {
-    getTotalInfo();
-    getParticipants();
-    console.log("re");
+    const infoPolling = setInterval(() => {
+      getTotalInfo();
+      getParticipants();
+      console.log("re");
+    }, 30000);
+    return () => {
+      clearInterval(infoPolling);
+    };
   }, []);
 
   useEffect(() => {

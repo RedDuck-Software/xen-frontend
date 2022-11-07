@@ -26,7 +26,7 @@ const LandingPage: FC = () => {
   const [currentPrizePool, setCurrentPrizePool] = React.useState<any>();
   const [lastWonAmount, setLastWonAmount] = React.useState<any>();
   const [totalPayoutAllTime, setTotalPayoutAllTime] = React.useState<any>();
-  const { account, connector, activate } = useWeb3React();
+  const { account, connector, active, activate } = useWeb3React();
   const navigate = useNavigate();
   async function connect() {
     try {
@@ -40,10 +40,10 @@ const LandingPage: FC = () => {
   console.log("connector", connector);
   console.log("account", account);
   useEffect(() => {
-    if (connector) {
+    if (active) {
       navigate("deposit-page");
     }
-  });
+  }, [active]);
 
   async function getTotalInfo() {
     const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
