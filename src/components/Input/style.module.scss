@@ -1,0 +1,19 @@
+.inputEl {
+  text-align: center;
+  width: 8ch;
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+  color: #ffffff;
+
+  background: none;
+  outline: none;
+  border: none;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

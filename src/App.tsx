@@ -22,14 +22,6 @@ const App: FC = () => {
     return new Web3Provider(provider);
   }
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
-  const { connector } = useWeb3React();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!connector) {
-      navigate("./");
-    }
-  }, [connector]);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
