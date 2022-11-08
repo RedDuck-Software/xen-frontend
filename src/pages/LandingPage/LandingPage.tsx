@@ -130,10 +130,7 @@ const LandingPage: FC = () => {
           <div className="landing__main-block landing__main-block-down-right">
             <div className="landing__block-text">
               <p className="landing__block-title">Total Games Played</p>
-              <p className="landing__block-numbers">
-                {totalGamesPlayed}
-                <span className="landing__block-span">XEN</span>
-              </p>
+              <p className="landing__block-numbers">{totalGamesPlayed}</p>
             </div>
           </div>
           <div className="landing__main-block-romb ">
