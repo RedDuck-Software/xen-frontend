@@ -2,7 +2,6 @@ import React from "react";
 import { ethers } from "ethers";
 
 import ParticipantsSvg from "../../assets/img/lotto/participants.svg";
-import AvatarFirst from "../../assets/img/lotto/avatar/avatar-1.svg";
 import Value from "../../assets/img/lotto/value.svg";
 import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
@@ -31,8 +30,12 @@ const Participants = ({ participants }: IParticipants) => {
         <img src={ParticipantsSvg} alt="" className="lotto__participants-img" />{" "}
         Participants This Draw
       </p>
-      {participants.map((participant: any) => (
-        <div className="lotto__participants-draw">
+      {participants.map((participant, i) => (
+        <div
+          key={participant.address}
+          className="lotto__participants-draw"
+          style={i === participants.length - 1 ? { marginBottom: "10px" } : {}}
+        >
           <img
             className="lotto__participants-draw-images"
             src={makeBlockie(participant.address.toString())}

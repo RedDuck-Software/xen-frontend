@@ -76,19 +76,11 @@
 .deposit__block-balance {
   display: flex;
   justify-content: center;
-
-  font-family: "Roboto Condensed";
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 47px;
-  /* identical to box height */
-
-  color: #ffffff;
+  align-items: flex-start;
   span {
     font-weight: 500;
     font-size: 20px;
     line-height: 65px;
-    margin-left: 9px;
 
     color: #fff;
 

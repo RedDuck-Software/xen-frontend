@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 import "./Header.scss";
 import "../../index.scss";
@@ -10,7 +10,7 @@ import Roullete from "../../assets/icons/roulette.svg";
 import Cards from "../../assets/icons/cards.svg";
 
 import { useWeb3React } from "@web3-react/core";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "../../state/hooks";
 
@@ -20,11 +20,17 @@ const Header: FC = () => {
   );
   const { account } = useWeb3React();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div>
       <img src={RectanglesLeft} alt="" className="rectangles__left" />
-      <img src={RectanglesRight} alt="" className="rectangles__right" />
+      <img
+        src={RectanglesRight}
+        alt=""
+        className="rectangles__right"
+        style={pathname === "/deposit-page" ? { bottom: "90px" } : {}}
+      />
       <div className="header">
         <ul className="header__list">
           <li className="header__btn-lotto">

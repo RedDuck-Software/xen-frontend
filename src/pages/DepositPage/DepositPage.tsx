@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import React, { FC, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
@@ -25,6 +25,7 @@ import "../DepositPage/DepositPage.scss";
 import { getBalances } from "../../utils/getBalances";
 import { useAppDispatch } from "../../state/hooks";
 import { fetchDepositBalanceDetails } from "../../state/actions/balancesActions";
+import Input from "../../components/Input";
 
 const DepositPage: FC = () => {
   const { account } = useWeb3React();
@@ -127,7 +128,14 @@ const DepositPage: FC = () => {
                       How much you want to withdraw?
                     </div>
                     <div className="deposit__block-balance">
-                      {amountToWithdraw || "0"}
+                      <Input
+                        min={0}
+                        max={depositedAmount || 0}
+                        value={amountToWithdraw || "0"}
+                        handleInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setAmountToWithdraw(e.target.value)
+                        }
+                      />
                       <span>XEN</span>
                     </div>
                     <SliderComponent
@@ -231,9 +239,17 @@ const DepositPage: FC = () => {
                       How much you want to deposit?
                     </div>
                     <div className="deposit__block-balance">
-                      {amountToDeposit || "0"}
+                      <Input
+                        min={0}
+                        max={accountBalance || 0}
+                        value={amountToDeposit || "0"}
+                        handleInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setAmountToDeposit(e.target.value)
+                        }
+                      />
                       <span>XEN</span>
                     </div>
+
                     <SliderComponent
                       handleChange={(e: any) =>
                         setAmountToDeposit(e.target.value)

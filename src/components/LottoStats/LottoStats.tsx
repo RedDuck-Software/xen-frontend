@@ -8,7 +8,7 @@ import LineTop from "../../assets/img/lotto/line-top.png";
 import LineBottom from "../../assets/img/lotto/line-bottom.png";
 
 import "../../index.scss";
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { Lottery__factory } from "../../typechain";
 import { BSC_RPC_URL, LOTTERYADDRESS } from "../../helpers/constants";
 
@@ -83,7 +83,9 @@ const LottoStats = ({
             </p>
             {totalWinningToDate ? (
               <p className="lotto__stats-my__block-numbers">
-                {totalWinningToDate.replace(/\.(\d{1,2}).*$/, ".$1")}
+                {ethers.utils
+                  .formatEther(totalWinningToDate)
+                  .replace(/\.(\d{1,2}).*$/, ".$1")}
                 <span className="lotto__stats-my__block-span">XEN</span>
               </p>
             ) : (
