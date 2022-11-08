@@ -14,8 +14,7 @@ import MetaMask from "../../assets/icons/metamask.svg";
 import Cubes from "../../assets/img/landing/cubes.png";
 import LineLeft from "../../assets/img/landing/line-left.png";
 import LineRight from "../../assets/img/landing/line-right.png";
-import LineAboutTop from "../../assets/img/landing/line-about.png";
-import LineAboutBottom from "../../assets/img/landing/line-about.png";
+import LineAbout from "../../assets/img/landing/line-about.png";
 
 import "../../index.scss";
 import "./LandingPage.scss";
@@ -165,12 +164,12 @@ const LandingPage: FC = () => {
           </div>
         </div>
         <img
-          src={LineAboutTop}
+          src={LineAbout}
           alt=""
           className="landing__line-about landing__line-about-top"
         />
         <img
-          src={LineAboutBottom}
+          src={LineAbout}
           alt=""
           className="landing__line-about landing__line-about-bottom"
         />
