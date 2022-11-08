@@ -1,20 +1,14 @@
-import React, { FC, useContext, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
-import { injected } from "./helpers/connectors";
+import React, { FC, useContext } from "react";
+import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-
-import Main from "./pages/MainPage/Main";
-import DepositPage from "./pages/DepositPage/DepositPage";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import LottoPage from "./pages/LottoPage/LottoPage";
-import AccountPage from "./pages/AccountPage/AccountPage";
 
 import { Context } from "./Context";
 
 import "./index.scss";
 import MetamaskProvider from "./components/MetamaskProvider/MetamaskProvider";
 import ChainSwapHandler from "./helpers/handleChainSwap";
+import { AppRouteComponents } from "./components/Routes/AppRouteComponents";
+import { ReduxProvider } from "./state/ReduxProvider";
 
 const App: FC = () => {
   function getLibrary(provider: any) {
@@ -35,17 +29,13 @@ const App: FC = () => {
               setSigner,
             }}
           >
-            <div className="wrapper__background">
-              <div className="wrapper">
-                <Routes>
-                  <Route path="/" element={<LandingPage />} />
-                  <Route path="/deposit-page" element={<DepositPage />} />
-                  <Route path="/landing-page" element={<LandingPage />} />
-                  <Route path="/lotto-page" element={<LottoPage />} />
-                  <Route path="/account-page" element={<AccountPage />} />
-                </Routes>
+            <ReduxProvider>
+              <div className="wrapper__background">
+                <div className="wrapper">
+                  <AppRouteComponents />
+                </div>
               </div>
-            </div>
+            </ReduxProvider>
           </Context.Provider>
         </MetamaskProvider>
       </ChainSwapHandler>

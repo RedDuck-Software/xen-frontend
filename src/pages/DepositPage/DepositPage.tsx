@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import React, { FC, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { LOTTERYADDRESS, XENADDRESS } from "../../helpers/constants";
@@ -23,10 +23,13 @@ import "../../index.scss";
 import "react-tabs/style/react-tabs.css";
 import "../DepositPage/DepositPage.scss";
 import { getBalances } from "../../utils/getBalances";
+import { useAppDispatch } from "../../state/hooks";
+import { fetchDepositBalanceDetails } from "../../state/actions/balancesActions";
 import Input from "../../components/Input";
 
 const DepositPage: FC = () => {
   const { account } = useWeb3React();
+  const dispatch = useAppDispatch();
   const [depositedAmount, setDepositedAmount] = useState<number>();
   const [accountBalance, setAccountBalance] = useState<number>();
   const [amountToDeposit, setAmountToDeposit] = useState<string>();
@@ -51,6 +54,7 @@ const DepositPage: FC = () => {
       ethers.utils.parseEther(amountToDeposit)
     );
     await deposit.wait();
+    if (account) dispatch(fetchDepositBalanceDetails(account));
   }
 
   async function withdraw() {

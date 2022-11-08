@@ -17,10 +17,12 @@ import CircleTimer from "../../assets/img/lotto/timer/timer-border.svg";
 import "../../index.scss";
 import "./LottoPage.scss";
 import Countdown from "react-countdown";
-import { getBalances } from "../../utils/getBalances";
+import { useAppDispatch } from "../../state/hooks";
+import { fetchDepositBalanceDetails } from "../../state/actions/balancesActions";
 import Loader from "../../components/Loader";
 
 const LottoPage: FC = () => {
+  const dispatch = useAppDispatch();
   const countdownRef = useRef<any>(null);
   const { account, connector } = useWeb3React();
   const [totalAllTimePrizePool, setTotalAllTimePrizePool] = useState<string>();
@@ -114,20 +116,33 @@ const LottoPage: FC = () => {
 
     setIsLoading(true);
     await tx.wait();
-
+    if (account) dispatch(fetchDepositBalanceDetails(account));
     setFinishedTxCounter((prevState) => prevState + 1);
+  };
+
+  const getParticipants = async () => {
+    const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
+    const contract = Lottery__factory.connect(LOTTERYADDRESS, provider);
+    const tx = await contract.getParticipants();
+
+    const allParticipants = tx.map((item) => ({
+      address: item.participantAddress,
+      tokenAmount: item.depositedAmount.toString(),
+    }));
+    setAllParticipants(allParticipants);
   };
 
   useEffect(() => {
     if (!account) return;
-    const getData = async () => {
+    const infoPolling = setInterval(() => {
       getTotalInfo(account);
-
-      const { depositedBalance } = await getBalances(account);
-      setDepositedAmount(depositedBalance);
+      getParticipants();
+      console.log("re");
+    }, 30000);
+    return () => {
+      clearInterval(infoPolling);
     };
-    getData();
-  }, [account, finishedTxCounter]);
+  }, [account]);
 
   useEffect(() => {
     if (countdownRef?.current && nextParticipateTimestamp) {
