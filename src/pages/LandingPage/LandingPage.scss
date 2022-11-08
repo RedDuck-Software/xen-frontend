@@ -66,34 +66,39 @@
       &-left {
         background: url("../../assets/img/landing/block-left.png");
         background-size: 570px 138px;
+        margin-right: 20px;
       }
 
       &-right {
         background: url("../../assets/img/landing/block-right.png");
         background-size: 570px 138px;
+        margin-left: 20px;
       }
 
       &-down-left {
         background: url("../../assets/img/landing/block-down-left.png");
         background-size: 570px 138px;
+        margin-right: 20px;
       }
 
       &-down-right {
         background: url("../../assets/img/landing/block-down-right.png");
         background-size: 570px 138px;
+        margin-left: 20px;
       }
 
       &-romb {
         position: relative;
-        top: -280px;
-        width: 220px;
-        height: 220px;
+        top: -320px;
+        width: 300px;
+        height: 300px;
         background: url("../../assets/img/landing/romb.png");
-        background-size: 220px 220px;
+        background-size: 100% 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
         &-img {
           margin-bottom: 10px;
         }
@@ -167,25 +172,26 @@
     margin-top: 70px;
 
     &-img {
-        margin-right: 10px;
+      margin-right: 10px;
     }
 
     &-login {
-        margin-bottom: 70px;
-        margin-top: 0px;
+      margin-bottom: 70px;
+      margin-top: 0px;
     }
   }
 
   &__line {
     position: relative;
-    min-width: 425px;
+    min-width: 420px;
+
     &-left {
-      top: -45px;
+      top: -47px;
       right: 350px;
     }
 
     &-right {
-      top: -55px;
+      top: -57px;
       left: 350px;
     }
 
