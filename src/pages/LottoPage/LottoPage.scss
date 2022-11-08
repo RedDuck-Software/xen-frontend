@@ -181,6 +181,7 @@
         border: none;
         padding-left: 18px;
         color: #fff;
+        border-radius: 10px;
 
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
@@ -206,6 +207,7 @@
         line-height: 21px;
         color: #ffffff;
         font-family: "Roboto Condensed-Bold";
+        border-radius: 10px;
       }
     }
   }

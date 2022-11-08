@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
+.background {
+  position: relative;
+}
+
 .wrap {
   max-width: 1042px;
   margin: 0 auto;
@@ -239,6 +243,10 @@ p {
   cursor: pointer;
   justify-content: center;
   margin-bottom: 40px;
+
+  &-list {
+    border: none;
+  }
 }
 
 .react-tabs [role="tab"]:focus {
