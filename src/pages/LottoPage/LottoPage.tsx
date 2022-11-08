@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { BSC_RPC_URL, LOTTERYADDRESS } from "../../helpers/constants";
 
 import Header from "../../components/header/Header";
@@ -213,98 +213,41 @@ const LottoPage: FC = () => {
             />
           </div>
         </div>
-      </div>
-      <LottoFooter
-        nextLottoPrize={totalPrizePool}
-        lottoPriceAllTime={totalAllTimePrizePool}
-        totalWinnerAllTime={totalGamesPlayed}
-        totalDrawAllTime={totalGamesPlayed}
-        lastWonAmount={lastWonAmount}
-        totalParticipants={allParticipants.length}
-      />
-      <div className="lotto__timer-bubbles">
-        {totalPrizePool &&
-          allParticipants.slice(0, 3).map((item: any, key: number) => {
+        <LottoFooter
+          nextLottoPrize={totalPrizePool}
+          lottoPriceAllTime={totalAllTimePrizePool}
+          totalWinnerAllTime={totalGamesPlayed}
+          totalDrawAllTime={totalGamesPlayed}
+          lastWonAmount={lastWonAmount}
+          totalParticipants={allParticipants.length}
+        />
+        <div className="lotto__timer-bubbles">
+          {allParticipants.slice(0, 3).map((item: any, key: number) => {
             return (
               <div
                 className={`lotto__timer-bubbles-L lotto__timer-bubbles-${++key}`}
-                style={{
-                  width: `${
-                    180 + (item.tokenAmount * 100) / +totalPrizePool
-                  }px`,
-                  height: `${
-                    180 + (item.tokenAmount * 100) / +totalPrizePool
-                  }px`,
-                  backgroundSize: `${
-                    180 + (item.tokenAmount * 100) / +totalPrizePool
-                  }px ${180 + (item.tokenAmount * 100) / +totalPrizePool}px`,
-                }}
               >
                 <div className="lotto__timer-bubbles-block">
                   <img
                     src={makeBlockie(item.address)}
                     alt=""
                     className="lotto__timer-bubbles-block-avatar"
-                    style={{
-                      width: `${
-                        25 + (item.tokenAmount * 50) / +totalPrizePool
-                      }px`,
-                      height: `${
-                        25 + (item.tokenAmount * 50) / +totalPrizePool
-                      }px`,
-                    }}
                   />
-                  <p
-                    className="lotto__timer-bubbles-block-account"
-                    style={{
-                      fontSize: `${
-                        15 + (item.tokenAmount * 15) / +totalPrizePool
-                      }px`,
-                      marginBottom: `${
-                        7.5 + (item.tokenAmount * 7.5) / +totalPrizePool
-                      }px`,
-                    }}
-                  >
+                  <p className="lotto__timer-bubbles-block-account">
                     {item.address
                       ? item.address.slice(0, 4) +
                         "..." +
                         item.address.slice(38, 42)
                       : "Connect Wallet "}
                   </p>
-                  <p
-                    className="lotto__timer-bubbles-block-numbers"
-                    style={{
-                      fontSize: `${
-                        15 + (item.tokenAmount * 15) / +totalPrizePool
-                      }px`,
-                      marginBottom: `${
-                        7.5 + (item.tokenAmount * 7.5) / +totalPrizePool
-                      }px`,
-                    }}
-                  >
+                  <p className="lotto__timer-bubbles-block-numbers">
                     {ethers.utils
                       .formatEther(item.tokenAmount)
                       .replace(/\.(\d{1,2}).*$/, ".$1")}{" "}
-                    <span
-                      style={{
-                        fontSize: `${
-                          15 + (item.tokenAmount * 15) / +totalPrizePool
-                        }px`,
-                      }}
-                      className="lotto__timer-bubbles-block-span"
-                    >
-                      XEN
-                    </span>
+                    <span className="lotto__timer-bubbles-block-span">XEN</span>
                   </p>
                   {totalPrizePool && (
-                    <p
-                      className="lotto__timer-bubbles-block-percent"
-                      style={{
-                        fontSize: `${
-                          15 + (item.tokenAmount * 15) / +totalPrizePool
-                        }px`,
-                      }}
-                    >
+                    <p className="lotto__timer-bubbles-block-percent">
                       {((item.tokenAmount * 100) / +totalPrizePool).toFixed(2)}%
                     </p>
                   )}
@@ -312,6 +255,7 @@ const LottoPage: FC = () => {
               </div>
             );
           })}
+        </div>
       </div>
     </Loader>
   );
