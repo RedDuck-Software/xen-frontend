@@ -88,10 +88,7 @@ const LottoFooter = ({
         />
         <div className="landing__block-text">
           <p className="landing__block-title">Total participants</p>
-          <p className="landing__block-numbers">
-            {totalParticipants}
-            <span className="landing__block-span">XEN</span>
-          </p>
+          <p className="landing__block-numbers">{totalParticipants}</p>
         </div>
         <img
           src={LineBottom}

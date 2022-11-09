@@ -19,6 +19,7 @@ import "./LottoPage.scss";
 import Countdown from "react-countdown";
 import { getBalances } from "../../utils/getBalances";
 import Loader from "../../components/Loader";
+import { FormattedParticipants } from "../../utils/types";
 
 const LottoPage: FC = () => {
   const countdownRef = useRef<any>(null);
@@ -57,11 +58,24 @@ const LottoPage: FC = () => {
       .mul(1000)
       .toNumber();
 
+    const lotteryID = await Lottery.lotteryID();
     const participants = await Lottery.getParticipants();
-    const formattedParticipants = participants.map((item) => ({
-      address: item.participantAddress,
-      tokenAmount: item.depositedAmount.toString(),
-    }));
+
+    let participantsAddresses = participants.map((p) => p.participantAddress);
+    participantsAddresses = Array.from(new Set(participantsAddresses)); // unique participants
+
+    const formattedParticipants: FormattedParticipants = await Promise.all(
+      participantsAddresses.map(async (address) => {
+        const userDrawBalance = await Lottery.usersDrawBalance(
+          lotteryID,
+          address
+        );
+        return {
+          address: address,
+          tokenAmount: userDrawBalance.toString(),
+        };
+      })
+    );
 
     const myEntry = formattedParticipants.find((p) => p.address === account);
 
