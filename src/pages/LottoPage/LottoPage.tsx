@@ -58,6 +58,7 @@ const LottoPage: FC = () => {
       .mul(1000)
       .toNumber();
 
+    const lotteryID = await Lottery.lotteryID();
     const participants = await Lottery.getParticipants();
 
     let participantsAddresses = participants.map((p) => p.participantAddress);
@@ -65,7 +66,10 @@ const LottoPage: FC = () => {
 
     const formattedParticipants: FormattedParticipants = await Promise.all(
       participantsAddresses.map(async (address) => {
-        const userDrawBalance = await Lottery.usersDrawBalance(address);
+        const userDrawBalance = await Lottery.usersDrawBalance(
+          lotteryID,
+          address
+        );
         return {
           address: address,
           tokenAmount: userDrawBalance.toString(),
