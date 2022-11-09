@@ -27,7 +27,6 @@ const Header: FC = () => {
       setDepositedBalance(depositedBalance);
     };
     setBalances();
-    console.log("Pathname: ", pathname);
   });
 
   return (
