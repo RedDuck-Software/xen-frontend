@@ -20,6 +20,7 @@ import Countdown from "react-countdown";
 import { getBalances } from "../../utils/getBalances";
 import Loader from "../../components/Loader";
 import { FormattedParticipants } from "../../utils/types";
+import BubbleChart from "../../components/BubbleChart/BubbleChart";
 
 const LottoPage: FC = () => {
   const countdownRef = useRef<any>(null);
@@ -39,7 +40,6 @@ const LottoPage: FC = () => {
   const [depositedAmount, setDepositedAmount] = useState<number>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [finishedTxCounter, setFinishedTxCounter] = useState<number>(0);
-  const [bubbleSize, setBubbleSize] = useState<number>();
 
   async function getTotalInfo(account: string) {
     const provider = new ethers.providers.JsonRpcProvider(BSC_RPC_URL);
@@ -156,6 +156,7 @@ const LottoPage: FC = () => {
         <Header />
         <div className="lotto">
           <div className="lotto-row">
+            <BubbleChart />
             <Participants participants={allParticipants} />
             <div className="lotto__timer">
               <div className="lotto__timer-block">

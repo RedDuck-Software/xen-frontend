@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "React",
+    "size": 350,
+    "fillColor": "#D3D3D3"
+  },
+  {
+    "id": 2,
+    "name": "TypeScript",
+    "size": 100,
+    "fillColor": "#9d9a9f"
+  }
+]
