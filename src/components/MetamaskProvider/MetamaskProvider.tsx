@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { injected } from '../../helpers/connectors'
-import { useWeb3React } from '@web3-react/core'
+import React, { useEffect, useState } from "react";
+import { injected } from "../../helpers/connectors";
+import { useWeb3React } from "@web3-react/core";
 
 function MetamaskProvider({
   children,
 }: {
-  children: JSX.Element
+  children: JSX.Element;
 }): JSX.Element {
   const {
     active: networkActive,
     error: networkError,
     activate: activateNetwork,
-  } = useWeb3React()
-  const [loaded, setLoaded] = useState(false)
+  } = useWeb3React();
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     injected
       .isAuthorized()
       .then((isAuthorized: any) => {
-        setLoaded(true)
+        setLoaded(true);
         if (isAuthorized && !networkActive && !networkError) {
-          activateNetwork(injected)
+          activateNetwork(injected);
         }
       })
       .catch(() => {
-        setLoaded(true)
-      })
-  }, [activateNetwork, networkActive, networkError])
+        setLoaded(true);
+      });
+  }, [activateNetwork, networkActive, networkError]);
   if (loaded) {
-    return children
+    return children;
   }
-  return <>Loading</>
+  return <>Loading</>;
 }
 
-export default MetamaskProvider
+export default MetamaskProvider;

@@ -68,6 +68,7 @@ export interface LotteryInterface extends utils.Interface {
     "interval()": FunctionFragment;
     "lastWinner()": FunctionFragment;
     "lastWonAmount()": FunctionFragment;
+    "lotteryID()": FunctionFragment;
     "lotteryToken()": FunctionFragment;
     "nextParticipateTimestamp()": FunctionFragment;
     "participate(uint256)": FunctionFragment;
@@ -76,6 +77,7 @@ export interface LotteryInterface extends utils.Interface {
     "totalGamesPlayed()": FunctionFragment;
     "totalPrizePool()": FunctionFragment;
     "usersContractBalance(address)": FunctionFragment;
+    "usersDrawBalance(uint256,address)": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
@@ -89,6 +91,7 @@ export interface LotteryInterface extends utils.Interface {
       | "interval"
       | "lastWinner"
       | "lastWonAmount"
+      | "lotteryID"
       | "lotteryToken"
       | "nextParticipateTimestamp"
       | "participate"
@@ -97,6 +100,7 @@ export interface LotteryInterface extends utils.Interface {
       | "totalGamesPlayed"
       | "totalPrizePool"
       | "usersContractBalance"
+      | "usersDrawBalance"
       | "withdraw"
   ): FunctionFragment;
 
@@ -129,6 +133,7 @@ export interface LotteryInterface extends utils.Interface {
     functionFragment: "lastWonAmount",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "lotteryID", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lotteryToken",
     values?: undefined
@@ -162,6 +167,10 @@ export interface LotteryInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "usersDrawBalance",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "withdraw",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -189,6 +198,7 @@ export interface LotteryInterface extends utils.Interface {
     functionFragment: "lastWonAmount",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "lotteryID", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lotteryToken",
     data: BytesLike
@@ -219,6 +229,10 @@ export interface LotteryInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "usersContractBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "usersDrawBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -294,6 +308,8 @@ export interface Lottery extends BaseContract {
 
     lastWonAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    lotteryID(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     lotteryToken(overrides?: CallOverrides): Promise<[string]>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -316,6 +332,12 @@ export interface Lottery extends BaseContract {
 
     usersContractBalance(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    usersDrawBalance(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -351,6 +373,8 @@ export interface Lottery extends BaseContract {
 
   lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  lotteryID(overrides?: CallOverrides): Promise<BigNumber>;
+
   lotteryToken(overrides?: CallOverrides): Promise<string>;
 
   nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
@@ -373,6 +397,12 @@ export interface Lottery extends BaseContract {
 
   usersContractBalance(
     arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  usersDrawBalance(
+    arg0: PromiseOrValue<BigNumberish>,
+    arg1: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -408,6 +438,8 @@ export interface Lottery extends BaseContract {
 
     lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lotteryID(overrides?: CallOverrides): Promise<BigNumber>;
+
     lotteryToken(overrides?: CallOverrides): Promise<string>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
@@ -430,6 +462,12 @@ export interface Lottery extends BaseContract {
 
     usersContractBalance(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    usersDrawBalance(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -473,6 +511,8 @@ export interface Lottery extends BaseContract {
 
     lastWonAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lotteryID(overrides?: CallOverrides): Promise<BigNumber>;
+
     lotteryToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     nextParticipateTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
@@ -495,6 +535,12 @@ export interface Lottery extends BaseContract {
 
     usersContractBalance(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    usersDrawBalance(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -529,6 +575,8 @@ export interface Lottery extends BaseContract {
 
     lastWonAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    lotteryID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     lotteryToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nextParticipateTimestamp(
@@ -555,6 +603,12 @@ export interface Lottery extends BaseContract {
 
     usersContractBalance(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    usersDrawBalance(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

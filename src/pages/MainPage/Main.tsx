@@ -7,7 +7,8 @@ import { Context } from "../../Context";
 import { injected } from "../../helpers/connectors";
 
 const Main: FC = () => {
-  const { account, library, connector, active, deactivate, activate } = useWeb3React();
+  const { account, library, connector, active, deactivate, activate } =
+    useWeb3React();
   const navigate = useNavigate();
 
   const { loggedIn, setLoggedIn, signer, setSigner } = useContext<any>(Context);
@@ -35,7 +36,9 @@ const Main: FC = () => {
       <div>Total payout all time: 20000 XEN</div>
       <div>Burnt today: 20124 XEN</div>
       <div>Burnt all time: 252105 XEN</div>
-      <button onClick={() => navigate("/deposit-page")}>GoTo deposit page</button>
+      <button onClick={() => navigate("/deposit-page")}>
+        GoTo deposit page
+      </button>
     </div>
   );
 };

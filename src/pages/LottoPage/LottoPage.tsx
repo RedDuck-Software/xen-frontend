@@ -101,6 +101,23 @@ const LottoPage: FC = () => {
     setIsLoading(false);
   }
 
+  const upkeep = async () => {
+    if (Date.now() >= nextParticipateTimestamp) {
+      if (!connector || !account) return "!args";
+      const provider = new ethers.providers.Web3Provider(
+        await connector.getProvider()
+      );
+      const signer = provider.getSigner();
+
+      const amountContract = Lottery__factory.connect(LOTTERYADDRESS, signer);
+      const tx = await amountContract.performUpkeep("0x01");
+
+      setIsLoading(true);
+      await tx.wait();
+      setFinishedTxCounter((prevState) => prevState + 1);
+    }
+  };
+
   const participate = async (amount: number) => {
     setErrorText("");
 
@@ -200,22 +217,32 @@ const LottoPage: FC = () => {
                 <span className="lotto__timer-error">{errorText}</span>
               )}
               <div className="lotto__timer-draw">
-                <input
-                  type="number"
-                  min={1}
-                  max={depositedAmount}
-                  placeholder="Enter Amount"
-                  className="lotto__timer-draw__input"
-                  value={inputAmountValue}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setInputAmountValue(+e.target.value)
-                  }
-                />
+                {!(Date.now() >= nextParticipateTimestamp) && (
+                  <input
+                    type="number"
+                    min={1}
+                    max={depositedAmount}
+                    placeholder="Enter Amount"
+                    className="lotto__timer-draw__input"
+                    value={inputAmountValue}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setInputAmountValue(+e.target.value)
+                    }
+                  />
+                )}
                 <button
-                  onClick={() => participate(inputAmountValue)}
+                  onClick={() => {
+                    if (Date.now() >= nextParticipateTimestamp) {
+                      upkeep();
+                      return;
+                    }
+                    participate(inputAmountValue);
+                  }}
                   className="lotto__timer-draw__button"
                 >
-                  ENTER DRAW
+                  {Date.now() >= nextParticipateTimestamp
+                    ? "GET WINNER"
+                    : "ENTER DRAW"}
                 </button>
               </div>
             </div>

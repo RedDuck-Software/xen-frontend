@@ -40,6 +40,7 @@ const DepositPage: FC = () => {
     const signer = provider.getSigner();
 
     const erc20 = XENToken__factory.connect(XENADDRESS, signer);
+    console.log(amountToDeposit);
     const approve = await erc20.approve(
       LOTTERYADDRESS,
       ethers.utils.parseEther(amountToDeposit)
